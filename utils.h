@@ -31,8 +31,6 @@ class StationsStorage {
     virtual DB_ID add_new_station(station station) = 0;
 };
 
-template <typename my_type>
-void delete_object(my_type &sys, DB_ID obj_id);
 
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);

@@ -39,6 +39,9 @@ void my_dbg(const char *str){
 
 }
 
+
+
+
 void add_new_station(main_system &sys)  {
 
     std::string new_st_name = ask_user("Creating new station\nEnter station name: ");
