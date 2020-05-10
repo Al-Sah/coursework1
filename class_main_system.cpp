@@ -13,13 +13,13 @@
 main_system::main_system() : my_db_record() {
 
     open_tickets_file(tickets);
-    my_dbg("deserialize : tickets ok");
+    //my_dbg("deserialize : tickets ok");
     open_trains_file(trains);
-    my_dbg("deserialize : trains ok");
+    //my_dbg("deserialize : trains ok");
     open_station_file(stations);
-    my_dbg("deserialize : stations ok");
+    //my_dbg("deserialize : stations ok");
     open_routes_file(routes);
-    my_dbg("deserialize : routes ok");
+    //my_dbg("deserialize : routes ok");
     // dump();
 }
 
@@ -29,6 +29,7 @@ main_system::~main_system() {
     save_trains_file(trains);
     save_routes_file(routes);
     save_station_file(stations);
+
 }
 
 void main_system::dump() {
@@ -47,7 +48,6 @@ void main_system::save_file(const std::vector<my_type> &records, const char *fil
         records_file << obj;
     }
 }
-
 
 void main_system::save_station_file(const std::vector<station> &stations, const char *file_name) {
     save_file(stations, file_name);

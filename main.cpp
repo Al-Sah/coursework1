@@ -23,7 +23,7 @@ void front_end(main_system & vokzal) {
         t.setWagonPlaces(50);
         vokzal.add_train(t);
     }
-my_dbg("train ok");
+    //my_dbg("train ok");
      for (auto i = 0; i < 10; i++) {
         ticket z;
         z.setId(vokzal.next_ticket_id());
@@ -37,10 +37,10 @@ my_dbg("train ok");
         z.setTripId(80021);
         z.setArrivalStationId(101);
         z.setDepartureStationId(121);
-        z.setPassengerName("Василий");
+        z.setPassengerName("Василий_і_і");
         vokzal.add_ticket(z);
     }
-    my_dbg("tickets ok");
+    //my_dbg("tickets ok");
 
     for (auto i = 0; i < 10; i++) {
 
@@ -52,8 +52,8 @@ my_dbg("train ok");
 
         vokzal.add_station(st);
     }
-    my_dbg("stations ok");
-    get_station_information(vokzal);
+    //my_dbg("stations ok");
+    //get_station_information(vokzal);
     for (auto i = 0; i < 10; i++) {
         srand(time(NULL));
         route rt;
@@ -64,12 +64,23 @@ my_dbg("train ok");
         }
         vokzal.add_route(rt);
     }
-    my_dbg("routes ok");
+    //my_dbg("routes ok");
 
     //add_new_route(vokzal);
     //delete_station( vokzal);
 }
 
+void test_user_func(main_system & vokzal){
+
+    //add_new_station(vokzal);
+    //edit_station( vokzal);
+    //get_station_information(vokzal);
+    //delete_station(vokzal);
+    get_station_information(vokzal);
+    edit_ticket(vokzal);
+
+
+}
 
 void add_t(main_system & vokzal) {
     std::cout << " Добавить билет\n";
@@ -92,6 +103,7 @@ int main() {
     main_system vokz;
 
     front_end(vokz);
+    test_user_func(vokz);
  //   add_t(vokz);
 
 

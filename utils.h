@@ -31,7 +31,8 @@ class StationsStorage {
     virtual DB_ID add_new_station(station station) = 0;
 };
 
-
+template <typename my_type>
+void delete_object(my_type &sys, DB_ID obj_id);
 
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -39,5 +40,19 @@ void edit_station(main_system &sys);
 void get_station_information(main_system &sys);
 
 
+void add_new_ticket(main_system & sys);
+void edit_ticket(main_system &sys);
+void delete_ticket(main_system &sys);
+void get_ticket_information(main_system &sys);
+
 void add_new_route(main_system &sys);
+void delete_route(main_system &sys);
+void edit_route(main_system &sys);
+void get_route_information(main_system &sys);
+
+void add_new_train(main_system &sys);
+void delete_train(main_system &sys);
+void edit_train(main_system &sys);
+void get_train_information(main_system &sys);
+
 #endif //ISE_UTILS_H
