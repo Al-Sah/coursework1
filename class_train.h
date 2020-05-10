@@ -13,9 +13,9 @@ class train: public my_db_record {
 
 private:
 //    DB_ID train_id;
-    int wagons;
-    int wagon_places;
-    int total_places;
+    unsigned int wagons;
+    unsigned int wagon_places;
+    unsigned int total_places;
 
 
 public:

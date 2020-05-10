@@ -79,7 +79,6 @@ void test_user_func(main_system & vokzal){
 
     add_new_station(vokzal);
     edit_station( vokzal);
-    get_station_information(vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
     edit_ticket(vokzal);

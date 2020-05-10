@@ -27,7 +27,6 @@ public:
     void addStation(DB_ID station_id);
     void addStation(const station & station);
     void deleteStation(DB_ID station_id);
-    void deleteStation(const station & station);
 
 //    std::vector<>
     std::vector<station> getStations();
