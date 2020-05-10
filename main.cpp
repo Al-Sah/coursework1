@@ -6,7 +6,7 @@
 #include "class_ticket.h"
 #include "class_train.h"
 
-#include "utils.h"
+#include "user_functions.h"
 
 void front_end(main_system & vokzal) {
 
@@ -15,6 +15,8 @@ void front_end(main_system & vokzal) {
     std::cout << "next ticket id: " << vokzal.next_ticket_id() << std::endl;
     std::cout << "next train id: " << vokzal.next_train_id() << std::endl;
     std::cout << "next station id: " << vokzal.next_station_id() << std::endl;
+    std::cout << "next route id: " << vokzal.next_route_id() << std::endl;
+    std::cout << "next passenger id: " << vokzal.next_passenger_id() << std::endl;
 
     for (auto i = 0; i < 10; i++) {
         train t;
@@ -23,7 +25,7 @@ void front_end(main_system & vokzal) {
         t.setWagonPlaces(50);
         vokzal.add_train(t);
     }
-    //my_dbg("train ok");
+
      for (auto i = 0; i < 10; i++) {
         ticket z;
         z.setId(vokzal.next_ticket_id());
@@ -40,11 +42,20 @@ void front_end(main_system & vokzal) {
         z.setPassengerName("Василий_і_і");
         vokzal.add_ticket(z);
     }
-    //my_dbg("tickets ok");
+
+     for (auto i = 0; i < 10; i++){
+         passenger ps;
+         ps.setId(vokzal.next_passenger_id());
+         ps.setSurname("Корявый");
+         ps.setFirstName("Олег");
+         ps.setFatherName("Петрович");
+         ps.setEMail("me@gmail.com");
+         ps.setPassword("hrp324+-F!g");
+         vokzal.add_passenger(ps);
+
+     }
 
     for (auto i = 0; i < 10; i++) {
-
-        //add_new_station(vokzal);
 
         station st;
         st.setId(vokzal.next_station_id());
@@ -52,8 +63,6 @@ void front_end(main_system & vokzal) {
 
         vokzal.add_station(st);
     }
-    //my_dbg("stations ok");
-    //get_station_information(vokzal);
     for (auto i = 0; i < 10; i++) {
         srand(time(NULL));
         route rt;
@@ -64,18 +73,14 @@ void front_end(main_system & vokzal) {
         }
         vokzal.add_route(rt);
     }
-    //my_dbg("routes ok");
-
-    //add_new_route(vokzal);
-    //delete_station( vokzal);
 }
 
 void test_user_func(main_system & vokzal){
 
-    //add_new_station(vokzal);
-    //edit_station( vokzal);
-    //get_station_information(vokzal);
-    //delete_station(vokzal);
+    add_new_station(vokzal);
+    edit_station( vokzal);
+    get_station_information(vokzal);
+    delete_station(vokzal);
     get_station_information(vokzal);
     edit_ticket(vokzal);
 

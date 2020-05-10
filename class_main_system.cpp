@@ -7,7 +7,7 @@
 #include "class_ticket.h"
 #include "class_train.h"
 #include "class_station.h"
-#include "utils.h"
+#include "user_functions.h"
 
 
 main_system::main_system() : my_db_record() {
@@ -20,6 +20,7 @@ main_system::main_system() : my_db_record() {
     //my_dbg("deserialize : stations ok");
     open_routes_file(routes);
     //my_dbg("deserialize : routes ok");
+    open_passengers_file(passengers);
     // dump();
 }
 
@@ -29,6 +30,7 @@ main_system::~main_system() {
     save_trains_file(trains);
     save_routes_file(routes);
     save_station_file(stations);
+    save_passengers_file(passengers);
 
 }
 
@@ -64,6 +66,10 @@ void main_system::save_tickets_file(const std::vector<ticket> &tickets, const ch
 void main_system::save_routes_file(const std::vector<route> &routes, const char *file_name) {
     save_file(routes, file_name);
 }
+void main_system::save_passengers_file(const std::vector<passenger> &passengers, const char *file_name) {
+    save_file(passengers, file_name);
+}
+
 
 
 template<typename my_type>
@@ -95,6 +101,11 @@ void main_system::open_routes_file(std::vector<route> &routes, const char *file_
     open_file(routes, file_name);
 }
 
+void main_system::open_passengers_file(std::vector<passenger> &passengers, const char *file_name) {
+    open_file(passengers, file_name);
+}
+
+
 
 template<typename my_type>
 DB_ID main_system::next_object_id(std::vector<my_type> &records) {
@@ -122,6 +133,11 @@ DB_ID main_system::next_station_id() {
 DB_ID main_system::next_route_id() {
     return next_object_id(routes);
 }
+DB_ID main_system::next_passenger_id() {
+    return next_object_id(passengers);
+}
+
+
 
 
 template<typename my_type>
@@ -234,3 +250,20 @@ DB_ID main_system::edit_train(train &edited_train, DB_ID id) {
 DB_ID main_system::delete_train(DB_ID id) {
     return delete_obj(trains, id);
 }
+
+passenger main_system::Get_passenger_info(DB_ID id) {
+    return get_info( passengers, id);
+}
+
+DB_ID main_system::add_passenger(passenger &passenger) {
+    return add(passengers, passenger);
+}
+
+DB_ID main_system::edit_passenger(passenger &edited_passenger, DB_ID id) {
+    return update(passengers, edited_passenger, id);
+}
+
+DB_ID main_system::delete_passenger(DB_ID id) {
+   return delete_obj( passengers, id);
+}
+
