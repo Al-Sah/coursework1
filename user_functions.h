@@ -32,6 +32,7 @@ void delete_station(main_system &sys);
 void delete_station(main_system &sys, DB_ID st_id);
 void edit_station(main_system &sys);
 void get_station_information(main_system &sys);
+void get_station_list(main_system &sys);
 void get_station_information(main_system &sys, DB_ID id);
 void set_station_information(station new_st);
 

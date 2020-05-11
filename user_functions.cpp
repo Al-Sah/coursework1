@@ -13,7 +13,7 @@
 void get_station_information(main_system &sys, DB_ID st_id){
     station st;
     st = sys.Get_station_info(st_id);
-    std::cout << "\nStation id is: " << st.getId() << "\nStation name is" << st.getName();
+    std::cout << "Station id is: " << st.getId() << "\nStation name is: " << st.getName();
 }
 
 /**
@@ -22,29 +22,41 @@ void get_station_information(main_system &sys, DB_ID st_id){
  */
 
 void get_station_information(main_system &sys){
+    std::cout << "\n*** Get station info ***\n";
     DB_ID st_id = get_object_id("Enter station id which info you want to see : ");
     get_station_information(sys, st_id);
 }
 
 void set_station_information(station new_st) {
     std::string name;
-    std::cout << "Enter new station name: ";
+    std::cout << "\nEnter new station name: ";
     std::cin >> name;
     new_st.setName(name);
 }
+void get_station_list(main_system &sys){
+    std::cout << "\n*** Get station list ***";
+    station st;
+    std::vector<station> stations;
+    stations = sys.Get_station_vector();
+    std::cout << "\nid station name\n";
+    for(auto station : stations){
+        std::cout << station;
+    }
+}
 
 void add_new_station(main_system &sys)  {
-    std::cout << "\n*** Creating new station ***\n";
+    std::cout << "\n*** Creating new station ***";
     station new_st;
     set_station_information(new_st);
     sys.add_station(new_st);
 }
 
 void edit_station(main_system &sys){
+    std::cout << "\n*** Edit station ***\n";
     DB_ID st_id = get_object_id("Enter station id which info you want to edit : ");
     station new_st;
     new_st = sys.Get_station_info(st_id);
-    std::cout << "Old station information: ";
+    std::cout << "Old station information:\n";
     get_station_information(sys, st_id);
     set_station_information(new_st);
     sys.edit_station(new_st, st_id);
@@ -52,6 +64,7 @@ void edit_station(main_system &sys){
 
 
 void delete_station(main_system &sys){
+    std::cout << "\n*** Delete station ***\n";
     DB_ID st_id = get_object_id("Enter station id which will be deleted : ");
     sys.delete_station(st_id);
 }

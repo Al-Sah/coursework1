@@ -77,12 +77,24 @@ void front_end(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
+    std::cout << "\ncheck station functions\n";
+    get_station_list(vokzal);
     add_new_station(vokzal);
     edit_station( vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
-    edit_ticket(vokzal);
 
+    std::cout << "\n\ncheck route functions\n\n";
+    add_new_route(vokzal);
+    edit_route(vokzal);
+    delete_route(vokzal);
+    get_route_information(vokzal);
+
+    std::cout << "\n\ncheck train functions\n\n";
+    add_new_train(vokzal);
+    edit_train(vokzal);
+    delete_ticket(vokzal);
+    get_train_information(vokzal);
 
 }
 

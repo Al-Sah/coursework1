@@ -78,26 +78,31 @@ public:
 
 
     station Get_station_info(DB_ID id);
+    std::vector<station> Get_station_vector();
     DB_ID add_station(station &station);
     DB_ID edit_station(station &edited_station, DB_ID id);
     DB_ID delete_station(DB_ID id);
 
     ticket Get_ticket_info(DB_ID id);
+    std::vector<ticket> Get_ticket_vector();
     DB_ID add_ticket(ticket &ticket);
     DB_ID edit_ticket(ticket &edited_ticket, DB_ID id);
     DB_ID delete_ticket(DB_ID id);
 
     route Get_route_info(DB_ID id);
+    std::vector<route> Get_route_vector();
     DB_ID add_route(route &route);
     DB_ID edit_route(route &edited_route,  DB_ID id);
     DB_ID delete_route(DB_ID id);
 
     train Get_train_info(DB_ID id);
+    std::vector<train> Get_train_vector();
     DB_ID add_train(train &train);
     DB_ID edit_train(train &edited_train,  DB_ID id);
     DB_ID delete_train(DB_ID id);
 
     passenger Get_passenger_info(DB_ID id);
+    std::vector<passenger> Get_passenger_vector();
     DB_ID add_passenger(passenger &passenger);
     DB_ID edit_passenger(passenger &edited_passenger,  DB_ID id);
     DB_ID delete_passenger(DB_ID id);

@@ -188,6 +188,10 @@ station main_system::Get_station_info(DB_ID id) {
     return get_info(stations, id);
 }
 
+std::vector<station> main_system::Get_station_vector(){
+    return stations;
+}
+
 DB_ID main_system::add_station(station &station) {
     return add(stations, station);
 }
@@ -203,6 +207,9 @@ DB_ID main_system::delete_station(DB_ID id) {
 
 ticket main_system::Get_ticket_info(DB_ID id) {
     return get_info(tickets, id);
+}
+std::vector<ticket> main_system::Get_ticket_vector() {
+    return tickets;
 }
 
 DB_ID main_system::add_ticket(ticket &ticket) {
@@ -222,6 +229,10 @@ route main_system::Get_route_info(DB_ID id) {
     return get_info(routes, id);
 }
 
+std::vector<route> main_system::Get_route_vector() {
+    return routes;
+}
+
 DB_ID main_system::add_route(route &route) {
     return add(routes, route);
 }
@@ -238,6 +249,9 @@ DB_ID main_system::delete_route(DB_ID id) {
 train main_system::Get_train_info(DB_ID id) {
     return get_info(trains, id);
 }
+std::vector<train> main_system::Get_train_vector() {
+    return trains;
+}
 
 DB_ID main_system::add_train(train &train) {
     return add(trains, train);
@@ -253,6 +267,9 @@ DB_ID main_system::delete_train(DB_ID id) {
 
 passenger main_system::Get_passenger_info(DB_ID id) {
     return get_info( passengers, id);
+}
+std::vector<passenger> main_system::Get_passenger_vector() {
+    return passengers;
 }
 
 DB_ID main_system::add_passenger(passenger &passenger) {
