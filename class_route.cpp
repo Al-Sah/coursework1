@@ -3,6 +3,7 @@
 //
 
 #include "class_route.h"
+#include "utils.h"
 #include <algorithm>
 
 
@@ -10,7 +11,7 @@ std::ostream & operator << (std::ostream &out, route &route1) {
     std::vector<DB_ID> station_ids = route1.getStationIds();
     out
             << route1.getId() << ' '
-            << route1.station_ids.size();
+            << route1.getStationsNumber();
             for(auto sta_id: station_ids){
                 out << " "<< sta_id ;
             }
@@ -52,32 +53,36 @@ const std::vector<DB_ID> &route::getStationIds() const {
     return station_ids;
 }
 
-void route::deleteStation(DB_ID station_id) {
+bool route::deleteStation(DB_ID station_id) {
     std::vector<DB_ID>::iterator sta;
     sta = std::find(station_ids.begin(), station_ids.end(), station_id);
     if(sta == station_ids.end()){
-        //FIXME bug here
-
-        return;
+        return false;
     }
-
     station_ids.erase(sta);
+    return true;
 }
 
-void route::addStation(DB_ID station_id) {
+bool route::addStation(DB_ID station_id) {
     std::vector<DB_ID>::iterator sta;
     sta = std::find(station_ids.begin(), station_ids.end(), station_id);
     if(sta != station_ids.end()){
-        //FIXME bug
-        return;
+        return false;
     }
     station_ids.push_back(station_id);
+    return true;
 }
 
-void route::addStation(const station & station) {
-    station_ids.push_back(station.getId());
-}
 
-std::vector<station> route::getStations() {
-    return std::vector<station>();
+std::vector<station> route::getStations(StationsStorage * sys ) {
+    std::vector<station> all_stations = sys->Get_station_vector();
+    std::vector<station> my_stations;
+    for(DB_ID st_id: station_ids){
+        int idx = Alex_Utils::find_index(all_stations, st_id);
+        if(idx == NOT_FOUND){
+            continue;
+        }
+        my_stations.push_back(all_stations[idx]);
+    }
+    return my_stations;
 }

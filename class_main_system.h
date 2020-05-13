@@ -12,13 +12,12 @@
 #include "class_station.h"
 #include "class_route.h"
 #include "class_passenger.h"
+#include "interfaces.h"
 
 
-#define NOT_FOUND -1
 
 
-
-class main_system : public my_db_record {
+class main_system : public my_db_record, StationsStorage {
 
 public:
     main_system();
@@ -55,9 +54,6 @@ private:
 
     template <typename my_type>
     static void open_file(std::vector<my_type> &records, const char *file_name);
-
-    template <typename my_type>
-    int find_index(std::vector<my_type> &records, DB_ID id);
 
     template <typename my_type>
     DB_ID add(std::vector<my_type> & records, my_type record);

@@ -78,11 +78,15 @@ void front_end(main_system & vokzal) {
 void test_user_func(main_system & vokzal){
 
     std::cout << "\ncheck station functions\n";
+    for (int i = 0; i < 5; ++i){
+        add_new_station(vokzal);
+    }
     get_station_list(vokzal);
-    add_new_station(vokzal);
     edit_station( vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
+
+/*
 
     std::cout << "\n\ncheck route functions\n\n";
     add_new_route(vokzal);
@@ -96,20 +100,14 @@ void test_user_func(main_system & vokzal){
     delete_ticket(vokzal);
     get_train_information(vokzal);
 
-}
+    std::cout << "\n\ncheck passenger functions\n\n";
+    get_passenger_list(vokzal);
+    set_new_passenger(vokzal);
+    edit_passenger( vokzal);
+    delete_passenger(vokzal);
+    get_passenger_information(vokzal);
+*/
 
-void add_t(main_system & vokzal) {
-    std::cout << " Добавить билет\n";
-    int temp_val;
-    ticket z;
-
-    z.setId(vokzal.next_ticket_id());
-    std::cout << "ввод ";
-    std::cin >> temp_val;
-    z.setPassengerName("Коля");
-    z.setState(static_cast<ticket::STATUS>(temp_val));
-    vokzal.add_ticket(z);
-    std::cout << z << " ";
 }
 
 
@@ -120,8 +118,6 @@ int main() {
 
     front_end(vokz);
     test_user_func(vokz);
- //   add_t(vokz);
-
 
     return 0;
 }

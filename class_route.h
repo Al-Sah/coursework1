@@ -8,28 +8,24 @@
 #include <vector>
 #include "class_my_db_record.h"
 #include "class_station.h"
+#include "interfaces.h"
+
 
 class route : public  my_db_record {
 
 private:
-
-
+    std::vector<DB_ID> station_ids;
 
 public:
 
 
     int getStationsNumber() const;
-
-
-    std::vector<DB_ID> station_ids;
-
     const std::vector<DB_ID> &getStationIds() const;
-    void addStation(DB_ID station_id);
-    void addStation(const station & station);
-    void deleteStation(DB_ID station_id);
 
-//    std::vector<>
-    std::vector<station> getStations();
+    bool addStation(DB_ID station_id);
+    bool deleteStation(DB_ID station_id);
+
+    std::vector<station> getStations(StationsStorage * sys);
 
 };
 

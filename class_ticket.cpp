@@ -61,8 +61,8 @@ void operator >> (std::istream &in, ticket &ticket1) {
 ticket::STATUS ticket::getState() const {
     return state;
 }
-void ticket::setState(ticket::STATUS state) {
-    ticket::state = state;
+void ticket::setState(ticket::STATUS t_state) {
+    ticket::state = t_state;
 }
 PlaceNo ticket::getPlaceNumber() const {
     return place_number;
@@ -73,8 +73,8 @@ void ticket::setPlaceNumber(PlaceNo placeNumber) {
 float ticket::getPrice() const {
     return price;
 }
-void ticket::setPrice(float price) {
-    ticket::price = price;
+void ticket::setPrice(float t_price) {
+    ticket::price = t_price;
 }
 DB_ID ticket::getTripId() const {
     return trip_id;

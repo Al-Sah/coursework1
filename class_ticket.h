@@ -36,13 +36,13 @@ public:
   //  trip getTrip();
 
     STATUS getState() const;
-    void setState(STATUS state);
+    void setState(STATUS t_state);
 
     PlaceNo getPlaceNumber() const;
     void setPlaceNumber(PlaceNo placeNumber);
 
     float getPrice() const;
-    void setPrice(float price);
+    void setPrice(float t_price);
 
     DB_ID getTripId() const;
     void setTripId(DB_ID tripId);

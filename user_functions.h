@@ -16,16 +16,6 @@
 
 #define MY_DEBUG
 
-enum {
-    RET_FAILED,
-    RET_OK,
-};
-
-class StationsStorage {
-
-    virtual std::vector<station> & all_stations() = 0;
-    virtual DB_ID add_new_station(station station) = 0;
-};
 
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -34,33 +24,45 @@ void edit_station(main_system &sys);
 void get_station_information(main_system &sys);
 void get_station_list(main_system &sys);
 void get_station_information(main_system &sys, DB_ID id);
-void set_station_information(station new_st);
+void set_station_information(station &new_st);
 
 
 void add_default_ticket(main_system & sys);
 void delete_ticket(main_system &sys);
 void delete_ticket(main_system &sys, DB_ID id);
 void edit_ticket(main_system &sys);
+void get_ticket_list(main_system &sys);
 void get_ticket_information(main_system &sys);
 void get_ticket_information(main_system &sys, DB_ID ticket_id);
-void set_ticket_information(ticket new_ticket);
+void set_ticket_information(ticket &new_ticket);
 
 
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
 void delete_route(main_system &sys, DB_ID id);
 void edit_route(main_system &sys);
+void get_route_list(main_system &sys);
 void get_route_information(main_system &sys);
 void get_route_information(main_system &sys, DB_ID route_id);
-void set_route_information(route route);
+void set_route_information(route &route);
 
 
 void add_new_train(main_system &sys);
 void delete_train(main_system &sys);
 void delete_train(main_system &sys, DB_ID id);
 void edit_train(main_system &sys);
+//void get_train_list(main_system &sys);
 void get_train_information(main_system &sys);
 void get_train_information(main_system &sys, DB_ID train_id);
-void set_train_information(train train);
+void set_train_information(train &train);
+
+void set_new_passenger(main_system &sys);
+void delete_passenger(main_system &sys);
+void delete_passenger(main_system &sys, DB_ID id);
+void edit_passenger(main_system &sys);
+void get_passenger_list(main_system &sys);
+void get_passenger_information(main_system &sys);
+void get_passenger_information(main_system &sys, DB_ID passenger_id);
+void set_passenger_information(passenger &passenger);
 
 #endif //ISE_USER_FUNCTIONS_H

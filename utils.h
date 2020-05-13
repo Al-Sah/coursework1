@@ -6,8 +6,30 @@
 #define ISE_UTILS_H
 #include <iostream>
 #include <string>
+
 #include "class_main_system.h"
 #include <chrono>
+
+enum {
+    NOT_FOUND,
+    RET_FAILED,
+    RET_OK,
+};
+
+namespace Alex_Utils{
+
+    template<typename my_type>
+    int find_index(std::vector<my_type> &records, DB_ID id) {
+        for (size_t i = 0; i < records.size(); ++i) {
+            my_type &obj = records[i];
+            if (obj.getId() == id) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
+    }
+}
+
 
 void my_dbg(const char *str);
 std::string ask_user(const char *prompt);

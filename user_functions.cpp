@@ -27,7 +27,7 @@ void get_station_information(main_system &sys){
     get_station_information(sys, st_id);
 }
 
-void set_station_information(station new_st) {
+void set_station_information(station &new_st) {
     std::string name;
     std::cout << "\nEnter new station name: ";
     std::cin >> name;
@@ -35,7 +35,6 @@ void set_station_information(station new_st) {
 }
 void get_station_list(main_system &sys){
     std::cout << "\n*** Get station list ***";
-    station st;
     std::vector<station> stations;
     stations = sys.Get_station_vector();
     std::cout << "\nid station name\n";
@@ -47,7 +46,7 @@ void get_station_list(main_system &sys){
 void add_new_station(main_system &sys)  {
     std::cout << "\n*** Creating new station ***";
     station new_st;
-    set_station_information(new_st);
+    set_station_information( new_st);
     sys.add_station(new_st);
 }
 
@@ -87,16 +86,16 @@ void get_ticket_information(main_system &sys){
     DB_ID tic_id = get_object_id("Enter ticket id which info you want to see : ");
     get_ticket_information(sys, tic_id);
 }
-void set_ticket_information(ticket new_ticket){
+void set_ticket_information(ticket &new_ticket){
     std::string name, surname, father_name, full_passenger_name;
 
     std::cout << "Enter passenger name: ";         std::cin >> name;
     std::cout << "Enter passenger surname: ";      std::cin >> surname;
     std::cout << "Enter passenger father_name: ";  std::cin >> father_name;
     full_passenger_name = surname + "_" + name + "_" + father_name;
-    //TODO Логику для админа и обычного пользователя
     new_ticket.setPassengerName(full_passenger_name);
 
+//TODO Логику для админа и обычного пользователя
 }
 
 void add_default_ticket(main_system &sys) {
@@ -109,6 +108,15 @@ void add_default_ticket(main_system &sys) {
     ticket.setPrice(0);
     ticket.setTripId(0);//TODO trip id ??
     sys.add_ticket(ticket);
+}
+void get_ticket_list(main_system &sys) {
+    std::cout << "\n*** Get ticket list ***";
+    std::vector<ticket> tickets;
+    tickets = sys.Get_ticket_vector();
+    std::cout << "\nid ------------------\n";
+    for(auto passenger : tickets){
+        std::cout << passenger;
+    }
 }
 
 
@@ -147,9 +155,25 @@ void add_new_route(main_system &sys){
     sys.add_route(new_route);
 }
 
-void set_route_information(route route) {
-
+void set_route_information(route &route) {
+    /*
+    route.
+    std::string name;
+    std::cout << "\nEnter new station name: ";
+    std::cin >> name;
+    new_st.setName(name);
+*/
 }
+void get_route_list(main_system &sys) {
+    std::cout << "\n*** Get route list ***";
+    std::vector<route> routes;
+    routes = sys.Get_route_vector();
+    std::cout << "\nid stations station_ids \n";
+    for(auto route : routes){
+        std::cout << route;
+    }
+}
+
 
 
 void get_route_information(main_system &sys){
@@ -188,7 +212,7 @@ void get_train_information(main_system &sys, DB_ID train_id) {
     std::cout << train;
 }
 
-void set_train_information(train train) {
+void set_train_information(train &train) {
     unsigned int counter;
     std::cout << "\nEnter number of wagons: " ; std::cin >> counter; train.setWagons(counter);
     std::cout << "\nEnter number of places in wagons: " ; std::cin >> counter; train.setWagonPlaces(counter);
@@ -222,3 +246,82 @@ void delete_train(main_system &sys){
 void delete_train(main_system &sys, DB_ID train_id){
     sys.delete_train(train_id);
 }
+
+
+
+// **  passenger functions  **     --------------------------------
+
+void set_new_passenger(main_system &sys) {
+    std::cout << "\n*** Set passenger full_name ***\n";
+    passenger passenger;
+    set_passenger_information(passenger);
+    sys.add_passenger(passenger);
+}
+
+void delete_passenger(main_system &sys) {
+    std::cout << "\n*** Delete passenger ***\n";
+    DB_ID passenger_id = get_object_id("Enter passenger id which will be deleted  ");
+    sys.delete_passenger(passenger_id);
+}
+
+void delete_passenger(main_system &sys, DB_ID passenger_id) {
+    sys.delete_passenger(passenger_id);
+}
+
+void edit_passenger(main_system &sys) {
+    std::cout << "\n*** Edit passenger ***\n";
+    DB_ID passenger_id = get_object_id("Enter passenger id which info you want to edit : ");
+    passenger passenger;
+    passenger = sys.Get_passenger_info(passenger_id);
+    std::cout << "Old passenger information: ";
+    get_passenger_information(sys, passenger_id);
+    set_passenger_information(passenger);
+    sys.edit_passenger(passenger, passenger_id);
+}
+
+void get_passenger_list(main_system &sys) {
+    std::cout << "\n*** Get passenger list ***";
+    std::vector<passenger> passengers;
+    passengers = sys.Get_passenger_vector();
+    std::cout << "\nid passenger  full name\n";
+    for(auto passenger : passengers){
+        std::cout << passenger;
+    }
+}
+
+void get_passenger_information(main_system &sys) {
+    DB_ID passenger_id = get_object_id("Enter passenger id which info you want to see : ");
+    get_passenger_information(sys, passenger_id);
+}
+
+void get_passenger_information(main_system &sys, DB_ID passenger_id) {
+    passenger passenger;
+    passenger = sys.Get_passenger_info(passenger_id);
+    std::cout <<
+       "passenger id: " << passenger.getId() <<
+    "\nPassenger full_name: " << passenger.getFullName() <<
+    "\nPassenger e-mail: " << passenger.getEMail() <<
+    "\nPassenger password: " << passenger.getPassword();
+}
+
+void set_passenger_information(passenger &passenger) {
+
+    std::string user_data;
+    std::cout << "\nEnter passenger name: ";
+    std::cin >> user_data;  passenger.setFirstName(user_data);
+    std::cout << "Enter passenger surname: ";
+    std::cin >> user_data;  passenger.setSurname(user_data);
+    std::cout << "Enter passenger father_name: ";
+    std::cin >> user_data;  passenger.setFatherName(user_data);
+    passenger.setFullName();
+
+
+}
+
+/*
+ *
+ * sta name => start sta id
+ * sta name => end sta id
+ * route list => trip list => trip id list
+ *
+ */
