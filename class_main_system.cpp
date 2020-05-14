@@ -17,6 +17,7 @@ main_system::main_system() : my_db_record() {
     open_station_file(stations);
     open_routes_file(routes);
     open_passengers_file(passengers);
+    open_trip_file(trips);
 }
 
 main_system::~main_system() {
@@ -26,6 +27,8 @@ main_system::~main_system() {
     save_routes_file(routes);
     save_station_file(stations);
     save_passengers_file(passengers);
+    save_trip_file(trips);
+
 }
 
 void main_system::dump() {
@@ -63,6 +66,9 @@ void main_system::save_routes_file(const std::vector<route> &routes, const char 
 void main_system::save_passengers_file(const std::vector<passenger> &passengers, const char *file_name) {
     save_file(passengers, file_name);
 }
+void main_system::save_trip_file(const std::vector<trip> &trips, const char *file_name) {
+    save_file(trips, file_name);
+}
 
 
 
@@ -98,6 +104,9 @@ void main_system::open_routes_file(std::vector<route> &routes, const char *file_
 void main_system::open_passengers_file(std::vector<passenger> &passengers, const char *file_name) {
     open_file(passengers, file_name);
 }
+void main_system::open_trip_file(std::vector<trip> &trips, const char *file_name) {
+    open_file(trips, file_name);
+}
 
 
 
@@ -129,6 +138,9 @@ DB_ID main_system::next_route_id() {
 }
 DB_ID main_system::next_passenger_id() {
     return next_object_id(passengers);
+}
+DB_ID main_system::next_trip_id() {
+    return next_object_id(trips);
 }
 
 
@@ -295,7 +307,34 @@ DB_ID main_system::edit_passenger(passenger &edited_passenger, DB_ID id) {
 
 DB_ID main_system::delete_passenger(DB_ID id) {
     DB_ID ret = delete_obj( passengers, id);
-   save_passengers_file(passengers);
+    save_passengers_file(passengers);
     return ret;
 }
 
+
+
+trip main_system::Get_trip_info(DB_ID id) {
+    return get_info( trips, id);
+}
+
+std::vector<trip> main_system::Get_trip_vector() {
+    return trips;
+}
+
+DB_ID main_system::add_trip(trip &trip) {
+    DB_ID ret = add(trips, trip);
+    save_trip_file(trips);
+    return ret;
+}
+
+DB_ID main_system::edit_trip(trip &trip_passenger, DB_ID id) {
+    DB_ID ret = delete_obj( trips, id);
+    save_trip_file(trips);
+    return ret;
+}
+
+DB_ID main_system::delete_trip(DB_ID id) {
+    DB_ID ret = delete_obj( trips, id);
+    save_trip_file(trips);
+    return ret;
+}
