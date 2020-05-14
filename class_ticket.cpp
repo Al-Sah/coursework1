@@ -7,10 +7,11 @@
 std::ostream & operator << (std::ostream &out, ticket &ticket1) {
     out
     << ticket1.getId() << ' '
-    << ticket1.getState() << ' '
-    << ticket1.getPlaceNumber()  << ' '
-    << ticket1.getPrice() << ' '
     << ticket1.getTripId() << ' '
+    << ticket1.getState() << ' '
+    << ticket1.getPrice() << ' '
+    << ticket1.getYourWagon()  << ' '
+    << ticket1.getPlaceNumber()  << ' '
     << ticket1.getDepartureStationId() << ' '
     << ticket1.getArrivalStationId() << ' '
     << ticket1.getPassengerName()  << '\n';
@@ -30,17 +31,20 @@ void operator >> (std::istream &in, ticket &ticket1) {
     in >> tempID;
     ticket1.setId(tempID);
 
+    in >> tempID;
+    ticket1.setTripId(tempID);
+
     in >>  state;
     ticket1.setState((ticket::STATUS)state);
-
-    in >> place;
-    ticket1.setPlaceNumber(place);
 
     in >> temp_float;
     ticket1.setPrice(temp_float);
 
-    in >> tempID;
-    ticket1.setTripId(tempID);
+    in >> place;
+    ticket1.setYourWagon(place);
+
+    in >> place;
+    ticket1.setPlaceNumber(place);
 
     in >> tempID;
     ticket1.setDepartureStationId(tempID);
@@ -94,4 +98,12 @@ const std::string &ticket::getPassengerName() const {
 }
 void ticket::setPassengerName(const std::string &passengerName) {
     passenger_name = passengerName;
+}
+
+PlaceNo ticket::getYourWagon() const {
+    return your_wagon;
+}
+
+void ticket::setYourWagon(PlaceNo yourWagon) {
+    your_wagon = yourWagon;
 }

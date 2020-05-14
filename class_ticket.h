@@ -21,10 +21,14 @@ public:
 
 private:
 
-    STATUS state=FREE;
-    PlaceNo place_number;
-    float price;
     DB_ID trip_id;
+    STATUS state;
+
+    PlaceNo your_wagon;
+    PlaceNo place_number;
+
+    float price;
+
     DB_ID departure_station_id;
     DB_ID arrival_station_id;
 
@@ -33,7 +37,6 @@ private:
 
 
 public:
-  //  trip getTrip();
 
     STATUS getState() const;
     void setState(STATUS t_state);
@@ -55,6 +58,12 @@ public:
 
     const std::string &getPassengerName() const;
     void setPassengerName(const std::string &passengerName);
+
+
+    PlaceNo getYourWagon() const;
+    void setYourWagon(PlaceNo yourWagon);
+
+
 };
 
 std::ostream & operator << (std::ostream &out, ticket &ticket1);
