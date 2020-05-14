@@ -74,7 +74,7 @@ bool route::addStation(DB_ID station_id) {
 }
 
 
-std::vector<station> route::getStations(StationsStorage * sys ) {
+std::vector<station> route::getStations(StationsStorage * sys) {
     std::vector<station> all_stations = sys->Get_station_vector();
     std::vector<station> my_stations;
     for(DB_ID st_id: station_ids){

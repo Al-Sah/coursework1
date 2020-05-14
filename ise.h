@@ -14,7 +14,7 @@ typedef uint32_t DB_ID;
 typedef uint16_t PlaceNo;
 
 typedef std::string DATE;
-typedef std::string PLATFORM_ID;
 
+typedef uint32_t PLATFORM_ID;
 
 #endif //ISE_ISE_H

@@ -24,17 +24,11 @@ void operator >> (std::istream &in, ticket &ticket1) {
     PlaceNo place;
     float temp_float;
     std::string temp;
+    int state;
+
 
     in >> tempID;
     ticket1.setId(tempID);
-
-#if 0
-//    ticket::STATUS state;
-#else
-    //TODO interesting
-    //FIXME bad bad
-    int state;
-#endif
 
     in >>  state;
     ticket1.setState((ticket::STATUS)state);
@@ -58,6 +52,7 @@ void operator >> (std::istream &in, ticket &ticket1) {
     ticket1.setPassengerName(temp);
 
 }
+
 ticket::STATUS ticket::getState() const {
     return state;
 }

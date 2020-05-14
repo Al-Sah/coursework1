@@ -14,7 +14,7 @@ public:
     virtual std::vector<station> Get_station_vector() = 0;
     virtual DB_ID add_station(station & station) = 0;
 
-    virtual ~StationsStorage(){}
+    //virtual ~StationsStorage(){}
 };
 
 

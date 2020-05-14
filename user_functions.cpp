@@ -216,10 +216,9 @@ void delete_route(main_system &sys,  DB_ID route_id){
 void get_route_stations(main_system &sys, DB_ID route_id) {
     std::cout << "\n*** Get route stations ***";
     route route;
-    route.getStations();
+    //route.getStations();
 
     }
-}
 
 void delete_route(main_system &sys){
     DB_ID route_id = get_object_id("Enter route id which will be deleted  ");

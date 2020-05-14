@@ -12,7 +12,6 @@
 class train: public my_db_record {
 
 private:
-//    DB_ID train_id;
     unsigned int wagons;
     unsigned int wagon_places;
     unsigned int total_places;
@@ -30,14 +29,6 @@ public:
     int getTotalPlaces() const;
 
     void setTotalPlaces();
-
-
-    //TODO: route / stations
-//    std::vector<DB_ID> station_ids;
-
-
-public:
-
 
 };
 std::ostream & operator << (std::ostream &out, train &train1);
