@@ -65,7 +65,7 @@ void edit_station(main_system &sys){
 void delete_station(main_system &sys){
     std::cout << "\n*** Delete station ***\n";
     DB_ID st_id = get_object_id("Enter station id which will be deleted : ");
-    sys.delete_station(st_id);
+    delete_station(sys, st_id);
 }
 
 void delete_station(main_system &sys, DB_ID st_id){
@@ -142,27 +142,52 @@ void delete_ticket(main_system &sys, DB_ID ticket_id){
 
 
 void add_new_route(main_system &sys){
-
-    unsigned int st_counter, st_id;
-
-    st_counter = get_object_id("Enter number of stations in the route : ");
+    std::cout << "\n*** Creating new route ***";
     route new_route;
-    for (auto i = 0; i < st_counter; i++) {
-        std::cout << "Enter " << i + 1 << " station id: "; std::cin >>st_id;
-        new_route.addStation(st_id);
-    }
-
+    set_route_information(new_route);
     sys.add_route(new_route);
 }
 
 void set_route_information(route &route) {
-    /*
-    route.
-    std::string name;
-    std::cout << "\nEnter new station name: ";
-    std::cin >> name;
-    new_st.setName(name);
-*/
+    int operation;
+    DB_ID station_id, station_counter;
+    set_info_route_help();
+
+    do{
+        std::cout << "\nВведите номер операции: ";
+        operation_check(operation);
+
+        switch (operation) {
+            case 0:
+                std::cout << "\n*** Setting information finished ***\n";
+                break;
+            case 1:
+                std::cout << "Enter station id: ";
+                std::cin >> station_id;
+                route.addStation(station_id);
+                break;
+            case 2:
+
+                std::cin >> station_counter;
+                for(size_t i = 0; i < station_counter; ++i){
+                    std::cout << "Enter station id: ";
+                    std::cin >> station_id;
+                    route.addStation(station_id);
+                }
+                break;
+            case 3:
+                std::cin >> station_id;
+                route.deleteStation(station_id);
+                break;
+            case 4:
+                std::cin >> station_id;
+                break;
+            default:
+                std::cout << "Такой операции нет";
+                break;
+        }
+    } while (operation != 0);
+
 }
 void get_route_list(main_system &sys) {
     std::cout << "\n*** Get route list ***";
@@ -174,13 +199,26 @@ void get_route_list(main_system &sys) {
     }
 }
 
-
-
 void get_route_information(main_system &sys){
     DB_ID route_id = get_object_id("Enter route id which info you want to see : ");
+    get_route_information(sys, route_id);
+}
+void get_route_information(main_system &sys, DB_ID route_id){
     route route;
     route = sys.Get_route_info(route_id);
     std::cout << route;
+}
+
+void delete_route(main_system &sys,  DB_ID route_id){
+    sys.delete_route(route_id);
+}
+
+void get_route_stations(main_system &sys, DB_ID route_id) {
+    std::cout << "\n*** Get route stations ***";
+    route route;
+    route.getStations();
+
+    }
 }
 
 void delete_route(main_system &sys){
@@ -189,13 +227,13 @@ void delete_route(main_system &sys){
 }
 
 void edit_route(main_system &sys){
-    DB_ID tic_id = get_object_id("Enter route id which info you want to edit : ");
+    DB_ID route_id = get_object_id("Enter route id which info you want to edit : ");
     route new_route;
-    new_route = sys.Get_route_info(tic_id);
-    std::cout << "Old station info: "<< new_route << "\nEnter new info:";
-    std::cin >> new_route;
-    //TODO Ввод значений класса
-    sys.edit_route(new_route, tic_id);
+    new_route = sys.Get_route_info(route_id);
+    std::cout << "Old station info: ";
+    get_route_information(sys, route_id);
+    set_route_information(new_route);
+    sys.edit_route(new_route, route_id);
 }
 
 
@@ -218,6 +256,16 @@ void set_train_information(train &train) {
     std::cout << "\nEnter number of places in wagons: " ; std::cin >> counter; train.setWagonPlaces(counter);
     train.setTotalPlaces();
 
+}
+
+void get_train_list(main_system &sys) {
+    std::cout << "\n*** Get train list ***";
+    std::vector<train> trains;
+    trains = sys.Get_train_vector();
+    std::cout << "\nid stations station_ids \n";
+    for(auto train : trains){
+        std::cout << train;
+    }
 }
 
 void edit_train(main_system &sys){

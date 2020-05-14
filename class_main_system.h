@@ -51,22 +51,16 @@ private:
 
     template <typename my_type>
     static void save_file(const std::vector<my_type> &records, const char *file_name);
-
     template <typename my_type>
     static void open_file(std::vector<my_type> &records, const char *file_name);
-
     template <typename my_type>
     DB_ID add(std::vector<my_type> & records, my_type record);
-
     template <typename my_type>
     DB_ID update(std::vector<my_type> & records, my_type record, DB_ID id);
-
     template <typename my_type>
     DB_ID delete_obj(std::vector<my_type> &records, DB_ID id);
-
     template <typename my_type>
     my_type get_info(std::vector<my_type> &records, DB_ID id);
-
     template <typename my_type>
     DB_ID next_object_id(std::vector<my_type> &records);
 

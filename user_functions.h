@@ -43,6 +43,7 @@ void delete_route(main_system &sys, DB_ID id);
 void edit_route(main_system &sys);
 void get_route_list(main_system &sys);
 void get_route_information(main_system &sys);
+void get_route_stations(main_system &sys, DB_ID route_id);
 void get_route_information(main_system &sys, DB_ID route_id);
 void set_route_information(route &route);
 
@@ -51,7 +52,7 @@ void add_new_train(main_system &sys);
 void delete_train(main_system &sys);
 void delete_train(main_system &sys, DB_ID id);
 void edit_train(main_system &sys);
-//void get_train_list(main_system &sys);
+void get_train_list(main_system &sys);
 void get_train_information(main_system &sys);
 void get_train_information(main_system &sys, DB_ID train_id);
 void set_train_information(train &train);
