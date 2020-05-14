@@ -12,21 +12,21 @@
 class train: public my_db_record {
 
 private:
-    unsigned int wagons;
-    unsigned int wagon_places;
-    unsigned int total_places;
+    size_t wagons;
+    size_t wagon_places;
+    size_t total_places;
 
 
 public:
-    int getWagons() const;
+    size_t getWagons() const;
 
     void setWagons(int wagons);
 
-    int getWagonPlaces() const;
+    size_t getWagonPlaces() const;
 
     void setWagonPlaces(int wagonPlaces);
 
-    int getTotalPlaces() const;
+    size_t getTotalPlaces() const;
 
     void setTotalPlaces();
 

@@ -12,8 +12,7 @@ std::ostream & operator << (std::ostream &out, trip &trip) {
             << trip.getDate() << ' '
             << trip.getPlatformId() << ' '
             << trip.getRouteId() << ' '
-            << trip.getTrainId() << ' '
-            << trip.getTicketId() << '\n';
+            << trip.getTrainId() << '\n';
 
     return out;
 }
@@ -39,9 +38,6 @@ void operator >> (std::istream &in, trip &trip) {
 
     in >> tempID;
     trip.setTrainId(tempID);
-
-    in >> tempID;
-    trip.setTicketId(tempID);
 
 }
 
@@ -81,12 +77,4 @@ DB_ID trip::getTrainId() const {
 
 void trip::setTrainId(DB_ID trainId) {
     train_id = trainId;
-}
-
-DB_ID trip::getTicketId() const {
-    return ticket_id;
-}
-
-void trip::setTicketId(DB_ID ticketId) {
-    ticket_id = ticketId;
 }

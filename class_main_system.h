@@ -37,7 +37,7 @@ public:
     static void open_passengers_file( std::vector<passenger>& passengers, const char *file_name="passengers.txt");
     static void open_trip_file( std::vector<trip>& trips, const char *file_name="trips.txt");
 
-    
+
     DB_ID next_ticket_id();
     DB_ID next_train_id();
     DB_ID next_station_id();

@@ -33,21 +33,21 @@ void operator >> (std::istream &in, train &train1) {
 }
 
 
-int train::getWagons() const {
+size_t train::getWagons() const {
     return wagons;
 }
 void train::setWagons(int wagons) {
     train::wagons = wagons;
     setTotalPlaces();
 }
-int train::getWagonPlaces() const {
+size_t train::getWagonPlaces() const {
     return wagon_places;
 }
 void train::setWagonPlaces(int wagonPlaces) {
     wagon_places = wagonPlaces;
     setTotalPlaces();
 }
-int train::getTotalPlaces() const {
+size_t train::getTotalPlaces() const {
     return total_places;
 }
 void train::setTotalPlaces() {

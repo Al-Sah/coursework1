@@ -176,7 +176,7 @@ template<typename my_type>
 DB_ID main_system::add(std::vector<my_type> &records, my_type record) {
     record.setId(next_object_id(records));
     records.push_back(record);
-    return 0;
+    return record.getId();
 }
 
 

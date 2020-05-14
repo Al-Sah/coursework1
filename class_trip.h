@@ -11,11 +11,11 @@
 class trip: public my_db_record {
 
 private:
+
     PLATFORM_ID platform_id;
     DB_ID route_id;
     DATE date;
     DB_ID train_id;
-    DB_ID ticket_id;
 
 public:
 
@@ -31,8 +31,6 @@ public:
     DB_ID getTrainId() const;
     void setTrainId(DB_ID trainId);
 
-    DB_ID getTicketId() const;
-    void setTicketId(DB_ID ticketId);
 
 };
 
