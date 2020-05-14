@@ -49,8 +49,6 @@ void front_end(main_system & vokzal) {
          ps.setSurname("Корявый");
          ps.setFirstName("Олег");
          ps.setFatherName("Петрович");
-         ps.setEMail("me@gmail.com");
-         ps.setPassword("hrp324+-F!g");
          vokzal.add_passenger(ps);
 
      }

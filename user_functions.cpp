@@ -346,9 +346,7 @@ void get_passenger_information(main_system &sys, DB_ID passenger_id) {
     passenger = sys.Get_passenger_info(passenger_id);
     std::cout <<
        "passenger id: " << passenger.getId() <<
-    "\nPassenger full_name: " << passenger.getFullName() <<
-    "\nPassenger e-mail: " << passenger.getEMail() <<
-    "\nPassenger password: " << passenger.getPassword();
+    "\nPassenger full_name: " << passenger.getFullName();
 }
 
 void set_passenger_information(passenger &passenger) {

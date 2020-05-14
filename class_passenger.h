@@ -12,22 +12,21 @@ class passenger: public my_db_record {
 
 private:
 
-    std::string full_name, first_name, surname, father_name, password, e_mail;
+    std::string full_name, first_name, surname, father_name;
 
 public:
 
     const std::string &getFullName() const;
     void setFullName();
-    const std::string &getEMail() const;
-    void setEMail(const std::string &eMail);
+
     const std::string &getFirstName() const;
     void setFirstName(const std::string &firstName);
+
     const std::string &getSurname() const;
     void setSurname(const std::string &user_surname);
+
     const std::string &getFatherName() const;
     void setFatherName(const std::string &fatherName);
-    const std::string &getPassword() const;
-    void setPassword(const std::string &user_password);
 
 };
 std::ostream & operator << (std::ostream &out, passenger &passenger);

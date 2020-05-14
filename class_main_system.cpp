@@ -327,10 +327,11 @@ DB_ID main_system::add_trip(trip &trip) {
     return ret;
 }
 
-DB_ID main_system::edit_trip(trip &trip_passenger, DB_ID id) {
-    DB_ID ret = delete_obj( trips, id);
+DB_ID main_system::edit_trip(trip &edited_trip, DB_ID id) {
+    DB_ID ret = update(trips, edited_trip, id);
     save_trip_file(trips);
     return ret;
+
 }
 
 DB_ID main_system::delete_trip(DB_ID id) {

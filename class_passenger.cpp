@@ -12,8 +12,6 @@ std::ostream & operator << (std::ostream &out, passenger &passenger) {
     out
             << passenger.getId() << ' '
             << passenger.getFullName() << ' '
-            << passenger.getEMail() << ' '
-            << passenger.getPassword() << ' '
             << '\n';
 
     return out;
@@ -30,30 +28,7 @@ void operator >> (std::istream &in, passenger &passenger) {
     in >> user_data;
     passenger.setFullName();
 
-    in >> user_data;
-    passenger.setEMail(user_data);
-
-    in >> user_data;
-    passenger.setPassword(user_data);
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const std::string &passenger::getFirstName() const {
@@ -81,22 +56,6 @@ const std::string &passenger::getFatherName() const {
 void passenger::setFatherName(const std::string &fatherName) {
     father_name = fatherName;
     setFullName();
-}
-
-const std::string &passenger::getPassword() const {
-    return password;
-}
-
-void passenger::setPassword(const std::string &user_password) {
-    passenger::password = user_password;
-}
-
-const std::string &passenger::getEMail() const {
-    return e_mail;
-}
-
-void passenger::setEMail(const std::string &eMail) {
-    e_mail = eMail;
 }
 
 const std::string &passenger::getFullName() const {

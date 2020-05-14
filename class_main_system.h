@@ -104,7 +104,7 @@ public:
     trip Get_trip_info(DB_ID id);
     std::vector<trip> Get_trip_vector();
     DB_ID add_trip(trip &trip);
-    DB_ID edit_trip(trip &trip_passenger,  DB_ID id);
+    DB_ID edit_trip(trip &edited_trip,  DB_ID id);
     DB_ID delete_trip(DB_ID id);
 
 
