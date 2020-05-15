@@ -102,10 +102,11 @@ void add_default_ticket(main_system &sys, size_t wagon, size_t wg_place, DB_ID t
     ticket ticket;
     ticket.setPassengerName("NONAME");
     ticket.setState(ticket::FREE);
+    ticket.setYourWagon(wagon);
     ticket.setPlaceNumber(wg_place);
     ticket.setDepartureStationId(0);
     ticket.setArrivalStationId(0);
-    ticket.setPrice(0);
+    ticket.setPrice(55.5);
     ticket.setTripId(trip_id);
     sys.add_ticket(ticket);
 }
@@ -167,7 +168,6 @@ void set_route_information(route &route) {
                 route.addStation(station_id);
                 break;
             case 2:
-
                 std::cin >> station_counter;
                 for(size_t i = 0; i < station_counter; ++i){
                     std::cout << "Enter station id: ";
@@ -213,6 +213,13 @@ void delete_route(main_system &sys,  DB_ID route_id){
     sys.delete_route(route_id);
 }
 
+
+void delete_route(main_system &sys){
+    DB_ID route_id = get_object_id("Enter route id which will be deleted:  ");
+    sys.delete_route(route_id);
+}
+
+
 void get_route_stations(main_system &sys, DB_ID route_id) {
     std::cout << "\n*** Get route stations ***";
     route route;
@@ -220,10 +227,6 @@ void get_route_stations(main_system &sys, DB_ID route_id) {
 
     }
 
-void delete_route(main_system &sys){
-    DB_ID route_id = get_object_id("Enter route id which will be deleted:  ");
-    sys.delete_route(route_id);
-}
 
 void edit_route(main_system &sys){
     DB_ID route_id = get_object_id("Enter route id which info you want to edit: ");
@@ -380,7 +383,7 @@ void generate_trip_tickets(main_system &sys, DB_ID train_id, DB_ID trip_id) {
     }
 }
 
-void set_new_trip(main_system &sys) {
+void add_new_trip(main_system &sys) {
     std::cout << "\n*** Creating new trip ***";
     trip new_trip;
     set_trip_information(new_trip);
@@ -392,11 +395,14 @@ void set_new_trip(main_system &sys) {
 void delete_trip(main_system &sys) {
     std::cout << "\n*** Delete trip ***\n";
     DB_ID trip_id = get_object_id("Enter trip id which will be deleted: ");
-    sys.delete_trip(trip_id);
+    delete_trip(sys, trip_id);
+
 }
 
-void delete_trip(main_system &sys, DB_ID id) {
-    sys.delete_trip(id);
+void delete_trip(main_system &sys, DB_ID trip_id) {
+    sys.delete_trip(trip_id);
+
+
 }
 
 void edit_trip(main_system &sys) {
@@ -431,8 +437,23 @@ void get_trip_information(main_system &sys, DB_ID trip_id) {
 
 void set_trip_information(trip &trip) {
     DATE date;
-    PLATFORM_ID pl_id;
+    DB_ID temp_id;
+
+    std::cout << "\nEnter trip date: ";
+    std::cin >> date;
     trip.setDate(date);
+
+    std::cout << "Enter platform: ";
+    std::cin >> temp_id;
+    trip.setPlatformId(temp_id);
+
+    std::cout << "Enter route id: ";
+    std::cin >> temp_id;
+    trip.setRouteId(temp_id);
+
+    std::cout << "Enter train id: ";
+    std::cin >> temp_id;
+    trip.setTrainId(temp_id);
 }
 
 /*

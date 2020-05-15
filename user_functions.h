@@ -37,7 +37,8 @@ void get_ticket_information(main_system &sys, DB_ID ticket_id);
 void set_ticket_information(ticket &new_ticket);
 
 void generate_trip_tickets(main_system &sys, DB_ID train_id, DB_ID trip_id);
-void set_new_trip(main_system &sys);
+
+void add_new_trip(main_system &sys);
 void delete_trip(main_system &sys);
 void delete_trip(main_system &sys, DB_ID id);
 void edit_trip(main_system &sys);
@@ -65,6 +66,7 @@ void get_train_list(main_system &sys);
 void get_train_information(main_system &sys);
 void get_train_information(main_system &sys, DB_ID train_id);
 void set_train_information(train &train);
+
 
 void set_new_passenger(main_system &sys);
 void delete_passenger(main_system &sys);

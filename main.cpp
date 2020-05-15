@@ -21,8 +21,8 @@ void front_end(main_system & vokzal) {
     for (auto i = 0; i < 10; i++) {
         train t;
         t.setId(vokzal.next_train_id());
-        t.setWagons(10);
-        t.setWagonPlaces(50);
+        t.setWagons(2);
+        t.setWagonPlaces(10);
         vokzal.add_train(t);
     }
 
@@ -34,6 +34,7 @@ void front_end(main_system & vokzal) {
         }else{
             z.setState(ticket::USED);
         }
+        z.setYourWagon(5);
         z.setPlaceNumber(i+i*10);
         z.setPrice( 1000 );
         z.setTripId(80021);
@@ -50,8 +51,8 @@ void front_end(main_system & vokzal) {
          ps.setFirstName("Олег");
          ps.setFatherName("Петрович");
          vokzal.add_passenger(ps);
-
      }
+
 
     for (auto i = 0; i < 10; i++) {
 
@@ -75,6 +76,11 @@ void front_end(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
+    std::cout << "\ncheck trip functions\n";
+
+    add_new_trip(vokzal);
+
+    /*
     std::cout << "\ncheck station functions\n";
     for (int i = 0; i < 5; ++i){
         add_new_station(vokzal);
@@ -84,7 +90,7 @@ void test_user_func(main_system & vokzal){
     delete_station(vokzal);
     get_station_information(vokzal);
 
-/*
+
 
     std::cout << "\n\ncheck route functions\n\n";
     add_new_route(vokzal);
@@ -114,7 +120,7 @@ int main() {
 
     main_system vokz;
 
-    front_end(vokz);
+    //front_end(vokz);
     test_user_func(vokz);
 
     return 0;
