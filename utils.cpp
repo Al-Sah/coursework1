@@ -5,6 +5,44 @@
 
 #include "utils.h"
 
+void operation_check(int &operation) {
+    while (!(std::cin >> operation)) {
+        std::cout << "Input error, you need type: (unsigned int)\nEnter correct data:";
+        std::cin.clear();
+        while (std::cin.get() != '\n');
+    }
+}
+void input_id_check(DB_ID &id) {
+    while (!(std::cin >> id)) {
+        std::cout << "Input error, you need type: (unsigned int)\nEnter correct data:";
+        std::cin.clear();
+        while (std::cin.get() != '\n');
+    }
+}
+
+void input_date(std::string &date) {
+    unsigned int d = 40, m = 15, y = 0;
+    std::string day, month, year;
+    std::cout << std::endl;
+
+    while (d > 32){
+        std::cout << "-Input day: ";
+        input_id_check(d);
+    }
+    while (m > 12){
+        std::cout << "-Input month: ";
+        input_id_check(m);
+    }
+    while (1 > y){
+        std::cout << "-Input year: ";
+        input_id_check(y);
+    }
+    day = std::to_string(d);
+    month = std::to_string(m);
+    year = std::to_string(y);
+    date = day + "." + month + "." + year;
+
+}
 
 std::string ask_user(const char *prompt){
     std::cout << prompt;
@@ -17,7 +55,7 @@ std::string ask_user(const char *prompt){
 DB_ID get_object_id(const char * prompt){
     DB_ID ret;
     std::cout << prompt;
-    std::cin >> ret;
+    input_id_check(ret);
 
     return ret;
 }
@@ -34,13 +72,6 @@ void my_dbg(const char *str){
 
 }
 
-void operation_check(int &operation) {
-    while (!(std::cin >> operation)) {
-        std::cout << "Ошибка ввода, нужен int\n";
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-    }
-}
 
 void set_info_route_help() {
     std::cout << "\n0. End setting info";

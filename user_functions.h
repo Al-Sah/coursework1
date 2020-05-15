@@ -16,6 +16,20 @@
 
 #define MY_DEBUG
 
+void check_route_exist(main_system & sys, DB_ID &id);
+void check_train_exist(main_system & sys, DB_ID &id);
+void check_station_exist(main_system & sys, DB_ID &id);
+
+void admin_switch(main_system & sys);
+void common_user_switch(main_system & sys);
+void station_functions_switch(main_system & sys);
+void ticket_functions_switch(main_system & sys);
+void trip_functions_switch(main_system & sys);
+void route_functions_switch(main_system & sys);
+void train_functions_switch(main_system & sys);
+void passenger_functions_switch(main_system & sys);
+
+
 
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -45,7 +59,7 @@ void edit_trip(main_system &sys);
 void get_trip_list(main_system &sys);
 void get_trip_information(main_system &sys);
 void get_trip_information(main_system &sys, DB_ID trip_id);
-void set_trip_information(trip &trip);
+void set_trip_information(main_system &sys, trip &trip);
 
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
@@ -76,5 +90,8 @@ void get_passenger_list(main_system &sys);
 void get_passenger_information(main_system &sys);
 void get_passenger_information(main_system &sys, DB_ID passenger_id);
 void set_passenger_information(passenger &passenger);
+
+
+
 
 #endif //ISE_USER_FUNCTIONS_H

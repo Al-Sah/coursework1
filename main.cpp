@@ -77,9 +77,13 @@ void generation_data(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
-    //std::cout << "\ncheck trip functions\n";
+    std::cout << "\ncheck trip functions\n";
 
-    //add_new_trip(vokzal);
+    add_new_trip(vokzal);
+    /*get_trip_list(vokzal);
+    edit_trip( vokzal);
+    delete_trip(vokzal);
+    get_trip_information(vokzal);
 
     std::cout << "\ncheck station functions\n";
     add_new_station(vokzal);
@@ -105,19 +109,41 @@ void test_user_func(main_system & vokzal){
     set_new_passenger(vokzal);
     edit_passenger( vokzal);
     delete_passenger(vokzal);
-    get_passenger_information(vokzal);
+    get_passenger_information(vokzal);*/
 
 }
 
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-
     main_system vokz;
 
-    generation_data(vokz);
+    //generation_data(vokz);
     test_user_func(vokz);
+return 0;
+
+    int operation;
+
+    do {
+        std::cout <<"\nEnter 0 to finish work\nEnter 1 if you an administrator\nEnter 2 if you a passenger\nInput:";
+        operation_check(operation);
+        switch (operation) {
+            case 0:
+                std::cout << "\n|--------------------------|";
+                std::cout << "\n|***   Work finished    ***|";
+                std::cout << "\n|--------------------------|\n";
+                break;
+            case 1:
+                admin_switch(vokz);
+                break;
+            case 2:
+                common_user_switch(vokz);
+                break;
+            default:
+                std::cout<<"Wrong options, try again";
+        }
+    }while (operation != 0 );
 
     return 0;
 }
+
 

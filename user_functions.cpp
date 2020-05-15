@@ -7,6 +7,56 @@
 #include <iostream>
 
 
+void check_route_exist(main_system &sys, DB_ID &id) {
+    bool is_ok;
+    route route;
+    do {
+        is_ok = true;
+        std::cout << "Enter route id: ";
+        input_id_check(id);
+        try {
+            route= sys.Get_route_info(id);
+        } catch (char const *err) {
+            std::cout << "err: " << err << std::endl;
+            is_ok = false;
+        }
+    }while (!is_ok);
+}
+
+void check_train_exist(main_system &sys, DB_ID &id) {
+    bool is_ok;
+    train train;
+    do {
+        is_ok = true;
+        std::cout << "Enter train id: ";
+        input_id_check(id);
+        try {
+            train = sys.Get_train_info(id);
+        } catch (char const *err) {
+            std::cout << "err: " << err << std::endl;
+            is_ok = false;
+        }
+    }while (!is_ok);
+}
+
+void check_station_exist(main_system &sys, DB_ID &id) {
+    bool is_ok;
+    station station;
+    do {
+        is_ok = true;
+        std::cout << "Enter station id: ";
+        input_id_check(id);
+        try {
+            station = sys.Get_station_info(id);
+        } catch (char const *err) {
+            std::cout << "err: " << err << std::endl;
+            is_ok = false;
+        }
+    }while (!is_ok);
+}
+
+
+
 // ** station Functions **     --------------------------------
 
 
@@ -34,10 +84,11 @@ void get_station_information(main_system &sys){
 
 void set_station_information(station &new_st) {
     std::string name;
-    std::cout << "\nEnter new station name: ";
-    std::cin >> name;
+    name = ask_user("\nEnter new station name: ");
     new_st.setName(name);
 }
+
+
 void get_station_list(main_system &sys){
     std::cout << "\n*** Get station list ***";
     std::vector<station> stations;
@@ -199,6 +250,7 @@ void set_route_information(route &route) {
                 route.addStation(station_id);
                 break;
             case 2:
+                std::cout << "Enter number of station: ";
                 std::cin >> station_counter;
                 for(size_t i = 0; i < station_counter; ++i){
                     std::cout << "Enter station id: ";
@@ -462,7 +514,7 @@ void generate_trip_tickets(main_system &sys, DB_ID train_id, DB_ID trip_id) {
 void add_new_trip(main_system &sys) {
     std::cout << "\n*** Creating new trip ***";
     trip new_trip;
-    set_trip_information(new_trip);
+    set_trip_information(sys, new_trip);
 
     DB_ID trip_id = sys.add_trip(new_trip);
     generate_trip_tickets(sys, new_trip.getTrainId(), trip_id);
@@ -497,7 +549,7 @@ void edit_trip(main_system &sys) {
     }
     std::cout << "Old trip information: ";
     get_trip_information(sys, trip_id);
-    set_trip_information(trip);
+    set_trip_information(sys,trip);
     sys.edit_trip(trip, trip_id);
 }
 
@@ -505,16 +557,16 @@ void get_trip_list(main_system &sys) {
     std::cout << "\n*** Get trip list ***";
     std::vector<trip> trips;
     trips = sys.Get_trip_vector();
-    std::cout << "\nid -----------\n";
+    std::cout << "\nid date platform route_id train_id\n";
     for(auto trip : trips){
         std::cout << trip;
     }
 }
 
 void get_trip_information(main_system &sys) {
-    DB_ID passenger_id = get_object_id("Enter passenger id which info you want to see : ");
+    DB_ID trip_id = get_object_id("Enter trip id which info you want to see : ");
     try {
-        get_passenger_information(sys, passenger_id);
+        get_trip_information(sys, trip_id);
     } catch (char const *err) {
         std::cout << "err: " << err << std::endl;
         return;
@@ -522,29 +574,71 @@ void get_trip_information(main_system &sys) {
 }
 
 void get_trip_information(main_system &sys, DB_ID trip_id) {
-    sys.Get_trip_info(trip_id);
+    trip trip;
+    trip = sys.Get_trip_info(trip_id);
+    std::cout  << trip;
+
 }
 
-void set_trip_information(trip &trip) {
+void set_trip_information(main_system &sys, trip &trip) {
     DATE date;
-    DB_ID temp_id;
+    DB_ID temp_id = 0;
 
-    std::cout << "\nEnter trip date: ";
-    std::cin >> date;
+    std::cout << "\nEnter trip date ";
+    input_date(date);
     trip.setDate(date);
 
     std::cout << "Enter platform: ";
-    std::cin >> temp_id;
+    input_id_check(temp_id);
     trip.setPlatformId(temp_id);
 
-    std::cout << "Enter route id: ";
-    std::cin >> temp_id;
+    check_route_exist(sys, temp_id);
     trip.setRouteId(temp_id);
 
-    std::cout << "Enter train id: ";
-    std::cin >> temp_id;
+    check_train_exist(sys, temp_id);
     trip.setTrainId(temp_id);
+
 }
+
+
+
+void admin_switch(main_system &sys) {
+
+    std::cout << "***** Welcome *****\nYou are an administrator of this system !";
+
+    int operation;
+
+    do {
+        operation_check(operation);
+        switch (operation) {
+            case 0:
+                std::cout << "\n|---------------------------------------------------|";
+                std::cout << "\n|*** You have completed work as an administrator ***|";
+                std::cout << "\n|---------------------------------------------------|\n";
+                break;
+            case 1:
+                station_functions_switch(sys);
+                break;
+            case 2:
+                break;
+            default:
+                std::cout<<"Wrong options, try again";
+                break;
+        }
+    }while (operation != 0 );
+}
+
+void common_user_switch(main_system &sys) {
+
+
+}
+
+void station_functions_switch(main_system &sys) {
+
+}
+
+
+
 
 /*
  *
