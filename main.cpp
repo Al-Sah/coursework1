@@ -8,7 +8,7 @@
 
 #include "user_functions.h"
 
-void front_end(main_system & vokzal) {
+void generation_data(main_system & vokzal) {
 
 
 
@@ -50,6 +50,7 @@ void front_end(main_system & vokzal) {
          ps.setSurname("Корявый");
          ps.setFirstName("Олег");
          ps.setFatherName("Петрович");
+         ps.setFullName();
          vokzal.add_passenger(ps);
      }
 
@@ -76,25 +77,20 @@ void front_end(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
-    std::cout << "\ncheck trip functions\n";
+    //std::cout << "\ncheck trip functions\n";
 
-    add_new_trip(vokzal);
+    //add_new_trip(vokzal);
 
-    /*
     std::cout << "\ncheck station functions\n";
-    for (int i = 0; i < 5; ++i){
-        add_new_station(vokzal);
-    }
+    add_new_station(vokzal);
     get_station_list(vokzal);
     edit_station( vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
 
-
-
     std::cout << "\n\ncheck route functions\n\n";
     add_new_route(vokzal);
-    edit_route(vokzal);
+    //edit_route(vokzal);
     delete_route(vokzal);
     get_route_information(vokzal);
 
@@ -110,7 +106,6 @@ void test_user_func(main_system & vokzal){
     edit_passenger( vokzal);
     delete_passenger(vokzal);
     get_passenger_information(vokzal);
-*/
 
 }
 
@@ -120,7 +115,7 @@ int main() {
 
     main_system vokz;
 
-    //front_end(vokz);
+    generation_data(vokz);
     test_user_func(vokz);
 
     return 0;

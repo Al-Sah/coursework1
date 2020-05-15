@@ -146,20 +146,21 @@ DB_ID main_system::next_trip_id() {
 
 
 
-
 template<typename my_type>
 DB_ID main_system::update(std::vector<my_type> &records, my_type updated_record, DB_ID id) {
     int idx = Alex_Utils::find_index(records, id);
+    if(idx == NOT_FOUND){
+        throw "Object not found";
+    }
     records[idx] = updated_record;
-
     return id;
 }
 
 template<typename my_type>
 DB_ID main_system::delete_obj(std::vector<my_type> &records, DB_ID id) {
     int idx = Alex_Utils::find_index(records, id);
-    if (idx == NOT_FOUND) {
-        return RET_FAILED;
+    if(idx == NOT_FOUND){
+        throw "Object not found";
     }
     records.erase(records.begin() + idx);
     return RET_OK;
@@ -168,6 +169,9 @@ DB_ID main_system::delete_obj(std::vector<my_type> &records, DB_ID id) {
 template<typename my_type>
 my_type main_system::get_info(std::vector<my_type> &records, DB_ID id) {
     int idx = Alex_Utils::find_index(records, id);
+    if(idx == NOT_FOUND){
+        throw "Object not found";
+    }
     my_type &obj = records[idx];
     return obj;
 }

@@ -13,7 +13,7 @@
 void get_station_information(main_system &sys, DB_ID st_id){
     station st;
     st = sys.Get_station_info(st_id);
-    std::cout << "Station id is: " << st.getId() << "\nStation name is: " << st.getName();
+    std::cout << "Station id: " << st.getId() << "\nStation name: " << st.getName();
 }
 
 /**
@@ -24,7 +24,12 @@ void get_station_information(main_system &sys, DB_ID st_id){
 void get_station_information(main_system &sys){
     std::cout << "\n*** Get station info ***\n";
     DB_ID st_id = get_object_id("Enter station id which info you want to see: ");
-    get_station_information(sys, st_id);
+    try {
+        get_station_information(sys, st_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void set_station_information(station &new_st) {
@@ -50,11 +55,16 @@ void add_new_station(main_system &sys)  {
     sys.add_station(new_st);
 }
 
-void edit_station(main_system &sys){
+void edit_station(main_system &sys) {
     std::cout << "\n*** Edit station ***\n";
     DB_ID st_id = get_object_id("Enter station id which info you want to edit: ");
     station new_st;
-    new_st = sys.Get_station_info(st_id);
+    try {
+        new_st = sys.Get_station_info(st_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old station information:\n";
     get_station_information(sys, st_id);
     set_station_information(new_st);
@@ -65,7 +75,13 @@ void edit_station(main_system &sys){
 void delete_station(main_system &sys){
     std::cout << "\n*** Delete station ***\n";
     DB_ID st_id = get_object_id("Enter station id which will be deleted: ");
-    delete_station(sys, st_id);
+    try {
+        delete_station(sys, st_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
+
 }
 
 void delete_station(main_system &sys, DB_ID st_id){
@@ -73,7 +89,7 @@ void delete_station(main_system &sys, DB_ID st_id){
 }
 
 
-
+//ticket functions
 
 
 void get_ticket_information(main_system &sys, DB_ID ticket_id){
@@ -84,7 +100,12 @@ void get_ticket_information(main_system &sys, DB_ID ticket_id){
 
 void get_ticket_information(main_system &sys){
     DB_ID tic_id = get_object_id("Enter ticket id which info you want to see: ");
-    get_ticket_information(sys, tic_id);
+    try {
+        get_ticket_information(sys, tic_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 void set_ticket_information(ticket &new_ticket){
     std::string name, surname, father_name, full_passenger_name;
@@ -115,8 +136,8 @@ void get_ticket_list(main_system &sys) {
     std::vector<ticket> tickets;
     tickets = sys.Get_ticket_vector();
     std::cout << "\nid ------------------\n";
-    for(auto passenger : tickets){
-        std::cout << passenger;
+    for(auto ticket : tickets){
+        std::cout << ticket;
     }
 }
 
@@ -124,7 +145,12 @@ void get_ticket_list(main_system &sys) {
 void edit_ticket(main_system &sys){
     DB_ID tic_id = get_object_id("Enter ticket id which info you want to edit: ");
     ticket new_tic;
-    new_tic = sys.Get_ticket_info(tic_id);
+    try {
+        new_tic = sys.Get_ticket_info(tic_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old ticket information: ";
     get_ticket_information(sys, tic_id);
     set_ticket_information(new_tic);
@@ -134,7 +160,12 @@ void edit_ticket(main_system &sys){
 
 void delete_ticket(main_system &sys){
     DB_ID ticket_id = get_object_id("Enter ticket id which will be deleted:  ");
-    sys.delete_ticket(ticket_id);
+    try {
+        delete_ticket(sys, ticket_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 void delete_ticket(main_system &sys, DB_ID ticket_id){
     sys.delete_ticket(ticket_id);
@@ -201,7 +232,12 @@ void get_route_list(main_system &sys) {
 
 void get_route_information(main_system &sys){
     DB_ID route_id = get_object_id("Enter route id which info you want to see: ");
-    get_route_information(sys, route_id);
+    try {
+        get_route_information(sys, route_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 void get_route_information(main_system &sys, DB_ID route_id){
     route route;
@@ -214,9 +250,14 @@ void delete_route(main_system &sys,  DB_ID route_id){
 }
 
 
-void delete_route(main_system &sys){
+void delete_route(main_system &sys) {
     DB_ID route_id = get_object_id("Enter route id which will be deleted:  ");
-    sys.delete_route(route_id);
+    try {
+        delete_route(sys,route_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 
@@ -231,7 +272,12 @@ void get_route_stations(main_system &sys, DB_ID route_id) {
 void edit_route(main_system &sys){
     DB_ID route_id = get_object_id("Enter route id which info you want to edit: ");
     route new_route;
-    new_route = sys.Get_route_info(route_id);
+    try {
+        new_route = sys.Get_route_info(route_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old station info: ";
     get_route_information(sys, route_id);
     set_route_information(new_route);
@@ -243,7 +289,12 @@ void edit_route(main_system &sys){
 
 void get_train_information(main_system &sys){
     DB_ID train_id = get_object_id("Enter train id which info you want to see: ");
-    get_train_information(sys, train_id);
+    try {
+        get_train_information(sys, train_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void get_train_information(main_system &sys, DB_ID train_id) {
@@ -273,7 +324,12 @@ void get_train_list(main_system &sys) {
 void edit_train(main_system &sys){
     DB_ID tr_id = get_object_id("Enter train id which info you want to edit: ");
     train new_train;
-    new_train = sys.Get_train_info(tr_id);
+    try {
+        new_train = sys.Get_train_info(tr_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old train information: ";
     get_train_information(sys, tr_id);
     set_train_information(new_train);
@@ -290,7 +346,12 @@ void add_new_train(main_system &sys){
 }
 void delete_train(main_system &sys){
     DB_ID train_id = get_object_id("Enter train id which will be deleted:  ");
-    sys.delete_train(train_id);
+    try {
+        delete_train(sys,train_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void delete_train(main_system &sys, DB_ID train_id){
@@ -311,7 +372,12 @@ void set_new_passenger(main_system &sys) {
 void delete_passenger(main_system &sys) {
     std::cout << "\n*** Delete passenger ***\n";
     DB_ID passenger_id = get_object_id("Enter passenger id which will be deleted:  ");
-    sys.delete_passenger(passenger_id);
+    try {
+        delete_passenger(sys,passenger_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void delete_passenger(main_system &sys, DB_ID passenger_id) {
@@ -322,7 +388,12 @@ void edit_passenger(main_system &sys) {
     std::cout << "\n*** Edit passenger ***\n";
     DB_ID passenger_id = get_object_id("Enter passenger id which info you want to edit: ");
     passenger passenger;
-    passenger = sys.Get_passenger_info(passenger_id);
+    try {
+        passenger = sys.Get_passenger_info(passenger_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old passenger information: ";
     get_passenger_information(sys, passenger_id);
     set_passenger_information(passenger);
@@ -341,7 +412,12 @@ void get_passenger_list(main_system &sys) {
 
 void get_passenger_information(main_system &sys) {
     DB_ID passenger_id = get_object_id("Enter passenger id which info you want to see: ");
-    get_passenger_information(sys, passenger_id);
+    try {
+        get_passenger_information(sys, passenger_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void get_passenger_information(main_system &sys, DB_ID passenger_id) {
@@ -395,8 +471,12 @@ void add_new_trip(main_system &sys) {
 void delete_trip(main_system &sys) {
     std::cout << "\n*** Delete trip ***\n";
     DB_ID trip_id = get_object_id("Enter trip id which will be deleted: ");
-    delete_trip(sys, trip_id);
-
+    try {
+        delete_trip(sys, trip_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void delete_trip(main_system &sys, DB_ID trip_id) {
@@ -409,7 +489,12 @@ void edit_trip(main_system &sys) {
     std::cout << "\n*** Edit trip ***\n";
     DB_ID trip_id = get_object_id("Enter trip id which info you want to edit: ");
     trip trip;
-    trip = sys.Get_trip_info(trip_id);
+    try {
+        trip = sys.Get_trip_info(trip_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
     std::cout << "Old trip information: ";
     get_trip_information(sys, trip_id);
     set_trip_information(trip);
@@ -428,7 +513,12 @@ void get_trip_list(main_system &sys) {
 
 void get_trip_information(main_system &sys) {
     DB_ID passenger_id = get_object_id("Enter passenger id which info you want to see : ");
-    get_passenger_information(sys, passenger_id);
+    try {
+        get_passenger_information(sys, passenger_id);
+    } catch (char const *err) {
+        std::cout << "err: " << err << std::endl;
+        return;
+    }
 }
 
 void get_trip_information(main_system &sys, DB_ID trip_id) {

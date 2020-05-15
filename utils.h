@@ -11,14 +11,13 @@
 #include <chrono>
 
 enum {
-    NOT_FOUND,
-    RET_FAILED,
+    NOT_FOUND = -1,
+    RET_FAILED = -2,
     RET_OK,
 };
 
 void operation_check(int &operation);
 void set_info_route_help();
-
 
 namespace Alex_Utils{
 
