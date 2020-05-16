@@ -17,9 +17,9 @@ enum {
 };
 
 void operation_check(int &operation);
-DB_ID input_id_check(DB_ID &id);
+DB_ID input_id_check();
 void set_info_route_help();
-void input_date(DATE &date);
+DATE ask_user_date();
 
 namespace Alex_Utils{
 

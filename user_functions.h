@@ -16,9 +16,9 @@
 
 #define MY_DEBUG
 
-void check_route_exist(main_system & sys, DB_ID &id);
-void check_train_exist(main_system & sys, DB_ID &id);
-void check_station_exist(main_system & sys, DB_ID &id);
+DB_ID ask_route_id_from_user(main_system & sys);
+DB_ID ask_train_id_from_user(main_system & sys);
+DB_ID ask_station_id_from_user(main_system & sys);
 DB_ID ask_trip_id_from_user(main_system & sys);
 
 void admin_switch(main_system & sys);

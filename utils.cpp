@@ -12,7 +12,8 @@ void operation_check(int &operation) {
         while (std::cin.get() != '\n');
     }
 }
-DB_ID input_id_check(DB_ID &id) {
+DB_ID input_id_check() {
+    DB_ID id;
     while (!(std::cin >> id)) {
         std::cout << "Input error, you need type: (unsigned int)\nEnter correct data:";
         std::cin.clear();
@@ -21,27 +22,29 @@ DB_ID input_id_check(DB_ID &id) {
     return id;
 }
 
-void input_date(std::string &date) {
+DATE ask_user_date() {
+    DATE date;
     unsigned int d = 40, m = 15, y = 0;
     std::string day, month, year;
     std::cout << std::endl;
 
     while (d > 32){
         std::cout << "-Input day: ";
-        input_id_check(d);
+        d = input_id_check();
     }
     while (m > 12){
         std::cout << "-Input month: ";
-        input_id_check(m);
+        m = input_id_check();
     }
     while (1 > y){
         std::cout << "-Input year: ";
-        input_id_check(y);
+        y = input_id_check();
     }
     day = std::to_string(d);
     month = std::to_string(m);
     year = std::to_string(y);
     date = day + "." + month + "." + year;
+    return date;
 
 }
 
@@ -54,10 +57,9 @@ std::string ask_user(const char *prompt){
 }
 
 DB_ID get_object_id(const char * prompt){
-    DB_ID ret;
-    std::cout << prompt;
-    input_id_check(ret);
 
+    std::cout << prompt;
+    DB_ID ret = input_id_check();
     return ret;
 }
 
