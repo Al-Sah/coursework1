@@ -12,12 +12,13 @@ void operation_check(int &operation) {
         while (std::cin.get() != '\n');
     }
 }
-void input_id_check(DB_ID &id) {
+DB_ID input_id_check(DB_ID &id) {
     while (!(std::cin >> id)) {
         std::cout << "Input error, you need type: (unsigned int)\nEnter correct data:";
         std::cin.clear();
         while (std::cin.get() != '\n');
     }
+    return id;
 }
 
 void input_date(std::string &date) {
@@ -78,7 +79,6 @@ void set_info_route_help() {
     std::cout << "\n1. Set one station";
     std::cout << "\n2. Set many stations";
     std::cout << "\n3. Delete station";
-    std::cout << "\n4. Replace station";
     //std::cout << "\n5. ";
 
 }

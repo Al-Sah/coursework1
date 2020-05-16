@@ -13,7 +13,7 @@ void check_route_exist(main_system &sys, DB_ID &id) {
     do {
         is_ok = true;
         std::cout << "Enter route id: ";
-        input_id_check(id);
+        id = input_id_check(id);
         try {
             route= sys.Get_route_info(id);
         } catch (char const *err) {
@@ -29,7 +29,7 @@ void check_train_exist(main_system &sys, DB_ID &id) {
     do {
         is_ok = true;
         std::cout << "Enter train id: ";
-        input_id_check(id);
+        id = input_id_check(id);
         try {
             train = sys.Get_train_info(id);
         } catch (char const *err) {
@@ -45,7 +45,7 @@ void check_station_exist(main_system &sys, DB_ID &id) {
     do {
         is_ok = true;
         std::cout << "Enter station id: ";
-        input_id_check(id);
+        id = input_id_check(id);
         try {
             station = sys.Get_station_info(id);
         } catch (char const *err) {
@@ -53,6 +53,24 @@ void check_station_exist(main_system &sys, DB_ID &id) {
             is_ok = false;
         }
     }while (!is_ok);
+}
+
+DB_ID ask_trip_id_from_user(main_system &sys) {
+    DB_ID id;
+    bool is_ok;
+    trip trip;
+    do {
+        is_ok = true;
+        std::cout << "Enter trip id: ";
+        id = input_id_check(id);
+        try {
+            trip = sys.Get_trip_info(id);
+        } catch (char const *err) {
+            std::cout << "err: " << err << std::endl;
+            is_ok = false;
+        }
+    }while (!is_ok);
+    return id;
 }
 
 
@@ -63,7 +81,7 @@ void check_station_exist(main_system &sys, DB_ID &id) {
 void get_station_information(main_system &sys, DB_ID st_id){
     station st;
     st = sys.Get_station_info(st_id);
-    std::cout << "Station id: " << st.getId() << "\nStation name: " << st.getName();
+    std::cout << "Station id:   " << st.getId() << "\nStation name: " << st.getName();
 }
 
 /**
@@ -72,14 +90,10 @@ void get_station_information(main_system &sys, DB_ID st_id){
  */
 
 void get_station_information(main_system &sys){
-    std::cout << "\n*** Get station info ***\n";
-    DB_ID st_id = get_object_id("Enter station id which info you want to see: ");
-    try {
-        get_station_information(sys, st_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    std::cout << "\n*** Get station info ***\nWhat station id which info you want to see\n";
+    DB_ID st_id;
+    check_station_exist(sys, st_id);
+    get_station_information(sys, st_id);
 }
 
 void set_station_information(station &new_st) {
@@ -107,15 +121,11 @@ void add_new_station(main_system &sys)  {
 }
 
 void edit_station(main_system &sys) {
-    std::cout << "\n*** Edit station ***\n";
-    DB_ID st_id = get_object_id("Enter station id which info you want to edit: ");
+    std::cout << "\n*** Edit station ***\nWhat station id which info you want to edit\n";
+    DB_ID st_id;
     station new_st;
-    try {
-        new_st = sys.Get_station_info(st_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    check_station_exist(sys, st_id);
+    new_st = sys.Get_station_info(st_id);
     std::cout << "Old station information:\n";
     get_station_information(sys, st_id);
     set_station_information(new_st);
@@ -227,46 +237,43 @@ void delete_ticket(main_system &sys, DB_ID ticket_id){
 void add_new_route(main_system &sys){
     std::cout << "\n*** Creating new route ***";
     route new_route;
-    set_route_information(new_route);
+    set_route_information(sys, new_route);
     sys.add_route(new_route);
 }
 
-void set_route_information(route &route) {
+void set_route_information(main_system &sys,route &route) {
     int operation;
     DB_ID station_id, station_counter;
     set_info_route_help();
+    std::vector<DB_ID>station_ids;
+    station_ids = route.getStationIds();
 
     do{
-        std::cout << "\nВведите номер операции: ";
+        std::cout << "\nEnter operation: ";
         operation_check(operation);
 
         switch (operation) {
             case 0:
-                std::cout << "\n*** Setting information finished ***\n";
+                std::cout << "\n*Setting information finished\n";
                 break;
             case 1:
-                std::cout << "Enter station id: ";
-                std::cin >> station_id;
+                check_station_exist(sys, station_id);
                 route.addStation(station_id);
                 break;
             case 2:
                 std::cout << "Enter number of station: ";
                 std::cin >> station_counter;
                 for(size_t i = 0; i < station_counter; ++i){
-                    std::cout << "Enter station id: ";
-                    std::cin >> station_id;
+                    check_station_exist(sys, station_id);
                     route.addStation(station_id);
                 }
                 break;
             case 3:
-                std::cin >> station_id;
+                check_station_exist(sys, station_id);
                 route.deleteStation(station_id);
                 break;
-            case 4:
-                std::cin >> station_id;
-                break;
             default:
-                std::cout << "Такой операции нет";
+                std::cout << "Wrong operation";
                 break;
         }
     } while (operation != 0);
@@ -283,17 +290,15 @@ void get_route_list(main_system &sys) {
 }
 
 void get_route_information(main_system &sys){
-    DB_ID route_id = get_object_id("Enter route id which info you want to see: ");
-    try {
-        get_route_information(sys, route_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    std::cout << "\n*** Get route info\nEnter route id which info you want to see\n";
+    DB_ID route_id;
+    check_route_exist(sys,route_id);
+    get_route_information(sys, route_id);
 }
 void get_route_information(main_system &sys, DB_ID route_id){
     route route;
     route = sys.Get_route_info(route_id);
+    //FIXME вывод
     std::cout << route;
 }
 
@@ -303,36 +308,39 @@ void delete_route(main_system &sys,  DB_ID route_id){
 
 
 void delete_route(main_system &sys) {
-    DB_ID route_id = get_object_id("Enter route id which will be deleted:  ");
-    try {
-        delete_route(sys,route_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    std::cout << "\n*** Deleting route ***\nEnter route id which will be deleted\n";
+    DB_ID route_id;
+    check_route_exist(sys,route_id);
+    delete_route(sys,route_id);
+}
+void get_route_stations(main_system &sys) {
+    std::cout << "\n*** Get route stations ***\n";
+    DB_ID route_id;
+    check_route_exist(sys,route_id);
+    get_route_stations(sys, route_id);
 }
 
 
 void get_route_stations(main_system &sys, DB_ID route_id) {
-    std::cout << "\n*** Get route stations ***";
     route route;
-    //route.getStations();
-
+    route = sys.Get_route_info(route_id);
+    std::string sep;
+    for(const auto& station : route.getStations(&sys)){
+        std::cout << sep << station.getName() ;
+        sep = " -> ";
     }
+}
 
 
 void edit_route(main_system &sys){
-    DB_ID route_id = get_object_id("Enter route id which info you want to edit: ");
+    std::cout << "\n*** Edit route ***\nWhat route id which info you want to edit\n";
+    DB_ID route_id;
     route new_route;
-    try {
-        new_route = sys.Get_route_info(route_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    check_route_exist(sys, route_id);
+    new_route = sys.Get_route_info(route_id);
     std::cout << "Old station info: ";
     get_route_information(sys, route_id);
-    set_route_information(new_route);
+    set_route_information(sys, new_route);
     sys.edit_route(new_route, route_id);
 }
 
@@ -521,35 +529,37 @@ void add_new_trip(main_system &sys) {
 }
 
 void delete_trip(main_system &sys) {
-    std::cout << "\n*** Delete trip ***\n";
-    DB_ID trip_id = get_object_id("Enter trip id which will be deleted: ");
-    try {
-        delete_trip(sys, trip_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    std::cout << "\n*** Delete trip ***\nWhat trip id which will be deleted\n";
+    DB_ID trip_id;
+    ask_trip_id_from_user(sys, trip_id);
+    //TODO: удалить билеты которые связаны с трипом
+    delete_trip(sys, trip_id);
 }
 
 void delete_trip(main_system &sys, DB_ID trip_id) {
     sys.delete_trip(trip_id);
-
-
 }
 
 void edit_trip(main_system &sys) {
-    std::cout << "\n*** Edit trip ***\n";
-    DB_ID trip_id = get_object_id("Enter trip id which info you want to edit: ");
+    std::cout << "\n*** Edit trip ***\nWhat trip id which info you want to edit\n";
+    DATE date;
     trip trip;
-    try {
-        trip = sys.Get_trip_info(trip_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    DB_ID trip_id;
+
+    ask_trip_id_from_user(sys, trip_id);
+    trip = sys.Get_trip_info(trip_id);
     std::cout << "Old trip information: ";
-    get_trip_information(sys, trip_id);
-    set_trip_information(sys,trip);
+     get_trip_information(sys, trip_id);
+
+    std::cout << "**Input new info**\nEnter new trip date ";
+    input_date(date);
+    trip.setDate(date);
+
+    std::cout << "Enter new platform: ";
+    PLATFORM_ID platformId;
+    input_id_check(platformId);
+    trip.setPlatformId(trip_id);
+
     sys.edit_trip(trip, trip_id);
 }
 
@@ -564,25 +574,22 @@ void get_trip_list(main_system &sys) {
 }
 
 void get_trip_information(main_system &sys) {
-    DB_ID trip_id = get_object_id("Enter trip id which info you want to see : ");
-    try {
-        get_trip_information(sys, trip_id);
-    } catch (char const *err) {
-        std::cout << "err: " << err << std::endl;
-        return;
-    }
+    std::cout << "\n*** Get trip info ***\nEnter trip id which info you want to see\n";
+    DB_ID trip_id = ask_trip_id_from_user(sys);
+    get_trip_information(sys, trip_id);
 }
 
 void get_trip_information(main_system &sys, DB_ID trip_id) {
     trip trip;
     trip = sys.Get_trip_info(trip_id);
+    //FIXME вывод значений
     std::cout  << trip;
 
 }
 
 void set_trip_information(main_system &sys, trip &trip) {
     DATE date;
-    DB_ID temp_id = 0;
+    DB_ID temp_id, route_id, train_id;
 
     std::cout << "\nEnter trip date ";
     input_date(date);
@@ -592,11 +599,11 @@ void set_trip_information(main_system &sys, trip &trip) {
     input_id_check(temp_id);
     trip.setPlatformId(temp_id);
 
-    check_route_exist(sys, temp_id);
-    trip.setRouteId(temp_id);
+    check_route_exist(sys, route_id);
+    trip.setRouteId(route_id);
 
-    check_train_exist(sys, temp_id);
-    trip.setTrainId(temp_id);
+    check_train_exist(sys, train_id);
+    trip.setTrainId(train_id);
 
 }
 

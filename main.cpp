@@ -66,7 +66,7 @@ void generation_data(main_system & vokzal) {
     for (auto i = 0; i < 10; i++) {
         srand(time(NULL));
         route rt;
-        int st_numb = rand() % 10;
+        int st_numb = rand() % 15;
         rt.setId(vokzal.next_route_id());
         for(int j = 1; j < st_numb; ++j){
             rt.addStation(j);
@@ -77,27 +77,32 @@ void generation_data(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
-    std::cout << "\ncheck trip functions\n";
+/*    std::cout << "\ncheck trip functions\n";
 
     add_new_trip(vokzal);
-    /*get_trip_list(vokzal);
+    get_trip_list(vokzal);
     edit_trip( vokzal);
     delete_trip(vokzal);
     get_trip_information(vokzal);
 
+
     std::cout << "\ncheck station functions\n";
     add_new_station(vokzal);
-    get_station_list(vokzal);
+    //get_station_list(vokzal);
     edit_station( vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
+    */
 
-    std::cout << "\n\ncheck route functions\n\n";
-    add_new_route(vokzal);
+    std::cout << "\ncheck route functions\n";
+    //add_new_route(vokzal);
     //edit_route(vokzal);
-    delete_route(vokzal);
-    get_route_information(vokzal);
+    //delete_route(vokzal);
+    //get_route_list(vokzal);
+    get_route_stations(vokzal);
+    //get_route_information(vokzal);
 
+ /*
     std::cout << "\n\ncheck train functions\n\n";
     add_new_train(vokzal);
     edit_train(vokzal);

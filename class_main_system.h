@@ -17,7 +17,7 @@
 
 
 
-class main_system : public my_db_record, StationsStorage {
+class main_system : public my_db_record, public StationsStorage {
 
 public:
     main_system();

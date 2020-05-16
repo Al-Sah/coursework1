@@ -19,6 +19,7 @@
 void check_route_exist(main_system & sys, DB_ID &id);
 void check_train_exist(main_system & sys, DB_ID &id);
 void check_station_exist(main_system & sys, DB_ID &id);
+DB_ID ask_trip_id_from_user(main_system & sys);
 
 void admin_switch(main_system & sys);
 void common_user_switch(main_system & sys);
@@ -67,9 +68,10 @@ void delete_route(main_system &sys, DB_ID id);
 void edit_route(main_system &sys);
 void get_route_list(main_system &sys);
 void get_route_information(main_system &sys);
+void get_route_stations(main_system &sys);
 void get_route_stations(main_system &sys, DB_ID route_id);
 void get_route_information(main_system &sys, DB_ID route_id);
-void set_route_information(route &route);
+void set_route_information(main_system &sys,route &route);
 
 
 void add_new_train(main_system &sys);
