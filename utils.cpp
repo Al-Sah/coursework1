@@ -28,12 +28,12 @@ DATE ask_user_date() {
     std::string day, month, year;
     std::cout << std::endl;
 
-    while (d > 32){
-        std::cout << "-Input day: ";
+    while (d == 0 || d > 32){
+        std::cout << "-Input day (from 1 to 32): ";
         d = input_id_check();
     }
-    while (m > 12){
-        std::cout << "-Input month: ";
+    while (m == 0 || m > 12){
+        std::cout << "-Input month (from 1 to 12): ";
         m = input_id_check();
     }
     while (1 > y){

@@ -20,6 +20,9 @@ DB_ID ask_route_id_from_user(main_system & sys);
 DB_ID ask_train_id_from_user(main_system & sys);
 DB_ID ask_station_id_from_user(main_system & sys);
 DB_ID ask_trip_id_from_user(main_system & sys);
+DB_ID ask_passenger_id_from_user(main_system & sys);
+DB_ID ask_ticket_id_from_user(main_system & sys);
+
 
 void admin_switch(main_system & sys);
 void common_user_switch(main_system & sys);
@@ -31,7 +34,7 @@ void train_functions_switch(main_system & sys);
 void passenger_functions_switch(main_system & sys);
 
 
-
+DB_ID find_station_by_name(main_system & sys);
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
 void delete_station(main_system &sys, DB_ID st_id);
@@ -49,8 +52,9 @@ void edit_ticket(main_system &sys);
 void get_ticket_list(main_system &sys);
 void get_ticket_information(main_system &sys);
 void get_ticket_information(main_system &sys, DB_ID ticket_id);
-void set_ticket_information(ticket &new_ticket);
+void set_ticket_information(main_system &sys, ticket &new_ticket);
 
+void buying_ticket(main_system &sys);
 void generate_trip_tickets(main_system &sys, DB_ID train_id, DB_ID trip_id);
 
 void add_new_trip(main_system &sys);
@@ -62,6 +66,7 @@ void get_trip_information(main_system &sys);
 void get_trip_information(main_system &sys, DB_ID trip_id);
 void set_trip_information(main_system &sys, trip &trip);
 
+std::vector<DB_ID> find_correct_route_id(main_system &sys, DB_ID arrival_station, DB_ID departure_station);
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
 void delete_route(main_system &sys, DB_ID id);

@@ -17,6 +17,7 @@ private:
     DATE date;
     DB_ID train_id;
 
+
 public:
 
     const PLATFORM_ID &getPlatformId() const;

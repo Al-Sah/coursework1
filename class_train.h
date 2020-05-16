@@ -12,6 +12,7 @@
 class train: public my_db_record {
 
 private:
+
     size_t wagons;
     size_t wagon_places;
     size_t total_places;

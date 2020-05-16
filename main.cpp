@@ -77,36 +77,38 @@ void generation_data(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
-/*    std::cout << "\ncheck trip functions\n";
+/*   std::cout << "\ncheck trip functions\n";
 
     add_new_trip(vokzal);
     get_trip_list(vokzal);
     edit_trip( vokzal);
     delete_trip(vokzal);
-    get_trip_information(vokzal);
 
+    get_trip_information(vokzal);
+*/
 
     std::cout << "\ncheck station functions\n";
+    find_station_by_name(vokzal);
     add_new_station(vokzal);
-    //get_station_list(vokzal);
+    get_station_list(vokzal);
     edit_station( vokzal);
     delete_station(vokzal);
     get_station_information(vokzal);
-    */
+
 
     std::cout << "\ncheck route functions\n";
-    //add_new_route(vokzal);
-    //edit_route(vokzal);
-    //delete_route(vokzal);
-    //get_route_list(vokzal);
+    add_new_route(vokzal);
+    edit_route(vokzal);
+    delete_route(vokzal);
+    get_route_list(vokzal);
     get_route_stations(vokzal);
-    //get_route_information(vokzal);
+    get_route_information(vokzal);
 
- /*
+
     std::cout << "\n\ncheck train functions\n\n";
     add_new_train(vokzal);
     edit_train(vokzal);
-    delete_ticket(vokzal);
+    delete_train(vokzal);
     get_train_information(vokzal);
 
     std::cout << "\n\ncheck passenger functions\n\n";
@@ -114,7 +116,12 @@ void test_user_func(main_system & vokzal){
     set_new_passenger(vokzal);
     edit_passenger( vokzal);
     delete_passenger(vokzal);
-    get_passenger_information(vokzal);*/
+    get_passenger_information(vokzal);/**/
+
+    get_ticket_list(vokzal);
+    edit_ticket( vokzal);
+    delete_ticket(vokzal);
+    get_ticket_information(vokzal);
 
 }
 

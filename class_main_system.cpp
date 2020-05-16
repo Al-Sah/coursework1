@@ -31,6 +31,7 @@ main_system::~main_system() {
 
 }
 
+
 void main_system::dump() {
 #if 1 || DEBUG
     for (auto train : trains) {
