@@ -251,7 +251,7 @@ void buying_ticket(main_system &sys) {
     ticket.setDepartureStationId(departure_station);
 
     good_routes = find_correct_route_id(sys,arrival_station, departure_station);
-    
+
 
 }
 
