@@ -66,7 +66,13 @@ void get_trip_information(main_system &sys);
 void get_trip_information(main_system &sys, DB_ID trip_id);
 void set_trip_information(main_system &sys, trip &trip);
 
-std::vector<DB_ID> find_correct_route_id(main_system &sys, DB_ID arrival_station, DB_ID departure_station);
+std::vector<DB_ID> find_correct_routes_id(main_system &sys, DB_ID arrival_station, DB_ID departure_station);
+DB_ID find_correct_trip_id(main_system &sys, DATE date, std::vector<DB_ID>& good_routes);
+DB_ID find_correct_ticket(main_system & sys, DB_ID trip_id);
+std::string ask_passenger_name();
+std::vector<ticket> get_trip_tickets_list(main_system &sys, DB_ID trip_id);
+
+
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
 void delete_route(main_system &sys, DB_ID id);

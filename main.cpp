@@ -86,7 +86,9 @@ void test_user_func(main_system & vokzal){
 
     get_trip_information(vokzal);
 */
-
+    edit_station( vokzal);
+    buying_ticket(vokzal);
+/*
     std::cout << "\ncheck station functions\n";
     find_station_by_name(vokzal);
     add_new_station(vokzal);
@@ -116,12 +118,12 @@ void test_user_func(main_system & vokzal){
     set_new_passenger(vokzal);
     edit_passenger( vokzal);
     delete_passenger(vokzal);
-    get_passenger_information(vokzal);/**/
+    get_passenger_information(vokzal);*//**//*
 
     get_ticket_list(vokzal);
     edit_ticket( vokzal);
     delete_ticket(vokzal);
-    get_ticket_information(vokzal);
+    get_ticket_information(vokzal);*/
 
 }
 
@@ -133,11 +135,11 @@ int main() {
     test_user_func(vokz);
 return 0;
 
-    int operation;
+    DB_ID operation;
 
     do {
         std::cout <<"\nEnter 0 to finish work\nEnter 1 if you an administrator\nEnter 2 if you a passenger\nInput:";
-        operation_check(operation);
+        operation = operation_check();
         switch (operation) {
             case 0:
                 std::cout << "\n|--------------------------|";

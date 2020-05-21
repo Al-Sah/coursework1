@@ -44,8 +44,8 @@ void main_system::dump() {
 template<typename my_type>
 void main_system::save_file(const std::vector<my_type> &records, const char *file_name) {
     std::ofstream records_file(file_name);
-    for (auto obj : records) {
-        records_file << obj;
+    for (auto object : records) {
+        records_file << object;
     }
 }
 

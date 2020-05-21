@@ -5,12 +5,14 @@
 
 #include "utils.h"
 
-void operation_check(int &operation) {
+DB_ID operation_check() {
+    DB_ID operation;
     while (!(std::cin >> operation)) {
         std::cout << "Input error, you need type: (unsigned int)\nEnter correct data:";
         std::cin.clear();
         while (std::cin.get() != '\n');
     }
+    return operation;
 }
 DB_ID input_id_check() {
     DB_ID id;

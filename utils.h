@@ -16,7 +16,7 @@ enum {
     RET_OK,
 };
 
-void operation_check(int &operation);
+DB_ID operation_check();
 DB_ID input_id_check();
 void set_info_route_help();
 DATE ask_user_date();
