@@ -86,8 +86,11 @@ void test_user_func(main_system & vokzal){
 
     get_trip_information(vokzal);
 */
-    edit_station( vokzal);
-    buying_ticket(vokzal);
+    //add_new_trip(vokzal);
+    free_places_on_certain_trip_report(vokzal);
+    trips_on_certain_date_report(vokzal);
+    //edit_station( vokzal);
+    //buying_ticket(vokzal);
 /*
     std::cout << "\ncheck station functions\n";
     find_station_by_name(vokzal);

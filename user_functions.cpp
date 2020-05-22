@@ -332,7 +332,7 @@ DB_ID find_correct_ticket(main_system &sys, DB_ID trip_id) {
         }
 
 
-    DB_ID operation = 3;
+    DB_ID operation;
     std::cout << "\n1)Choose random ticket \n2)Choose certain ticket\nEnter(1/2): ";
 
     do{operation = operation_check();
@@ -840,6 +840,151 @@ void common_user_switch(main_system &sys) {
 void station_functions_switch(main_system &sys) {
 
 }
+
+std::vector<trip> trips_on_certain_date(main_system &sys) {
+
+    unsigned int trip_counter = 0;
+
+    std::vector<trip> trips, trips_to_the_date;
+    trips = sys.Get_trip_vector();
+    DATE date;
+
+    std::cout << "\nEnter date";
+    date = ask_user_date();
+
+    for (const auto &trip : trips) {
+        if (trip.getDate() == date) {
+            trips_to_the_date.push_back(trip);
+            trip_counter++;
+        }
+    }
+    if (trips_to_the_date.empty()) {
+        std::cout << "No trips to " << date << std::endl;
+    } else {
+        std::cout << "\n* " << trip_counter << " trips to the " << date << std::endl;
+        int counter = 0;
+        for (const auto &trip: trips_to_the_date) {
+            ++counter;
+            std::cout << "Trip number: (" << counter << ") ";
+            get_trip_information(sys, trip.getId());
+        }
+    }
+    return trips_to_the_date;
+}
+
+void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets){
+    DB_ID trip_id;
+    bool is_ok;
+    std::cout << "\nEnter trip id which you interested in: ";
+    do{
+        trip_id = input_id_check();
+        is_ok = false;
+        for(const auto& trip: trips_to_the_date){
+            if(trip.getId() == trip_id){
+                is_ok = true;
+            }
+        }
+        if(!is_ok){
+            std::cout << "Entered wrong trip id (No object found), try again\n";
+        }
+    }while (!is_ok);
+
+    trip_tickets = get_trip_tickets_list(sys, trip_id);
+    int counter = 0;
+    for(const auto& ticket: trip_tickets){
+        if(ticket.getState() == 0){
+            counter++;
+        }
+    }
+    std::cout << "\n" << counter << " free tickets to the your trip\n";
+}
+void free_places_list(main_system &sys, DB_ID trip_id) {
+
+    std::vector<ticket> trip_tickets, free_trip_tickets;
+    trip_tickets = get_trip_tickets_list(sys, trip_id);
+
+    for(const auto& ticket: trip_tickets){
+        if(ticket.getState() == 0){
+            free_trip_tickets.push_back(ticket);
+        }
+    }
+    std::cout << "\n List of free places to trip " << trip_id << std::endl;
+    for(const auto& ticket: free_trip_tickets){
+        get_ticket_information(sys, ticket.getId());
+    }
+}
+
+
+void trips_on_certain_date_report(main_system &sys) {
+    std::cout << "\n*** Report: \"Trips on certain date\" *** \n";
+    trips_on_certain_date(sys);
+}
+
+void free_places_on_certain_trip_report(main_system &sys) {
+    std::cout << "\n*** Report: \"Free places on certain trip\" *** \n";
+
+    std::vector<ticket> trip_tickets, free_trip_tickets;
+    std::vector<trip> trips_to_the_date;
+    DB_ID trip_id, operation;
+
+    std::cout << "\n1)Search by id\n2)Search by date + route\nEnter(1/2): ";
+
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+
+    if (operation == 1) {
+        trip_id = ask_trip_id_from_user(sys);
+        trip_tickets = get_trip_tickets_list(sys, trip_id);
+        int counter = 0;
+        for (const auto &ticket: trip_tickets) {
+            if (ticket.getState() == 0) {
+                counter++;
+            }
+        }
+        std::cout << "\n" << counter << " free tickets to the your trip\n";
+
+    } else {
+        trips_to_the_date = trips_on_certain_date(sys);
+        free_places_on_certain_trip(sys, trips_to_the_date, trip_tickets);
+
+    }
+
+    std::cout<< "Show free places list ?\n1)Yes\n2)No\nYour choice: ";
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+    if (operation == 1) {
+        free_places_list(sys, trip_id);
+    } else{
+        return;
+    }
+}
+
+void routes_which_contain_certain_station_report(main_system &sys) {
+    std::cout << "\n*** Report: \"Routes which contain certain station\" *** \n";
+
+    station station;
+    
+
+
+}
+
+void routes_which_contain_many_stations_report(main_system &sys) {
+    std::cout << "\n*** Report: \"Routes which contain many stations\" *** \n";
+}
+
+void the_most_popular_route_report(main_system &sys) {
+    std::cout << "\n*** Report: \"The most popular route\" *** \n";
+}
+
+
+
+void trips_which_use_certain_route_report() {
+
+}
+
+
 
 
 

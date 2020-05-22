@@ -16,21 +16,21 @@
 
 #define MY_DEBUG
 
+DB_ID ask_trip_id_from_user(main_system & sys);
 DB_ID ask_route_id_from_user(main_system & sys);
 DB_ID ask_train_id_from_user(main_system & sys);
-DB_ID ask_station_id_from_user(main_system & sys);
-DB_ID ask_trip_id_from_user(main_system & sys);
-DB_ID ask_passenger_id_from_user(main_system & sys);
 DB_ID ask_ticket_id_from_user(main_system & sys);
+DB_ID ask_station_id_from_user(main_system & sys);
+DB_ID ask_passenger_id_from_user(main_system & sys);
 
 
 void admin_switch(main_system & sys);
 void common_user_switch(main_system & sys);
-void station_functions_switch(main_system & sys);
-void ticket_functions_switch(main_system & sys);
 void trip_functions_switch(main_system & sys);
 void route_functions_switch(main_system & sys);
 void train_functions_switch(main_system & sys);
+void ticket_functions_switch(main_system & sys);
+void station_functions_switch(main_system & sys);
 void passenger_functions_switch(main_system & sys);
 
 
@@ -104,7 +104,17 @@ void get_passenger_information(main_system &sys);
 void get_passenger_information(main_system &sys, DB_ID passenger_id);
 void set_passenger_information(passenger &passenger);
 
+void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets);
+std::vector<trip> trips_on_certain_date(main_system &sys);
+void free_places_list(main_system &sys, DB_ID trip_id);
 
+
+void trips_on_certain_date_report(main_system &sys);
+void free_places_on_certain_trip_report(main_system &sys);
+void routes_which_contain_certain_station_report(main_system &sys);
+void routes_which_contain_many_stations_report(main_system &sys);
+void the_most_popular_route_report(main_system &sys);
+void trips_which_use_certain_route_report(main_system &sys);
 
 
 #endif //ISE_USER_FUNCTIONS_H
