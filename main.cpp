@@ -87,6 +87,10 @@ void test_user_func(main_system & vokzal){
     get_trip_information(vokzal);
 */
     //add_new_trip(vokzal);
+    //add_new_route(vokzal);
+    trips_which_use_certain_route_report(vokzal);
+    routes_which_contain_many_stations_report(vokzal);
+    routes_which_contain_certain_station_report(vokzal);
     free_places_on_certain_trip_report(vokzal);
     trips_on_certain_date_report(vokzal);
     //edit_station( vokzal);

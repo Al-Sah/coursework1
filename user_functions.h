@@ -72,7 +72,7 @@ DB_ID find_correct_ticket(main_system & sys, DB_ID trip_id);
 std::string ask_passenger_name();
 std::vector<ticket> get_trip_tickets_list(main_system &sys, DB_ID trip_id);
 
-
+DB_ID find_route_by_stations(main_system &sys);
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
 void delete_route(main_system &sys, DB_ID id);

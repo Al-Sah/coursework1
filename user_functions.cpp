@@ -351,7 +351,7 @@ DB_ID find_correct_ticket(main_system &sys, DB_ID trip_id) {
         }
         std::cout << "Enter ticket id: ";
         ticket_id = ask_ticket_id_from_user(sys);
-        //TODO sss
+        //TODO поиск билета
     }
 
     return ticket_id;
@@ -964,24 +964,158 @@ void free_places_on_certain_trip_report(main_system &sys) {
 void routes_which_contain_certain_station_report(main_system &sys) {
     std::cout << "\n*** Report: \"Routes which contain certain station\" *** \n";
 
+    std::vector<route> all_routes, good_routes;
+    std::vector<DB_ID> stations_in_route;
+    all_routes = sys.Get_route_vector();
     station station;
-    
 
+    DB_ID station_id = find_station_by_name(sys);
 
+    for(auto& route: all_routes){
+        stations_in_route = route.getStationIds();
+        for(auto st_id: stations_in_route){
+            if(st_id == station_id){
+                good_routes.push_back(route);
+                continue;
+            }
+        }
+    }
+
+    if(good_routes.empty()){
+        std::cout << "Station is not used\n";
+        return;
+    } else{
+        int i = 0;
+        for(const auto& route: good_routes){
+            ++i;
+            std::cout << "Route " << i << " : ";
+            get_route_information(sys, route.getId());
+        }
+    }
 }
 
 void routes_which_contain_many_stations_report(main_system &sys) {
     std::cout << "\n*** Report: \"Routes which contain many stations\" *** \n";
+
+    std::vector<route> all_routes, good_routes;
+    std::vector<DB_ID> stations_in_route, station_ids;
+    all_routes = sys.Get_route_vector();
+    station station;
+
+    std::cout << "Enter number of stations: ";
+    int counter = 0;
+    counter = operation_check();
+    for(int i = 0; i < counter; ++i){
+        DB_ID station_id = find_station_by_name(sys);
+        station_ids.push_back(station_id);
+    }
+
+    for(auto& route: all_routes){
+        counter = 0;
+        stations_in_route = route.getStationIds();
+        for(auto st_route_id: stations_in_route){
+            for(auto st_user_id: station_ids){
+                if(st_route_id == st_user_id){
+                    counter++;
+                }
+            }
+            if(counter == station_ids.size()){
+                good_routes.push_back(route);
+            }
+        }
+    }
+
+    if(good_routes.empty()){
+        std::cout << "Station is not used\n";
+        return;
+    } else{
+        int i = 0;
+        for(const auto& route: good_routes){
+            ++i;
+            std::cout << "Route " << i << " : ";
+            get_route_information(sys, route.getId());
+        }
+    }
+
 }
 
 void the_most_popular_route_report(main_system &sys) {
     std::cout << "\n*** Report: \"The most popular route\" *** \n";
+
+
+
+}
+DB_ID find_route_by_stations(main_system &sys){
+
+    std::vector<route> all_routes, good_routes;
+    std::vector<DB_ID> stations_in_route, station_ids;
+    all_routes = sys.Get_route_vector();
+    station station;
+    DB_ID appropriate_route;
+
+    std::cout << "Enter number of stations: ";
+    int counter = 0;
+    counter = operation_check();
+    for(int i = 0; i < counter; ++i){
+        DB_ID station_id = find_station_by_name(sys);
+        station_ids.push_back(station_id);
+    }
+
+    for(auto& route: all_routes){
+        counter = 0;
+        stations_in_route = route.getStationIds();
+        for(auto st_route_id: stations_in_route){
+            for(auto st_user_id: station_ids){
+                if(st_route_id == st_user_id){
+                    counter++;
+                }
+            }
+            if(counter == station_ids.size()){
+                good_routes.push_back(route);
+            }
+        }
+    }
+    for(const auto& route: good_routes){
+        if(good_routes.size() == 1){
+           appropriate_route = route.getId();
+           break;
+        }//TODO поиск
+    }
+    return appropriate_route;
 }
 
+void trips_which_use_certain_route_report(main_system &sys) {
+    std::cout << "\n*** Report: \"Route usages \" *** \n";
 
+    std::vector<trip> all_trips, good_trips;
+    all_trips = sys.Get_trip_vector();
 
-void trips_which_use_certain_route_report() {
+    DB_ID operation, route_id;
+    std::cout << "Firstly, find route)\n";
+    std::cout << "\n1)Search by id\n2)Search by stations\nEnter(1/2): ";
 
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+
+    if(operation == 1){
+        route_id = ask_route_id_from_user(sys);
+    }else{
+        route_id = find_route_by_stations(sys);
+    }
+
+    for(const auto& trip: all_trips){
+        if(trip.getRouteId() == route_id){
+            good_trips.push_back(trip);
+        }
+    }
+    std::cout << "Yor route uses in " << good_trips.size() << " trips\n";
+    int counter = 0;
+    for(const auto& trip: good_trips){
+        ++counter;
+        std::cout << "Trip number "<<counter<<" : ";
+        get_trip_information(sys, trip.getId());
+    }
 }
 
 
