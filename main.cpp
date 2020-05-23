@@ -3,10 +3,8 @@
 #include <cstring>
 
 #include "class_main_system.h"
-#include "class_ticket.h"
-#include "class_train.h"
-
 #include "user_functions.h"
+#include "user_menus.h"
 
 void generation_data(main_system & vokzal) {
 
@@ -77,7 +75,7 @@ void generation_data(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
-/*   std::cout << "\ncheck trip functions\n";
+   std::cout << "\ncheck trip functions\n";
 
     add_new_trip(vokzal);
     get_trip_list(vokzal);
@@ -85,17 +83,17 @@ void test_user_func(main_system & vokzal){
     delete_trip(vokzal);
 
     get_trip_information(vokzal);
-*/
-    //add_new_trip(vokzal);
-    //add_new_route(vokzal);
+
+
     trips_which_use_certain_route_report(vokzal);
     routes_which_contain_many_stations_report(vokzal);
     routes_which_contain_certain_station_report(vokzal);
     free_places_on_certain_trip_report(vokzal);
     trips_on_certain_date_report(vokzal);
-    //edit_station( vokzal);
-    //buying_ticket(vokzal);
-/*
+
+    edit_station( vokzal);
+    buying_ticket(vokzal);
+
     std::cout << "\ncheck station functions\n";
     find_station_by_name(vokzal);
     add_new_station(vokzal);
@@ -118,6 +116,7 @@ void test_user_func(main_system & vokzal){
     add_new_train(vokzal);
     edit_train(vokzal);
     delete_train(vokzal);
+    get_train_list(vokzal);
     get_train_information(vokzal);
 
     std::cout << "\n\ncheck passenger functions\n\n";
@@ -125,24 +124,50 @@ void test_user_func(main_system & vokzal){
     set_new_passenger(vokzal);
     edit_passenger( vokzal);
     delete_passenger(vokzal);
-    get_passenger_information(vokzal);*//**//*
+    get_passenger_information(vokzal);
 
     get_ticket_list(vokzal);
     edit_ticket( vokzal);
     delete_ticket(vokzal);
-    get_ticket_information(vokzal);*/
+    get_ticket_information(vokzal);
 
 }
+
+
+extern MenuItem admin_menu[];
+extern MenuItem user_menu[];
 
 
 int main() {
     main_system vokz;
 
     //generation_data(vokz);
-    test_user_func(vokz);
-return 0;
+    //test_user_func(vokz);
+
 
     DB_ID operation;
+
+    MenuItem main_system_menu[] = {
+            {
+                    .caption { "Admin menu" },
+                    .cmd{"admin"},
+                    .next {admin_menu},
+                    .description {"menu for Good"}
+            },
+            {
+                    .caption { "User menu"},
+                    .cmd { "user" },
+                    .next {user_menu},
+                    .description  {"menu for usual person"}
+            },
+            { }
+    };
+
+   draw_menu("System", main_system_menu, " * Main menu * ", vokz);
+
+
+
+
 
     do {
         std::cout <<"\nEnter 0 to finish work\nEnter 1 if you an administrator\nEnter 2 if you a passenger\nInput:";
@@ -155,9 +180,6 @@ return 0;
                 break;
             case 1:
                 admin_switch(vokz);
-                break;
-            case 2:
-                common_user_switch(vokz);
                 break;
             default:
                 std::cout<<"Wrong options, try again";

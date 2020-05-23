@@ -229,23 +229,33 @@ void delete_station(main_system &sys, DB_ID st_id){
 
 
 void get_ticket_information(main_system &sys, DB_ID ticket_id){
-    ticket tic;
-    tic = sys.Get_ticket_info(ticket_id);
-    std::cout << tic;
+    ticket ticket;
+    ticket = sys.Get_ticket_info(ticket_id);
+    std::cout
+            << "\nTicket id: " << ticket.getId()
+            << "\nTrip id: " << ticket.getTripId()
+            << "\nState: " << ticket.getState()
+            << "\nPrice: " << ticket.getPrice()
+            << "\nWagon: " << ticket.getYourWagon()
+            << "\nWg place: " << ticket.getPlaceNumber()
+            << "\nDeparture station id: " << ticket.getDepartureStationId()
+            << "\nArrival station id: " << ticket.getArrivalStationId()
+            << "\nPassenger full name: " << ticket.getPassengerName();
 }
 
 void get_ticket_information(main_system &sys){
-    std::cout << "\n*** Edit ticket ***\nEnter ticket id which info you want to see\n";
+    std::cout << "\n*** Get ticket information***\nEnter ticket id which info you want to see\n";
     DB_ID tic_id = ask_ticket_id_from_user(sys);
     get_ticket_information(sys, tic_id);
 
 }
 void buying_ticket(main_system &sys) {
-
+    std::cout << "\n*** Buying ticket ***\n";
     ticket ticket;
     std::vector<DB_ID> good_routes;
     DB_ID arrival_station, departure_station, trip_id;
     DATE date;
+    std::cout << "Firstly enter arrival station and departure station";
     do {
          arrival_station = find_station_by_name(sys);
          departure_station = find_station_by_name(sys);
@@ -349,11 +359,21 @@ DB_ID find_correct_ticket(main_system &sys, DB_ID trip_id) {
             DB_ID t_id = ticket.getId();
             get_ticket_information(sys, t_id);
         }
-        std::cout << "Enter ticket id: ";
-        ticket_id = ask_ticket_id_from_user(sys);
-        //TODO поиск билета
+        bool is_ok;
+        do {
+            is_ok = false;
+            std::cout << "Enter ticket id\n";
+            ticket_id = ask_ticket_id_from_user(sys);
+            for (const auto& ticket: free_trip_tickets) {
+                if (ticket_id == ticket.getId()) {
+                    is_ok = true;
+                }
+            }
+            if(!is_ok){
+                std::cout<< "Try again\n";
+            }
+        }while (!is_ok);
     }
-
     return ticket_id;
 }
 
@@ -523,8 +543,16 @@ void get_route_information(main_system &sys){
 void get_route_information(main_system &sys, DB_ID route_id){
     route route;
     route = sys.Get_route_info(route_id);
-    //FIXME вывод
-    std::cout << route;
+    std::vector<DB_ID> st_ids;
+    st_ids = route.getStationIds();
+    std::cout
+        <<"\nRoute id: " << route.getId()
+        <<"\nNumber of stations: " << route.getStationsNumber()
+        <<"\nStation ids in route: ";
+    for(auto id: st_ids){
+        std::cout << id << " ";
+    }
+
 }
 
 void delete_route(main_system &sys,  DB_ID route_id){
@@ -578,7 +606,12 @@ void get_train_information(main_system &sys){
 void get_train_information(main_system &sys, DB_ID train_id) {
     train train;
     train = sys.Get_train_info(train_id);
-    std::cout << train;
+    std::cout
+    << "\nTrain id: " << train.getId()
+    << "\nWagons: " << train.getWagons()
+    << "\nPlaces in wagon: " << train.getWagonPlaces()
+    << "\nTotal places: " << train.getTotalPlaces();
+
 }
 
 void set_train_information(train &train) {
@@ -782,8 +815,12 @@ void get_trip_information(main_system &sys) {
 void get_trip_information(main_system &sys, DB_ID trip_id) {
     trip trip;
     trip = sys.Get_trip_info(trip_id);
-    //FIXME вывод значений
-    std::cout  << trip;
+    std::cout
+    << "\nTrip id:  " << trip.getId()
+    << "\nDate:     " << trip.getDate()
+    << "\nPlatform: " << trip.getPlatformId()
+    << "\nRoute id: " << trip.getRouteId()
+    << "\nTrain id: " << trip.getTrainId();
 
 }
 
@@ -910,18 +947,22 @@ void free_places_list(main_system &sys, DB_ID trip_id) {
     }
     std::cout << "\n List of free places to trip " << trip_id << std::endl;
     for(const auto& ticket: free_trip_tickets){
-        get_ticket_information(sys, ticket.getId());
+
+        std::cout
+                << "\nTicket id: " << ticket.getId()
+                << "\nWagon: " << ticket.getYourWagon()
+                << "\nWg place: " << ticket.getPlaceNumber() << "\n-------\n";
     }
 }
 
 
 void trips_on_certain_date_report(main_system &sys) {
-    std::cout << "\n*** Report: \"Trips on certain date\" *** \n";
+    std::cout << "\n\n*** Report: \"Trips on certain date\" *** \n";
     trips_on_certain_date(sys);
 }
 
 void free_places_on_certain_trip_report(main_system &sys) {
-    std::cout << "\n*** Report: \"Free places on certain trip\" *** \n";
+    std::cout << "\n\n*** Report: \"Free places on certain trip\" *** \n";
 
     std::vector<ticket> trip_tickets, free_trip_tickets;
     std::vector<trip> trips_to_the_date;
@@ -962,7 +1003,7 @@ void free_places_on_certain_trip_report(main_system &sys) {
 }
 
 void routes_which_contain_certain_station_report(main_system &sys) {
-    std::cout << "\n*** Report: \"Routes which contain certain station\" *** \n";
+    std::cout << "\n\n*** Report: \"Routes which contain certain station\" *** \n";
 
     std::vector<route> all_routes, good_routes;
     std::vector<DB_ID> stations_in_route;
@@ -988,14 +1029,14 @@ void routes_which_contain_certain_station_report(main_system &sys) {
         int i = 0;
         for(const auto& route: good_routes){
             ++i;
-            std::cout << "Route " << i << " : ";
+            std::cout << "* Route " << i << ";";
             get_route_information(sys, route.getId());
         }
     }
 }
 
 void routes_which_contain_many_stations_report(main_system &sys) {
-    std::cout << "\n*** Report: \"Routes which contain many stations\" *** \n";
+    std::cout << "\n\n*** Report: \"Routes which contain many stations\" *** \n";
 
     std::vector<route> all_routes, good_routes;
     std::vector<DB_ID> stations_in_route, station_ids;
@@ -1060,7 +1101,6 @@ DB_ID find_route_by_stations(main_system &sys){
         DB_ID station_id = find_station_by_name(sys);
         station_ids.push_back(station_id);
     }
-
     for(auto& route: all_routes){
         counter = 0;
         stations_in_route = route.getStationIds();
@@ -1075,17 +1115,40 @@ DB_ID find_route_by_stations(main_system &sys){
             }
         }
     }
+    counter = 0;
     for(const auto& route: good_routes){
         if(good_routes.size() == 1){
            appropriate_route = route.getId();
            break;
-        }//TODO поиск
+        }
+        ++counter;
+        std::cout << "Trip number "<<counter<<" : ";
+        get_route_information(sys, route.getId());
+
     }
+    bool is_ok;
+    do {
+        is_ok = false;
+        std::cout << "Enter route id\n";
+        appropriate_route = ask_ticket_id_from_user(sys);
+        for (const auto& route: good_routes) {
+            if (appropriate_route == route.getId()) {
+                is_ok = true;
+            }
+        }
+        if(!is_ok){
+            std::cout<< "Try again\n";
+        }
+    }while (!is_ok);
+
     return appropriate_route;
+
+
+
 }
 
 void trips_which_use_certain_route_report(main_system &sys) {
-    std::cout << "\n*** Report: \"Route usages \" *** \n";
+    std::cout << "\n\n*** Report: \"Route usages \" *** \n";
 
     std::vector<trip> all_trips, good_trips;
     all_trips = sys.Get_trip_vector();
@@ -1109,6 +1172,7 @@ void trips_which_use_certain_route_report(main_system &sys) {
             good_trips.push_back(trip);
         }
     }
+
     std::cout << "Yor route uses in " << good_trips.size() << " trips\n";
     int counter = 0;
     for(const auto& trip: good_trips){
@@ -1116,6 +1180,7 @@ void trips_which_use_certain_route_report(main_system &sys) {
         std::cout << "Trip number "<<counter<<" : ";
         get_trip_information(sys, trip.getId());
     }
+
 }
 
 
