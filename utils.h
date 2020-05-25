@@ -39,6 +39,7 @@ namespace Alex_Utils{
 void my_dbg(const char *str);
 std::string ask_user(const char *prompt);
 DB_ID get_object_id(const char * prompt);
+int date_parser(const DATE& date);
 
 template <typename my_type>
 void get_object_information(main_system &sys);

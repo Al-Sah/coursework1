@@ -5,6 +5,10 @@
 #include <vector>
 #include "class_station.h"
 
+#define CLR_NORMAL "\033[0m"
+#define CLR_RED "\033[31;1;1m"
+#define CLR_GREEN "\033[32;1;1m"
+
 
 const std::string &station::getName() const {
     return name;
@@ -20,6 +24,16 @@ station::station() {
 
 station::~station() {
 //    std::cout << " station[" << (void*)this << "] " << *this <<" died" << std::endl;
+}
+
+bool operator>(const station &A, const station &B) {
+
+    bool zz = false;
+    if(A.name > B.name){
+        zz = true;
+    }
+    return zz;
+
 }
 
 

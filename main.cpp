@@ -75,6 +75,11 @@ void generation_data(main_system & vokzal) {
 
 void test_user_func(main_system & vokzal){
 
+
+    get_route_stations(vokzal, 11);
+    schedule_report(vokzal);
+   // sort_stations_by_names(vokzal);
+
    std::cout << "\ncheck trip functions\n";
 
     add_new_trip(vokzal);
@@ -144,8 +149,14 @@ int main() {
     //generation_data(vokz);
     //test_user_func(vokz);
 
-
     DB_ID operation;
+
+    for(int i = 0; i < 10; ++i){
+        //add_new_route(vokz);
+        //add_new_train(vokz);
+        add_new_trip(vokz);
+    }
+
 
     MenuItem main_system_menu[] = {
             {
@@ -159,32 +170,15 @@ int main() {
                     .cmd { "user" },
                     .next {user_menu},
                     .description  {"menu for usual person"}
-            },
-            { }
+            },{}
     };
 
    draw_menu("System", main_system_menu, " * Main menu * ", vokz);
 
 
-
-
-
-    do {
-        std::cout <<"\nEnter 0 to finish work\nEnter 1 if you an administrator\nEnter 2 if you a passenger\nInput:";
-        operation = operation_check();
-        switch (operation) {
-            case 0:
-                std::cout << "\n|--------------------------|";
-                std::cout << "\n|***   Work finished    ***|";
-                std::cout << "\n|--------------------------|\n";
-                break;
-            case 1:
-                admin_switch(vokz);
-                break;
-            default:
-                std::cout<<"Wrong options, try again";
-        }
-    }while (operation != 0 );
+    std::cout << "\n|--------------------------|";
+    std::cout << "\n|***   Work finished    ***|";
+    std::cout << "\n|--------------------------|\n";
 
     return 0;
 }

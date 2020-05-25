@@ -4,34 +4,37 @@
 
 #include "user_menus.h"
 #include "user_functions.h"
+#include <iomanip>
 
-void boom(void *) {
-    std::cout << "БУУУМ !!!! " << std::endl;
-}
+#define CLR_NORMAL "\033[0m"
+#define CLR_RED "\033[31;1;1m"
+#define CLR_GREEN "\033[32;1;1m"
 
-void baam(void *) {
-    std::cout << "БАААМ !!!!!!" << std::endl;
-}
+#define CLR_black "\033[30m "
+#define CLR_green "\033[32m"
+#define CLR_yellow "\033[33m"
+#define CLR_blue "\033[34m"
+#define CLR_magenta "\033[35m"
+#define CLR_cyan "\033[36m"
+#define CLR_grey "\033[37m"
 
-void tram(void *) {
-    std::cout << "ТРАММ !!!!!!" << std::endl;
-}
+
 
 void draw_menu(std::string caption, MenuItem * items, const char *description, main_system &sys){
 
-
+std::cout << "\0x07" << std::endl;
     while(true) {
         int zi=0;
-        std::cout << std::endl << caption << "\n";
-        std::cout  << description << std::endl;
+        std::cout << std::endl << std::endl << CLR_GREEN << caption << CLR_NORMAL << "\n";
+        std::cout  << CLR_blue << description << CLR_NORMAL << std::endl;
         std::map<std::string, int> cmds;
         //отрисовать
 
-        std::cout << zi <<"( q ) = quit"<<std::endl;
+        std::cout << CLR_magenta << zi  << CLR_NORMAL" ( " CLR_magenta"q " CLR_NORMAL") = quit"<<std::endl;
         cmds["q"] = zi;
         for (MenuItem *current_menu_item = items; current_menu_item->caption; current_menu_item++) {
             zi++;
-            std::cout << zi << "( " << current_menu_item->cmd << " ) = " << current_menu_item->caption << (current_menu_item->next ? " >>" : "") << std::endl;
+            std::cout << CLR_magenta << zi  << CLR_NORMAL " ( " CLR_magenta << current_menu_item->cmd << CLR_NORMAL " ) = " << current_menu_item->caption << (current_menu_item->next ? " >>" : "") << std::endl;
 //            std::cout << z->cmd << " = " << z->caption << (z->next ? " >>" : "") << std::endl;
             cmds[current_menu_item->cmd] = zi;
 

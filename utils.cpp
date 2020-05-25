@@ -4,6 +4,7 @@
 
 
 #include "utils.h"
+#include <sstream>
 
 DB_ID operation_check() {
     DB_ID operation;
@@ -87,6 +88,29 @@ void set_info_route_help() {
 
 }
 
+int date_parser(const DATE & date) {
+
+    int day = -1, month = -1, year = -1, parsed_date;
+    std::string temp_variable;
+    for (char i : date) {
+        if (i == '.') {
+            if (day == -1) {
+                std::istringstream(temp_variable) >> day;
+                temp_variable.clear();
+            } else if (month == -1) {
+                std::istringstream(temp_variable) >> month;
+                temp_variable.clear();
+            }
+        } else {
+            temp_variable.push_back(i);
+        }
+    }
+    std::istringstream(temp_variable) >> year;
+    temp_variable.clear();
+    parsed_date = year* 10000 + month * 100 + day;
+    return parsed_date;
+
+}
 
 /*template<typename my_type, typename my_method >
 void get_object_information(main_system &sys, my_class, const char *question) {

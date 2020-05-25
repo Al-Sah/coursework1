@@ -24,10 +24,6 @@ DB_ID ask_station_id_from_user(main_system & sys);
 DB_ID ask_passenger_id_from_user(main_system & sys);
 
 
-void admin_switch(main_system & sys);
-void station_functions_switch(main_system & sys);
-
-
 DB_ID find_station_by_name(main_system & sys);
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -60,13 +56,16 @@ void get_trip_information(main_system &sys);
 void get_trip_information(main_system &sys, DB_ID trip_id);
 void set_trip_information(main_system &sys, trip &trip);
 
-std::vector<DB_ID> find_correct_routes_id(main_system &sys, DB_ID arrival_station, DB_ID departure_station);
+std::vector<DB_ID> find_correct_routes_id_by_stations(main_system &sys, DB_ID arrival_station, DB_ID departure_station);
 DB_ID find_correct_trip_id(main_system &sys, DATE date, std::vector<DB_ID>& good_routes);
 DB_ID find_correct_ticket(main_system & sys, DB_ID trip_id);
 std::string ask_passenger_name();
 std::vector<ticket> get_trip_tickets_list(main_system &sys, DB_ID trip_id);
 
 DB_ID find_route_by_stations(main_system &sys);
+std::vector<DB_ID> route_arrival_station_and_departure_station_ids(main_system &sys);
+std::vector<DB_ID> route_arrival_station_and_departure_station_ids(main_system &sys, DB_ID route_id);
+std::vector<station> route_arrival_station_and_departure_station(main_system &sys, DB_ID route_id);
 void add_new_route(main_system &sys);
 void delete_route(main_system &sys);
 void delete_route(main_system &sys, DB_ID id);
@@ -102,6 +101,11 @@ void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trip
 std::vector<trip> trips_on_certain_date(main_system &sys);
 void free_places_list(main_system &sys, DB_ID trip_id);
 
+template <typename my_type>
+void my_shaker_stop_sort_temp_storage(std::vector<my_type> & records, size_t size);
+
+void schedule_report(main_system &sys);
+void sort_stations_by_names(main_system &sys);
 void trips_on_certain_date_report(main_system &sys);
 void free_places_on_certain_trip_report(main_system &sys);
 void routes_which_contain_certain_station_report(main_system &sys);

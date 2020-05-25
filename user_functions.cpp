@@ -5,6 +5,18 @@
 #include "user_functions.h"
 #include "utils.h"
 #include <iostream>
+#define CLR_NORMAL "\033[0m"
+#define CLR_RED "\033[31;1;1m"
+#define CLR_GREEN "\033[32;1;1m"
+
+#define CLR_black "\033[30m "
+#define CLR_green "\033[32m"
+#define CLR_yellow "\033[33m"
+#define CLR_blue "\033[34m"
+#define CLR_magenta "\033[35m"
+#define CLR_cyan "\033[36m"
+#define CLR_grey "\033[37m"
+
 
 
 DB_ID ask_route_id_from_user(main_system &sys) {
@@ -18,7 +30,7 @@ DB_ID ask_route_id_from_user(main_system &sys) {
         try {
             route= sys.Get_route_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -36,7 +48,7 @@ DB_ID ask_train_id_from_user(main_system &sys) {
         try {
             train = sys.Get_train_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -54,7 +66,7 @@ DB_ID ask_station_id_from_user(main_system &sys) {
         try {
             station = sys.Get_station_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -72,7 +84,7 @@ DB_ID ask_trip_id_from_user(main_system &sys) {
         try {
             trip = sys.Get_trip_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -91,7 +103,7 @@ DB_ID ask_passenger_id_from_user(main_system &sys) {
         try {
             passenger = sys.Get_passenger_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -110,7 +122,7 @@ DB_ID ask_ticket_id_from_user(main_system &sys) {
         try {
             ticket = sys.Get_ticket_info(id);
         } catch (char const *err) {
-            std::cout << "err: " << err << std::endl;
+            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
             is_ok = false;
         }
     }while (!is_ok);
@@ -140,7 +152,7 @@ DB_ID find_station_by_name(main_system &sys) {
             }
         }
         if(!is_ok){
-            std::cout<<"Station not found, try again";
+            std::cout<< CLR_RED "Station not found, try again" CLR_NORMAL;
         }
     }while (!is_ok);
 
@@ -160,20 +172,20 @@ void get_station_information(main_system &sys, DB_ID st_id){
  */
 
 void get_station_information(main_system &sys){
-    std::cout << "\n*** Get station info ***\nWhat station id which info you want to see\n";
+    std::cout << CLR_cyan"\n*** Get station info ***\n" CLR_NORMAL"What station id which info you want to see\n";
     DB_ID station_id = ask_station_id_from_user(sys);
     get_station_information(sys, station_id);
 }
 
 void set_station_information(station &new_st) {
     std::string name;
-    name = ask_user("\nEnter new station name: ");
+    name = ask_user("\nEnter new station name: " );
     new_st.setName(name);
 }
 
 
 void get_station_list(main_system &sys){
-    std::cout << "\n*** Get station list ***";
+    std::cout << CLR_cyan "\n*** Get station list ***" CLR_NORMAL;
     std::vector<station> stations;
     stations = sys.Get_station_vector();
     std::cout << "\nid station name\n";
@@ -183,14 +195,14 @@ void get_station_list(main_system &sys){
 }
 
 void add_new_station(main_system &sys)  {
-    std::cout << "\n*** Creating new station ***";
+    std::cout << CLR_cyan"\n*** Creating new station ***" CLR_NORMAL;
     station new_st;
     set_station_information( new_st);
     sys.add_station(new_st);
 }
 
 void edit_station(main_system &sys) {
-    std::cout << "\n*** Edit station ***\nWhat station id which info you want to edit\n";
+    std::cout << CLR_cyan"\n*** Edit station ***\n" CLR_NORMAL"What station id which info you want to edit\n";
     DB_ID station_id = ask_station_id_from_user(sys);
     station new_st;
     new_st = sys.Get_station_info(station_id);
@@ -202,14 +214,14 @@ void edit_station(main_system &sys) {
 
 
 void delete_station(main_system &sys){
-    std::cout << "\n*** Delete station ***\nEnter station id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Delete station ***\n" CLR_NORMAL"Enter station id which will be deleted\n";
     DB_ID station_id = ask_station_id_from_user(sys);
     delete_station(sys, station_id);
 
     std::vector<route> routes;
     std::vector<DB_ID> station_ids;
     routes = sys.Get_route_vector();
-    std::cout << "\nWarning ! Station will be deleted from routes\n";
+    std::cout << CLR_RED"\nWarning ! Station will be deleted from routes\n" CLR_NORMAL;
     for(auto& route: routes){
         station_ids = route.getStationIds();
         for(auto station_route_id: station_ids)
@@ -244,13 +256,13 @@ void get_ticket_information(main_system &sys, DB_ID ticket_id){
 }
 
 void get_ticket_information(main_system &sys){
-    std::cout << "\n*** Get ticket information***\nEnter ticket id which info you want to see\n";
+    std::cout << CLR_cyan"\n*** Get ticket information***\n" CLR_NORMAL"Enter ticket id which info you want to see\n";
     DB_ID tic_id = ask_ticket_id_from_user(sys);
     get_ticket_information(sys, tic_id);
 
 }
 void buying_ticket(main_system &sys) {
-    std::cout << "\n*** Buying ticket ***\n";
+    std::cout << CLR_cyan"\n*** Buying ticket ***\n" CLR_NORMAL;
     ticket ticket;
     std::vector<DB_ID> good_routes;
     DB_ID arrival_station, departure_station, trip_id;
@@ -260,7 +272,7 @@ void buying_ticket(main_system &sys) {
          arrival_station = find_station_by_name(sys);
          departure_station = find_station_by_name(sys);
 
-        good_routes = find_correct_routes_id(sys, arrival_station, departure_station);
+        good_routes = find_correct_routes_id_by_stations(sys, arrival_station, departure_station);
         if(good_routes.empty()){
             std::cout<< "No direct routes with such stations, change stations\n";
         }
@@ -418,7 +430,7 @@ void add_default_ticket(main_system &sys, size_t wagon, size_t wg_place, DB_ID t
     sys.add_ticket(ticket);
 }
 void get_ticket_list(main_system &sys) {
-    std::cout << "\n*** Get ticket list ***";
+    std::cout << CLR_cyan"\n*** Get ticket list ***" CLR_NORMAL;
     std::vector<ticket> tickets;
     tickets = sys.Get_ticket_vector();
     std::cout << "\nid ------------------\n";
@@ -429,7 +441,7 @@ void get_ticket_list(main_system &sys) {
 
 
 void edit_ticket(main_system &sys){
-    std::cout << "\n*** Edit ticket ***\nEnter ticket id which info you want to edit\n";
+    std::cout << CLR_cyan"\n*** Edit ticket ***\n" CLR_NORMAL"Enter ticket id which info you want to edit\n";
     DB_ID tic_id = ask_ticket_id_from_user(sys);
     ticket new_tic;
     new_tic = sys.Get_ticket_info(tic_id);
@@ -441,7 +453,7 @@ void edit_ticket(main_system &sys){
 
 
 void delete_ticket(main_system &sys){
-    std::cout << "\n*** Delete ticket ***\nEnter ticket id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Delete ticket ***\n" CLR_NORMAL"Enter ticket id which will be deleted\n";
     DB_ID ticket_id = ask_ticket_id_from_user(sys);
     delete_ticket(sys, ticket_id);
 }
@@ -453,7 +465,7 @@ void delete_ticket(main_system &sys, DB_ID ticket_id){
 // route functions ****
 
 
-std::vector<DB_ID> find_correct_routes_id(main_system &sys, DB_ID arrival_station, DB_ID departure_station) {
+std::vector<DB_ID> find_correct_routes_id_by_stations(main_system &sys, DB_ID arrival_station, DB_ID departure_station) {
 
     std::vector<route> routes;
     std::vector<DB_ID> station_ids, good_routes;
@@ -479,12 +491,57 @@ std::vector<DB_ID> find_correct_routes_id(main_system &sys, DB_ID arrival_statio
     return good_routes;
 }
 
+std::vector<DB_ID> route_arrival_station_and_departure_station_ids(main_system &sys) {
+    std::cout << CLR_cyan"\n*** get route arrival station and departure station ***" CLR_NORMAL;
+    DB_ID route_id = ask_route_id_from_user(sys);
+    return route_arrival_station_and_departure_station_ids(sys, route_id);
+}
+
+std::vector<DB_ID> route_arrival_station_and_departure_station_ids(main_system &sys, DB_ID route_id) {
+    route route;
+    route = sys.Get_route_info(route_id);
+    std::vector<DB_ID> route_stations, arr_and_dep_st_ids;
+    route_stations = route.getStationIds();
+    arr_and_dep_st_ids.push_back(route_stations[0]);
+    arr_and_dep_st_ids.push_back(route_stations[route_stations.size() - 1]);
+    return arr_and_dep_st_ids;
+}
+std::vector<station> route_arrival_station_and_departure_station(main_system &sys, DB_ID route_id){
+    route route;
+    route = sys.Get_route_info(route_id);
+    std::vector<station> route_stations, arr_and_dep_stations;
+    route_stations = route.getStations(&sys);
+
+    arr_and_dep_stations.push_back(route_stations[0]);
+    arr_and_dep_stations.push_back(route_stations[route_stations.size() - 1]);
+
+    return arr_and_dep_stations;
+}
 
 void add_new_route(main_system &sys){
-    std::cout << "\n*** Creating new route ***";
-    route new_route;
-    set_route_information(sys, new_route);
-    sys.add_route(new_route);
+    std::cout << CLR_cyan"\n*** Creating new route ***" CLR_NORMAL;
+    route route, revers_route;
+    std::vector<DB_ID> st_ids;
+    set_route_information(sys, route);
+    sys.add_route(route);
+
+    std::cout << "Add reverse route?";
+    std::cout << "\n1)Yes\n2)No\nEnter(1/2): ";
+    int operation;
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+
+    if(operation == 1){
+        st_ids = route.getStationIds();
+        std::reverse( st_ids.begin(), st_ids.end() );
+        for(auto st_id: st_ids){
+            revers_route.addStation(st_id);
+        }
+        sys.add_route(revers_route);
+    }else{
+        return;
+    }
 }
 
 void set_route_information(main_system &sys,route &route) {
@@ -526,7 +583,7 @@ void set_route_information(main_system &sys,route &route) {
 
 }
 void get_route_list(main_system &sys) {
-    std::cout << "\n*** Get route list ***";
+    std::cout << CLR_cyan"\n*** Get route list ***" CLR_NORMAL;
     std::vector<route> routes;
     routes = sys.Get_route_vector();
     std::cout << "\nid stations station_ids \n";
@@ -536,7 +593,7 @@ void get_route_list(main_system &sys) {
 }
 
 void get_route_information(main_system &sys){
-    std::cout << "\n*** Get route info***\nEnter route id which info you want to see\n";
+    std::cout << "\n*** Get route info***\n" CLR_NORMAL"Enter route id which info you want to see\n";
     DB_ID route_id = ask_route_id_from_user(sys);
     get_route_information(sys, route_id);
 }
@@ -561,12 +618,12 @@ void delete_route(main_system &sys,  DB_ID route_id){
 
 
 void delete_route(main_system &sys) {
-    std::cout << "\n*** Deleting route ***\nEnter route id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Deleting route ***\n" CLR_NORMAL"Enter route id which will be deleted\n";
     DB_ID route_id = ask_route_id_from_user(sys);
     delete_route(sys,route_id);
 }
 void get_route_stations(main_system &sys) {
-    std::cout << "\n*** Get route stations ***\n";
+    std::cout << CLR_cyan"\n*** Get route stations ***\n" CLR_NORMAL;
     DB_ID route_id = ask_route_id_from_user(sys);
     get_route_stations(sys, route_id);
 }
@@ -584,7 +641,7 @@ void get_route_stations(main_system &sys, DB_ID route_id) {
 
 
 void edit_route(main_system &sys){
-    std::cout << "\n*** Edit route ***\nWhat route id which info you want to edit\n";
+    std::cout << CLR_cyan"\n*** Edit route ***\n" CLR_NORMAL"What route id which info you want to edit\n";
     DB_ID route_id = ask_route_id_from_user(sys);
     route new_route;
     new_route = sys.Get_route_info(route_id);
@@ -598,7 +655,7 @@ void edit_route(main_system &sys){
 // **  train functions  **     --------------------------------
 
 void get_train_information(main_system &sys){
-    std::cout << "\n*** Edit route ***\nWhat train id which info you want to see\n";
+    std::cout << CLR_cyan "\n*** Edit route ***\n" CLR_NORMAL"What train id which info you want to see\n";
     DB_ID train_id = ask_train_id_from_user(sys);
     get_train_information(sys, train_id);
 }
@@ -623,7 +680,7 @@ void set_train_information(train &train) {
 }
 
 void get_train_list(main_system &sys) {
-    std::cout << "\n*** Get train list ***";
+    std::cout << CLR_cyan"\n*** Get train list ***" CLR_NORMAL;
     std::vector<train> trains;
     trains = sys.Get_train_vector();
     std::cout << "\nid stations station_ids \n";
@@ -633,7 +690,7 @@ void get_train_list(main_system &sys) {
 }
 
 void edit_train(main_system &sys){
-    std::cout << "\n*** Edit train ***\nEnter train id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Edit train ***\n" CLR_NORMAL"Enter train id which will be deleted\n";
     DB_ID train_id = ask_train_id_from_user(sys);
     train new_train;
     new_train = sys.Get_train_info(train_id);
@@ -645,7 +702,7 @@ void edit_train(main_system &sys){
 }
 
 void add_new_train(main_system &sys){
-    std::cout << "\n*** Creating new train ***\n";
+    std::cout <<CLR_cyan "\n*** Creating new train ***\n" CLR_NORMAL;
     train new_tr;
     set_train_information(new_tr);
     sys.add_train(new_tr);
@@ -653,7 +710,7 @@ void add_new_train(main_system &sys){
 }
 
 void delete_train(main_system &sys){
-    std::cout << "\n*** Delete train ***\nEnter train id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Delete train ***\n" CLR_NORMAL"Enter train id which will be deleted\n";
     DB_ID train_id = ask_train_id_from_user(sys);
     delete_train(sys,train_id);
 }
@@ -667,14 +724,14 @@ void delete_train(main_system &sys, DB_ID train_id){
 // **  passenger functions  **     --------------------------------
 
 void set_new_passenger(main_system &sys) {
-    std::cout << "\n*** Set passenger full_name ***\n";
+    std::cout << CLR_cyan"\n*** Set passenger full_name ***\n" CLR_NORMAL;
     passenger passenger;
     set_passenger_information(passenger);
     sys.add_passenger(passenger);
 }
 
 void delete_passenger(main_system &sys) {
-    std::cout << "\n*** Delete passenger ***\nEnter passenger id which will be deleted\n";
+    std::cout << "\n*** Delete passenger ***\n" CLR_NORMAL"Enter passenger id which will be deleted\n";
     DB_ID passenger_id = ask_passenger_id_from_user(sys);
     delete_passenger(sys,passenger_id);
 }
@@ -684,7 +741,7 @@ void delete_passenger(main_system &sys, DB_ID passenger_id) {
 }
 
 void edit_passenger(main_system &sys) {
-    std::cout << "\n*** Edit passenger ***\nEnter passenger id which info you want to edit\n";
+    std::cout << "\n*** Edit passenger ***\n" CLR_NORMAL"Enter passenger id which info you want to edit\n";
     DB_ID passenger_id = ask_passenger_id_from_user(sys);
     passenger passenger;
     passenger = sys.Get_passenger_info(passenger_id);
@@ -705,7 +762,7 @@ void get_passenger_list(main_system &sys) {
 }
 
 void get_passenger_information(main_system &sys) {
-    std::cout << "\n*** Get passenger information ***\nEnter passenger id which info you want to see\n";
+    std::cout << "\n*** Get passenger information ***\n" CLR_NORMAL"Enter passenger id which info you want to see\n";
     DB_ID passenger_id = ask_passenger_id_from_user(sys);
     get_passenger_information(sys, passenger_id);
 }
@@ -748,7 +805,7 @@ void generate_trip_tickets(main_system &sys, DB_ID train_id, DB_ID trip_id) {
 }
 
 void add_new_trip(main_system &sys) {
-    std::cout << "\n*** Creating new trip ***";
+    std::cout << CLR_cyan"\n*** Creating new trip ***" CLR_NORMAL;
     trip new_trip;
     set_trip_information(sys, new_trip);
 
@@ -757,9 +814,9 @@ void add_new_trip(main_system &sys) {
 }
 
 void delete_trip(main_system &sys) {
-    std::cout << "\n*** Delete trip ***\nWhat trip id which will be deleted\n";
+    std::cout << CLR_cyan"\n*** Delete trip ***\n" CLR_NORMAL"What trip id which will be deleted\n";
     DB_ID trip_id = ask_trip_id_from_user(sys);
-    std::cout << "\nWarning! All tickets which are connected to trip will be deleted\n";
+    std::cout << CLR_RED"\nWarning! All tickets which are connected to trip will be deleted\n" CLR_NORMAL;
     delete_trip(sys, trip_id);
     std::vector<ticket> tickets;
     tickets = sys.Get_ticket_vector();
@@ -776,7 +833,7 @@ void delete_trip(main_system &sys, DB_ID trip_id) {
 }
 
 void edit_trip(main_system &sys) {
-    std::cout << "\n*** Edit trip ***\nWhat trip id which info you want to edit\n";
+    std::cout << CLR_cyan"\n*** Edit trip ***\n" CLR_NORMAL"What trip id which info you want to edit\n";
     trip trip;
     DB_ID trip_id = ask_trip_id_from_user(sys);
 
@@ -797,7 +854,7 @@ void edit_trip(main_system &sys) {
 }
 
 void get_trip_list(main_system &sys) {
-    std::cout << "\n*** Get trip list ***";
+    std::cout << CLR_cyan"\n*** Get trip list ***" CLR_NORMAL;
     std::vector<trip> trips;
     trips = sys.Get_trip_vector();
     std::cout << "\nid date platform route_id train_id\n";
@@ -807,7 +864,7 @@ void get_trip_list(main_system &sys) {
 }
 
 void get_trip_information(main_system &sys) {
-    std::cout << "\n*** Get trip info ***\nEnter trip id which info you want to see\n";
+    std::cout << CLR_cyan"\n*** Get trip info ***\n" CLR_NORMAL"Enter trip id which info you want to see\n";
     DB_ID trip_id = ask_trip_id_from_user(sys);
     get_trip_information(sys, trip_id);
 }
@@ -842,41 +899,6 @@ void set_trip_information(main_system &sys, trip &trip) {
 
 }
 
-
-
-void admin_switch(main_system &sys) {
-
-    std::cout << "***** Welcome *****\nYou are an administrator of this system !";
-
-    DB_ID operation;
-
-    do {
-        operation = operation_check();
-        switch (operation) {
-            case 0:
-                std::cout << "\n|---------------------------------------------------|";
-                std::cout << "\n|*** You have completed work as an administrator ***|";
-                std::cout << "\n|---------------------------------------------------|\n";
-                break;
-            case 1:
-                station_functions_switch(sys);
-                break;
-            case 2:
-                break;
-            default:
-                std::cout<<"Wrong options, try again";
-                break;
-        }
-    }while (operation != 0 );
-}
-
-void common_user_switch(main_system &sys) {
-
-}
-
-void station_functions_switch(main_system &sys) {
-
-}
 
 std::vector<trip> trips_on_certain_date(main_system &sys) {
 
@@ -957,12 +979,12 @@ void free_places_list(main_system &sys, DB_ID trip_id) {
 
 
 void trips_on_certain_date_report(main_system &sys) {
-    std::cout << "\n\n*** Report: \"Trips on certain date\" *** \n";
+    std::cout << CLR_cyan"\n\n*** Report: \"Trips on certain date\" *** \n" CLR_NORMAL;
     trips_on_certain_date(sys);
 }
 
 void free_places_on_certain_trip_report(main_system &sys) {
-    std::cout << "\n\n*** Report: \"Free places on certain trip\" *** \n";
+    std::cout << CLR_cyan"\n\n*** Report: \"Free places on certain trip\" *** \n " CLR_NORMAL;
 
     std::vector<ticket> trip_tickets, free_trip_tickets;
     std::vector<trip> trips_to_the_date;
@@ -1003,7 +1025,7 @@ void free_places_on_certain_trip_report(main_system &sys) {
 }
 
 void routes_which_contain_certain_station_report(main_system &sys) {
-    std::cout << "\n\n*** Report: \"Routes which contain certain station\" *** \n";
+    std::cout << CLR_cyan"\n\n*** Report: \"Routes which contain certain station\" *** \n" CLR_NORMAL;
 
     std::vector<route> all_routes, good_routes;
     std::vector<DB_ID> stations_in_route;
@@ -1036,14 +1058,14 @@ void routes_which_contain_certain_station_report(main_system &sys) {
 }
 
 void routes_which_contain_many_stations_report(main_system &sys) {
-    std::cout << "\n\n*** Report: \"Routes which contain many stations\" *** \n";
+    std::cout << CLR_cyan "\n\n*** Report: \"Routes which contain many stations\" *** \n " CLR_NORMAL;
 
     std::vector<route> all_routes, good_routes;
     std::vector<DB_ID> stations_in_route, station_ids;
     all_routes = sys.Get_route_vector();
     station station;
 
-    std::cout << "Enter number of stations: ";
+    std::cout << CLR_cyan "Enter number of stations: ";
     int counter = 0;
     counter = operation_check();
     for(int i = 0; i < counter; ++i){
@@ -1081,7 +1103,7 @@ void routes_which_contain_many_stations_report(main_system &sys) {
 }
 
 void the_most_popular_route_report(main_system &sys) {
-    std::cout << "\n*** Report: \"The most popular route\" *** \n";
+    std::cout << CLR_cyan "\n*** Report: \"The most popular route\" *** \n" CLR_NORMAL;
 
 
 
@@ -1148,7 +1170,7 @@ DB_ID find_route_by_stations(main_system &sys){
 }
 
 void trips_which_use_certain_route_report(main_system &sys) {
-    std::cout << "\n\n*** Report: \"Route usages \" *** \n";
+    std::cout << CLR_cyan "\n\n*** Report: \"Route usages \" *** \n" CLR_NORMAL;
 
     std::vector<trip> all_trips, good_trips;
     all_trips = sys.Get_trip_vector();
@@ -1180,6 +1202,95 @@ void trips_which_use_certain_route_report(main_system &sys) {
         std::cout << "Trip number "<<counter<<" : ";
         get_trip_information(sys, trip.getId());
     }
+
+}
+
+template <typename my_type>
+void my_shaker_stop_sort_temp_storage(std::vector<my_type> & records, size_t size) {
+    int left, right;
+    left = 1;
+    right = size - 1;
+    while (left <= right) {
+        int counter = 0;
+        for (int i = right; i >= left; i--) {
+            if (records[i - 1] > records[i]) {
+                auto tmp = records[i - 1];
+                records[i - 1] = records[i];
+                records[i]=tmp;
+                ++counter;
+            }
+        }
+        if (counter == 0) {
+            return;
+        }
+        left++;
+        for (int i = left; i <= right; i++) {
+            if (records[i - 1] > records[i]) {
+                auto tmp = records[i - 1];
+                records[i - 1] = records[i];
+                records[i]=tmp;
+                ++counter;
+            }
+        }
+        if (counter == 0) {
+            return;
+        }
+        right--;
+    }
+}
+
+void sort_stations_by_names(main_system &sys) {
+    std::vector<station> stations;
+    stations = sys.Get_station_vector();
+
+   // std::sort(stations.rbegin(), stations.rend());
+    my_shaker_stop_sort_temp_storage(stations, stations.size());
+    for(const auto& station : stations){
+        std::cout  << "\n" << station.getId() << " "<< station.getName() << " ";
+    }
+}
+
+
+void schedule_report(main_system &sys) {
+    std::cout << CLR_cyan "\n\n*** Report: \" Schedule \" *** \n" CLR_NORMAL;
+
+    std::vector<trip> all_trips, good_trips;
+    all_trips = sys.Get_trip_vector();
+    std::vector<route> routes;
+    routes = sys.Get_route_vector();
+    std::vector<station> rt_stations;
+
+    int parsed_date, temp_date;
+
+    std::cout << "Enter date \n ";
+    DATE date = ask_user_date();
+
+    parsed_date = date_parser(date);
+
+    for(const auto& trip: all_trips){
+        temp_date = date_parser(trip.getDate());
+        if(temp_date > parsed_date){
+            good_trips.push_back(trip);
+        }
+    }
+
+    if(good_trips.empty()){
+        std::cout << " ! No trips on closest days\n";
+    }
+    else{
+        int counter = 0;
+        for(const auto& trip: good_trips){
+            ++counter;
+            std::cout << "Trip id:" << trip.getId() << " " <<  trip.getDate() << " ";
+            rt_stations = route_arrival_station_and_departure_station(sys, trip.getRouteId());
+            for(const auto&  station: rt_stations){
+                std::cout << station.getName() << " ";
+            }
+            std::cout << trip.getPlatformId() << "\n";
+
+        }
+    }
+
 
 }
 
