@@ -15,10 +15,13 @@ private:
     PLATFORM_ID platform_id;
     DB_ID route_id;
     DATE date;
+    TIME time;
     DB_ID train_id;
-
-
 public:
+
+
+    const TIME &getTime() const;
+    void setTime(const TIME &time);
 
     const PLATFORM_ID &getPlatformId() const;
     void setPlatformId(const PLATFORM_ID &platformId);

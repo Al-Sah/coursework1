@@ -875,6 +875,7 @@ void get_trip_information(main_system &sys, DB_ID trip_id) {
     std::cout
     << "\nTrip id:  " << trip.getId()
     << "\nDate:     " << trip.getDate()
+    << "\nTime:     " << trip.getTime()
     << "\nPlatform: " << trip.getPlatformId()
     << "\nRoute id: " << trip.getRouteId()
     << "\nTrain id: " << trip.getTrainId();
@@ -885,7 +886,10 @@ void set_trip_information(main_system &sys, trip &trip) {
 
     std::cout << "\nEnter trip date ";
     DATE date = ask_user_date();
+    std::cout << "\nEnter trip time ";
+    TIME time = ask_user_time();
     trip.setDate(date);
+    trip.setTime(time);
 
     std::cout << "Enter platform: ";
     PLATFORM_ID platformId = input_id_check();

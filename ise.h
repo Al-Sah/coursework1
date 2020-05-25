@@ -13,7 +13,7 @@ typedef uint32_t DB_ID;
 
 typedef uint16_t PlaceNo;
 
-typedef std::string DATE;
+typedef std::string DATE, TIME;
 
 typedef uint32_t PLATFORM_ID;
 

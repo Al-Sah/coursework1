@@ -59,13 +59,6 @@ std::string ask_user(const char *prompt){
     return ret;
 }
 
-DB_ID get_object_id(const char * prompt){
-
-    std::cout << prompt;
-    DB_ID ret = input_id_check();
-    return ret;
-}
-
 
 void my_dbg(const char *str){
     std::chrono::time_point<std::chrono::system_clock> now;
@@ -111,6 +104,54 @@ int date_parser(const DATE & date) {
     return parsed_date;
 
 }
+
+TIME ask_user_time() {
+    TIME time;
+    unsigned int min = 70, hour = 115;
+    std::string minutes, hours;
+    std::cout << std::endl;
+
+    while (min > 60){
+        std::cout << "-Input minutes (from 0 to 60): ";
+        min = input_id_check();
+    }
+    while (hour > 24){
+        std::cout << "-Input month (from 0 to 24): ";
+        hour = input_id_check();
+    }
+
+    minutes = std::to_string(min);
+    hours = std::to_string(hour);
+
+    time = hours + ":" + minutes;
+    return time;
+}
+
+int time_parser(const DATE & date) {
+
+    int hour = -1, min = -1, parsed_time;
+    std::string temp_variable;
+    for (char i : date) {
+        if (i == '.') {
+            if (hour == -1) {
+                std::istringstream(temp_variable) >> hour;
+                temp_variable.clear();
+            }
+        } else {
+            temp_variable.push_back(i);
+        }
+    }
+    std::istringstream(temp_variable) >> min;
+    temp_variable.clear();
+    parsed_time = hour * 100 + min;
+    return parsed_time;
+
+}
+
+
+
+
+
 
 /*template<typename my_type, typename my_method >
 void get_object_information(main_system &sys, my_class, const char *question) {

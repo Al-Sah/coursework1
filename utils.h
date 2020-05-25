@@ -20,6 +20,7 @@ DB_ID operation_check();
 DB_ID input_id_check();
 void set_info_route_help();
 DATE ask_user_date();
+TIME ask_user_time();
 
 namespace Alex_Utils{
 
@@ -38,7 +39,6 @@ namespace Alex_Utils{
 
 void my_dbg(const char *str);
 std::string ask_user(const char *prompt);
-DB_ID get_object_id(const char * prompt);
 int date_parser(const DATE& date);
 
 template <typename my_type>

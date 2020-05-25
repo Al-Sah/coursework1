@@ -10,6 +10,7 @@ std::ostream & operator << (std::ostream &out, trip &trip) {
     out
             << trip.getId() << ' '
             << trip.getDate() << ' '
+            << trip.getTime() << ' '
             << trip.getPlatformId() << ' '
             << trip.getRouteId() << ' '
             << trip.getTrainId() << '\n';
@@ -22,10 +23,14 @@ void operator >> (std::istream &in, trip &trip) {
     DB_ID tempID;
     PLATFORM_ID platformId;
     DATE trip_date;
+    TIME trip_time;
 
 
     in >> tempID;
     trip.setId(tempID);
+
+    in >> trip_time;
+    trip.setTime(trip_time);
 
     in >> trip_date;
     trip.setDate(trip_date);
@@ -77,4 +82,12 @@ DB_ID trip::getTrainId() const {
 
 void trip::setTrainId(DB_ID trainId) {
     train_id = trainId;
+}
+
+const TIME &trip::getTime() const {
+    return time;
+}
+
+void trip::setTime(const TIME &time) {
+    trip::time = time;
 }
