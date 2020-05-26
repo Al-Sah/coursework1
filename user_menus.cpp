@@ -254,6 +254,11 @@ MenuItem user_menu[] = {
                 func: schedule_report,
         },
         {
+                .caption {"Trip information"},
+                .cmd { "inf"},
+                func: get_detailed_trip_info,
+        },
+        {
                 .caption {"Reports menu"},
                 .cmd { "r"},
                 .next {reports_menu},

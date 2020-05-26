@@ -107,6 +107,7 @@ template <typename my_type>
 void my_shaker_stop_sort_temp_storage(std::vector<my_type> & records, size_t size);
 
 void get_detailed_trip_info(main_system & sys);
+void get_detailed_trip_info(main_system & sys, DB_ID trip_id);
 void schedule_report(main_system &sys);
 void sort_stations_by_names(main_system &sys);
 void trips_on_certain_date_report(main_system &sys);

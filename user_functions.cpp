@@ -907,12 +907,12 @@ void get_trip_information(main_system &sys, DB_ID trip_id) {
     trip trip;
     trip = sys.Get_trip_info(trip_id);
     std::cout
-    << "\nTrip id:  " << trip.getId()
-    << "\nDate:     " << trip.getDate()
-    << "\nTime:     " << trip.getTime()
-    << "\nPlatform: " << trip.getPlatformId()
-    << "\nRoute id: " << trip.getRouteId()
-    << "\nTrain id: " << trip.getTrainId();
+    << "\n | " CLR_yellow"Trip id:  " CLR_NORMAL<< trip.getId()
+    << "\n | " CLR_yellow"Date:     " CLR_NORMAL<< trip.getDate()
+    << "\n | " CLR_yellow"Time:     " CLR_NORMAL<< trip.getTime()
+    << "\n | " CLR_yellow"Platform: " CLR_NORMAL<< trip.getPlatformId()
+    << "\n | " CLR_yellow"Route id: " CLR_NORMAL<< trip.getRouteId()
+    << "\n | " CLR_yellow"Train id: " CLR_NORMAL<< trip.getTrainId();
 
 }
 
@@ -941,11 +941,14 @@ void set_trip_information(main_system &sys, trip &trip) {
 std::vector<trip> trips_on_certain_date(main_system &sys) {
 
     unsigned int trip_counter = 0;
+    bool is_ok;
 
     std::vector<trip> trips, trips_to_the_date;
     trips = sys.Get_trip_vector();
     DATE date;
 
+    do{
+        is_ok = false;
     std::cout << "\nEnter date";
     date = ask_user_date();
 
@@ -953,19 +956,31 @@ std::vector<trip> trips_on_certain_date(main_system &sys) {
         if (trip.getDate() == date) {
             trips_to_the_date.push_back(trip);
             trip_counter++;
+            is_ok = true;
         }
     }
     if (trips_to_the_date.empty()) {
-        std::cout << "No trips to " << date << std::endl;
-    } else {
-        std::cout << "\n* " << trip_counter << " trips to the " << date << std::endl;
+        std::cout <<  CLR_RED "No trips to " << date << CLR_NORMAL "\nPlease, choose another date\n "
+        "Continue \n1)Yes\n2)No\nYour choice: " ;
+        int operation;
+        do {
+            operation = operation_check();
+        } while (!(operation == 1 || operation == 2));
+        if (operation == 1) {
+        } else{
+            break;
+        }
+    }
+    } while (!is_ok);
+
+        std::cout << CLR_yellow"\n*  Number of trips to the (" CLR_NORMAL << date <<CLR_yellow ") : " CLR_NORMAL << trip_counter << std::endl;
         int counter = 0;
         for (const auto &trip: trips_to_the_date) {
             ++counter;
-            std::cout << "Trip number: (" << counter << ") ";
+            std::cout << "\n* Trip (" << counter << ") ";
             get_trip_information(sys, trip.getId()); std::cout << std::endl;
         }
-    }
+
     return trips_to_the_date;
 }
 
@@ -982,7 +997,7 @@ void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trip
             }
         }
         if(!is_ok){
-            std::cout << "Entered wrong trip id (No object found), try again\n";
+            std::cout << CLR_RED "Entered wrong trip id (No object found), try again\n" CLR_NORMAL;
         }
     }while (!is_ok);
 
@@ -993,7 +1008,17 @@ void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trip
             counter++;
         }
     }
-    std::cout << "\n" << counter << " free tickets to the your trip\n";
+    std::cout << "\n\n" CLR_yellow"Number of free tickets: " CLR_NORMAL <<  counter ;
+    std::cout<< CLR_yellow "\nShow free places list ?" CLR_NORMAL"\n1)Yes\n2)No\nYour choice: ";
+    int operation;
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+    if (operation == 1) {
+        free_places_list(sys, trip_id);
+    } else{
+        return;
+    }
 }
 void free_places_list(main_system &sys, DB_ID trip_id) {
 
@@ -1009,9 +1034,9 @@ void free_places_list(main_system &sys, DB_ID trip_id) {
     for(const auto& ticket: free_trip_tickets){
 
         std::cout
-                << "\nTicket id: " << ticket.getId()
-                << "\nWagon: " << ticket.getYourWagon()
-                << "\nWg place: " << ticket.getPlaceNumber() << "\n-------\n";
+                << "\n | " CLR_yellow"Ticket id: " CLR_NORMAL<< ticket.getId()
+                << "\n | " CLR_yellow"Wagon: " CLR_NORMAL<< ticket.getYourWagon()
+                << "\n | " CLR_yellow"Wg place: " CLR_NORMAL<< ticket.getPlaceNumber() << "\n  -------\n";
     }
 }
 
@@ -1043,23 +1068,26 @@ void free_places_on_certain_trip_report(main_system &sys) {
                 counter++;
             }
         }
-        std::cout << "\n" << counter << " free tickets to the your trip\n";
+        std::cout << "\n\n" CLR_NORMAL"Number of free tickets: " CLR_NORMAL <<  counter ;
+        std::cout<< CLR_yellow "\nShow free places list ?" CLR_NORMAL"\n1)Yes\n2)No\nYour choice: ";
+        do {
+            operation = operation_check();
+        } while (!(operation == 1 || operation == 2));
+        if (operation == 1) {
+            free_places_list(sys, trip_id);
+        } else{
+            return;
+        }
 
     } else {
         trips_to_the_date = trips_on_certain_date(sys);
+        if(trips_to_the_date.empty()){
+            return;
+        }
         free_places_on_certain_trip(sys, trips_to_the_date, trip_tickets);
-
     }
 
-    std::cout<< "Show free places list ?\n1)Yes\n2)No\nYour choice: ";
-    do {
-        operation = operation_check();
-    } while (!(operation == 1 || operation == 2));
-    if (operation == 1) {
-        free_places_list(sys, trip_id);
-    } else{
-        return;
-    }
+
 }
 
 void routes_which_contain_certain_station_report(main_system &sys) {
@@ -1083,7 +1111,7 @@ void routes_which_contain_certain_station_report(main_system &sys) {
     }
 
     if(good_routes.empty()){
-        std::cout << "Station is not used\n";
+        std::cout << CLR_RED "Station is not used\n" CLR_NORMAL;
         return;
     } else{
         int i = 0;
@@ -1110,7 +1138,7 @@ void routes_which_contain_many_stations_report(main_system &sys) {
     all_routes = sys.Get_route_vector();
     station station;
 
-    std::cout << "Enter number of stations: ";
+    std::cout << "\nEnter number of stations: ";
     int counter = 0;
     counter = operation_check();
     for(int i = 0; i < counter; ++i){
@@ -1134,14 +1162,21 @@ void routes_which_contain_many_stations_report(main_system &sys) {
     }
 
     if(good_routes.empty()){
-        std::cout << "Station is not used\n";
+        std::cout << CLR_RED "\n No  routes with your stations( \n" CLR_NORMAL;
         return;
     } else{
         int i = 0;
         for(const auto& route: good_routes){
             ++i;
-            std::cout << "Route " << i << " : ";
-            get_route_information(sys, route.getId());
+            std::cout << CLR_yellow "\n * Route ("  << i << " ) " CLR_NORMAL;
+            std::cout << "\n | Id: " << route.getId() <<
+                      "\n | Stations in route: "; get_route_stations(sys, route.getId());
+            std::cout << "\n | Station ids:   ";
+            for(auto st: stations_in_route ){
+                std::cout << "    " << st;
+            }
+            std::cout << std::endl;
+
         }
     }
 
@@ -1168,6 +1203,7 @@ DB_ID find_route_by_stations(main_system &sys){
         DB_ID station_id = find_station_by_name(sys);
         station_ids.push_back(station_id);
     }
+
     for(auto& route: all_routes){
         counter = 0;
         stations_in_route = route.getStationIds();
@@ -1179,6 +1215,8 @@ DB_ID find_route_by_stations(main_system &sys){
             }
             if(counter == station_ids.size()){
                 good_routes.push_back(route);
+                counter = 0;
+                continue;
             }
         }
     }
@@ -1189,15 +1227,15 @@ DB_ID find_route_by_stations(main_system &sys){
            break;
         }
         ++counter;
-        std::cout << "Trip number "<<counter<<" : ";
+        std::cout << "\n*Route  ("<<counter<<" ) ";
         get_route_information(sys, route.getId());
 
     }
     bool is_ok;
     do {
         is_ok = false;
-        std::cout << "Enter route id\n";
-        appropriate_route = ask_ticket_id_from_user(sys);
+        std::cout << CLR_yellow"\n\nChoose and enter route id\n" CLR_NORMAL;
+        appropriate_route = ask_route_id_from_user(sys);
         for (const auto& route: good_routes) {
             if (appropriate_route == route.getId()) {
                 is_ok = true;
@@ -1221,7 +1259,7 @@ void trips_which_use_certain_route_report(main_system &sys) {
     all_trips = sys.Get_trip_vector();
 
     DB_ID operation, route_id;
-    std::cout << "Firstly, find route)\n";
+    std::cout << CLR_yellow"\nFirstly, find route)\n" CLR_NORMAL;
     std::cout << "\n1)Search by id\n2)Search by stations\nEnter(1/2): ";
 
     do {
@@ -1306,7 +1344,53 @@ std::string padding_for_utf8_str(std::string & in, int column_wide, char filler 
 }
 
 void get_detailed_trip_info(main_system &sys) {
+    std::cout << CLR_cyan"\n    ***  Get detailed trip information ***\n" CLR_NORMAL;
+    DB_ID trip_id = ask_trip_id_from_user(sys);
+    get_detailed_trip_info(sys, trip_id);
+}
 
+void get_detailed_trip_info(main_system &sys, DB_ID trip_id) {
+
+    std::vector<ticket> trip_tickets;
+    trip trip;
+    trip = sys.Get_trip_info(trip_id);
+    std::cout
+            <<    "\n  ------------------------ "
+            << "\n | " CLR_yellow"Trip id" CLR_NORMAL"  | " << std::setw(10) <<  trip.getId() << "  |"
+            << "\n | " CLR_yellow"Date" CLR_NORMAL"     | " << std::setw(10) << trip.getDate() << "  |"
+            << "\n | " CLR_yellow"Time" CLR_NORMAL"     | " << std::setw(10) << trip.getTime()<< "  |"
+            << "\n | " CLR_yellow"Platform" CLR_NORMAL" | " << std::setw(10) << trip.getPlatformId()<< "  |"
+            <<    "\n  ------------------------ " ;
+
+    route route;
+    route = sys.Get_route_info(trip.getRouteId());
+
+    std::cout << CLR_yellow "\n* Route " CLR_NORMAL;
+    std::cout <<  "\n | " CLR_yellow"Id: "  CLR_NORMAL << route.getId() <<
+                  "\n | " CLR_yellow"Stations in route \n" CLR_NORMAL;
+    get_route_stations(sys, route.getId());
+
+
+    trip_tickets = get_trip_tickets_list(sys, trip_id);
+    int counter = 0;
+    for(const auto& ticket: trip_tickets){
+        if(ticket.getState() == 0){
+            counter++;
+        }
+    }
+    std::cout << "\n\n" CLR_NORMAL"Number of free tickets: " CLR_NORMAL <<  counter ;
+
+
+    int operation;
+    std::cout<< CLR_yellow "\nShow free places list ?" CLR_NORMAL"\n1)Yes\n2)No\nYour choice: ";
+    do {
+        operation = operation_check();
+    } while (!(operation == 1 || operation == 2));
+    if (operation == 1) {
+        free_places_list(sys, trip_id);
+    } else{
+        return;
+    }
 }
 
 
