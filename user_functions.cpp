@@ -95,24 +95,6 @@ DB_ID ask_trip_id_from_user(main_system &sys) {
 }
 
 
-DB_ID ask_passenger_id_from_user(main_system &sys) {
-    DB_ID id;
-    bool is_ok;
-    passenger passenger;
-    do {
-        is_ok = true;
-        std::cout << "Enter passenger id: ";
-        id = input_id_check();
-        try {
-            passenger = sys.Get_passenger_info(id);
-        } catch (char const *err) {
-            std::cout << CLR_RED "err: " << err << std::endl << CLR_NORMAL;
-            is_ok = false;
-        }
-    }while (!is_ok);
-    return id;
-}
-
 
 DB_ID ask_ticket_id_from_user(main_system &sys) {
     DB_ID id;
@@ -181,7 +163,7 @@ DB_ID find_station_by_name(main_system &sys) {
 }
 
 
-std::vector<std::string> get_names_from_stations(main_system &sys, const std::vector<station>& stations) {
+std::vector<std::string> get_names_from_stations(const std::vector<station>& stations) {
     std::vector<std::string> stations_names;
     stations_names.reserve(stations.size());
     for(const auto& station: stations){
@@ -788,72 +770,6 @@ void delete_train(main_system &sys, DB_ID train_id){
 
 
 
-// **  passenger functions  **     --------------------------------
-
-void set_new_passenger(main_system &sys) {
-    std::cout << CLR_cyan"\n    *** Set passenger full_name ***\n" CLR_NORMAL;
-    passenger passenger;
-    set_passenger_information(passenger);
-    sys.add_passenger(passenger);
-}
-
-void delete_passenger(main_system &sys) {
-    std::cout << "\n    *** Delete passenger ***\n" CLR_NORMAL"Enter passenger id which will be deleted\n";
-    DB_ID passenger_id = ask_passenger_id_from_user(sys);
-    delete_passenger(sys,passenger_id);
-}
-
-void delete_passenger(main_system &sys, DB_ID passenger_id) {
-    sys.delete_passenger(passenger_id);
-}
-
-void edit_passenger(main_system &sys) {
-    std::cout << "\n    *** Edit passenger ***\n" CLR_NORMAL"Enter passenger id which info you want to edit\n";
-    DB_ID passenger_id = ask_passenger_id_from_user(sys);
-    passenger passenger;
-    passenger = sys.Get_passenger_info(passenger_id);
-    std::cout << "Old passenger information: ";
-    get_passenger_information(sys, passenger_id);
-    set_passenger_information(passenger);
-    sys.edit_passenger(passenger, passenger_id);
-}
-
-void get_passenger_list(main_system &sys) {
-    std::cout << "\n    *** Get passenger list ***";
-    std::vector<passenger> passengers;
-    passengers = sys.Get_passenger_vector();
-    std::cout << "\nid  passenger full_name\n";
-    for(auto passenger : passengers){
-        std::cout << passenger;
-    }
-}
-
-void get_passenger_information(main_system &sys) {
-    std::cout << "\n    *** Get passenger information ***\n" CLR_NORMAL"Enter passenger id which info you want to see\n";
-    DB_ID passenger_id = ask_passenger_id_from_user(sys);
-    get_passenger_information(sys, passenger_id);
-}
-
-void get_passenger_information(main_system &sys, DB_ID passenger_id) {
-    passenger passenger;
-    passenger = sys.Get_passenger_info(passenger_id);
-    std::cout <<"passenger id: " << passenger.getId() <<
-    "\nPassenger full_name: " << passenger.getFullName();
-}
-
-void set_passenger_information(passenger &passenger) {
-
-    std::string user_data;
-    std::cout << "\nEnter passenger name: ";
-    std::cin >> user_data;  passenger.setFirstName(user_data);
-    std::cout << "Enter passenger surname: ";
-    std::cin >> user_data;  passenger.setSurname(user_data);
-    std::cout << "Enter passenger father_name: ";
-    std::cin >> user_data;  passenger.setFatherName(user_data);
-    passenger.setFullName();
-
-}
-
 
 // ** trip functions ****** ---=------------------------------------=
 
@@ -1226,9 +1142,8 @@ void routes_which_contain_many_stations_report(main_system &sys) {
 void the_most_popular_route_report(main_system &sys) {
     std::cout << CLR_cyan "\n   *** Report: \"The most popular route\" *** \n" CLR_NORMAL;
 
-
-
 }
+
 DB_ID find_route_by_stations(main_system &sys){
 
     std::vector<route> all_routes, good_routes;
@@ -1367,8 +1282,6 @@ void my_shaker_stop_sort_temp_storage(std::vector<my_type> & records, size_t siz
 void sort_stations_by_names(main_system &sys) {
     std::vector<station> stations;
     stations = sys.Get_station_vector();
-
-   // std::sort(stations.rbegin(), stations.rend());
     my_shaker_stop_sort_temp_storage(stations, stations.size());
     for(const auto& station : stations){
         std::cout  << "\n" << station.getId() << " "<< station.getName() << " ";
@@ -1466,20 +1379,6 @@ void schedule_report(main_system &sys) {
     else{
         my_shaker_stop_sort_temp_storage(good_trips, good_trips.size());
         int counter = 0;
-        int z[2]={0,0};
-//        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-//        for(const auto& trip: good_trips){
-//            rt_stations = route_arrival_station_and_departure_station(sys, trip.getRouteId());
-//            rt_st_names = get_names_from_stations(sys, rt_stations);
-//            std::wstring st_name1 = converter.from_bytes(rt_stations[0].getName());
-//            std::wstring st_name2 = converter.from_bytes(rt_stations[1].getName());
-//            if(st_name1.size()>z[0]){
-//                z[0]=st_name1.size();
-//            }
-//            if(st_name2.size()>z[1]){
-//                z[1]=st_name2.size();
-//            }
-//        }
         std::cout << "\n -------------------------------------------------------------------------------------------------------------------------";
         std::cout << "\n/    Id    | Platform |      Date      |  Time  |          Arrival Station          |          Departure station          \\";
         std::cout << "\n|-------------------------------------------------------------------------------------------------------------------------|\n";
@@ -1487,12 +1386,8 @@ void schedule_report(main_system &sys) {
       //  std::cout << std::setfill ( '^' );
         for(const auto& trip: good_trips){
             rt_stations = route_arrival_station_and_departure_station(sys, trip.getRouteId());
-            rt_st_names = get_names_from_stations(sys, rt_stations);
-//            std::wstring st_name1 = converter.from_bytes(rt_stations[0].getName());
-//            std::wstring st_name2 = converter.from_bytes(rt_stations[1].getName());
+            rt_st_names = get_names_from_stations(rt_stations);
             ++counter;
-
-//            std::string st1_fill(2 + z[0] - st_name1.size(),' ');
             std::cout
             << "| " <<  std::setw(5) << trip.getId() << "    |"
             << std::setw(6) <<  trip.getPlatformId()  <<"    |"

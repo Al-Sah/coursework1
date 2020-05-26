@@ -1,14 +1,9 @@
 #include <iostream>
-
-
 #include "class_main_system.h"
 #include "user_functions.h"
 #include "user_menus.h"
 
-
-
 void test_user_func(main_system & vokzal){
-
 
     trips_which_use_certain_route_report(vokzal);
     routes_which_contain_many_stations_report(vokzal);
@@ -17,7 +12,6 @@ void test_user_func(main_system & vokzal){
     trips_on_certain_date_report(vokzal);
 
     schedule_report(vokzal);
-
 
    std::cout << "\ncheck trip functions\n";
 
@@ -67,10 +61,10 @@ extern MenuItem user_menu[];
 
 
 int main() {
-    main_system vokz;
+    main_system vokzal;
 
 
-    //test_user_func(vokz);
+    //test_user_func(vokzal);
 
 
 
@@ -89,7 +83,7 @@ int main() {
             },{}
     };
 
-   draw_menu("System", main_system_menu, " * Main menu * ", vokz);
+   draw_menu("System", main_system_menu, " * Main menu * ", vokzal);
 
 
     std::cout << "\n|--------------------------|";

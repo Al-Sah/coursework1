@@ -60,16 +60,7 @@ std::string ask_user(const char *prompt){
 }
 
 
-void my_dbg(const char *str){
-    std::chrono::time_point<std::chrono::system_clock> now;
-    now = std::chrono::system_clock::now();
-    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
-#ifdef MY_DEBUG
-    std::cout << std::put_time(std::localtime(&now_c), "%Y-%m-%d %H:%M:%S") << " " << str << std::endl;
-    std::flush(std::cout);
-#endif
 
-}
 
 
 void set_info_route_help() {
@@ -77,7 +68,6 @@ void set_info_route_help() {
     std::cout << "\n1. Set one station";
     std::cout << "\n2. Set many stations";
     std::cout << "\n3. Delete station";
-    //std::cout << "\n5. ";
 
 }
 

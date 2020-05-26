@@ -18,13 +18,6 @@ void station::setName(const std::string &st_name) {
     station::name = st_name;
 }
 
-station::station() {
-//    std::cout << " station[" << (void*)this << "] " << *this <<" born" << std::endl;
-}
-
-station::~station() {
-//    std::cout << " station[" << (void*)this << "] " << *this <<" died" << std::endl;
-}
 
 bool operator>(const station &A, const station &B) {
 

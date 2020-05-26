@@ -21,12 +21,11 @@ DB_ID ask_route_id_from_user(main_system & sys);
 DB_ID ask_train_id_from_user(main_system & sys);
 DB_ID ask_ticket_id_from_user(main_system & sys);
 DB_ID ask_station_id_from_user(main_system & sys);
-DB_ID ask_passenger_id_from_user(main_system & sys);
 
 void db_info(main_system &sys);
 
 std::string return_station_name(main_system &sys, DB_ID station_id);
-std::vector<std::string> get_names_from_stations(main_system &sys, const std::vector<station>& stations);
+std::vector<std::string> get_names_from_stations(const std::vector<station>& stations);
 DB_ID find_station_by_name(main_system & sys);
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -90,15 +89,6 @@ void get_train_information(main_system &sys);
 void get_train_information(main_system &sys, DB_ID train_id);
 void set_train_information(train &train);
 
-
-void set_new_passenger(main_system &sys);
-void delete_passenger(main_system &sys);
-void delete_passenger(main_system &sys, DB_ID id);
-void edit_passenger(main_system &sys);
-void get_passenger_list(main_system &sys);
-void get_passenger_information(main_system &sys);
-void get_passenger_information(main_system &sys, DB_ID passenger_id);
-void set_passenger_information(passenger &passenger);
 
 void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets);
 std::vector<trip> trips_on_certain_date(main_system &sys);

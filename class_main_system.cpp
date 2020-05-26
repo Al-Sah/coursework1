@@ -16,7 +16,6 @@ main_system::main_system() : my_db_record() {
     open_trains_file(trains);
     open_station_file(stations);
     open_routes_file(routes);
-    open_passengers_file(passengers);
     open_trip_file(trips);
 }
 
@@ -26,19 +25,10 @@ main_system::~main_system() {
     save_trains_file(trains);
     save_routes_file(routes);
     save_station_file(stations);
-    save_passengers_file(passengers);
     save_trip_file(trips);
 
 }
 
-
-void main_system::dump() {
-#if 1 || DEBUG
-    for (auto train : trains) {
-        std::cout << "IMPORT CHECK" << train;
-    }
-#endif
-}
 
 
 template<typename my_type>
@@ -64,9 +54,7 @@ void main_system::save_tickets_file(const std::vector<ticket> &tickets, const ch
 void main_system::save_routes_file(const std::vector<route> &routes, const char *file_name) {
     save_file(routes, file_name);
 }
-void main_system::save_passengers_file(const std::vector<passenger> &passengers, const char *file_name) {
-    save_file(passengers, file_name);
-}
+
 void main_system::save_trip_file(const std::vector<trip> &trips, const char *file_name) {
     save_file(trips, file_name);
 }
@@ -102,9 +90,6 @@ void main_system::open_routes_file(std::vector<route> &routes, const char *file_
     open_file(routes, file_name);
 }
 
-void main_system::open_passengers_file(std::vector<passenger> &passengers, const char *file_name) {
-    open_file(passengers, file_name);
-}
 void main_system::open_trip_file(std::vector<trip> &trips, const char *file_name) {
     open_file(trips, file_name);
 }
@@ -137,9 +122,7 @@ DB_ID main_system::next_station_id() {
 DB_ID main_system::next_route_id() {
     return next_object_id(routes);
 }
-DB_ID main_system::next_passenger_id() {
-    return next_object_id(passengers);
-}
+
 DB_ID main_system::next_trip_id() {
     return next_object_id(trips);
 }
@@ -288,31 +271,6 @@ DB_ID main_system::edit_train(train &edited_train, DB_ID id) {
 DB_ID main_system::delete_train(DB_ID id) {
     DB_ID ret = delete_obj(trains, id);
     save_trains_file(trains);
-    return ret;
-}
-
-passenger main_system::Get_passenger_info(DB_ID id) {
-    return get_info( passengers, id);
-}
-std::vector<passenger> main_system::Get_passenger_vector() {
-    return passengers;
-}
-
-DB_ID main_system::add_passenger(passenger &passenger) {
-    DB_ID ret = add(passengers, passenger);
-    save_passengers_file(passengers);
-    return ret;
-}
-
-DB_ID main_system::edit_passenger(passenger &edited_passenger, DB_ID id) {
-    DB_ID ret = update(passengers, edited_passenger, id);
-    save_passengers_file(passengers);
-    return ret;
-}
-
-DB_ID main_system::delete_passenger(DB_ID id) {
-    DB_ID ret = delete_obj( passengers, id);
-    save_passengers_file(passengers);
     return ret;
 }
 
