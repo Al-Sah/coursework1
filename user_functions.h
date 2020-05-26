@@ -23,7 +23,9 @@ DB_ID ask_ticket_id_from_user(main_system & sys);
 DB_ID ask_station_id_from_user(main_system & sys);
 DB_ID ask_passenger_id_from_user(main_system & sys);
 
+void db_info(main_system &sys);
 
+std::vector<std::string> get_names_from_stations(main_system &sys, const std::vector<station>& stations);
 DB_ID find_station_by_name(main_system & sys);
 void add_new_station(main_system & sys);
 void delete_station(main_system &sys);
@@ -104,6 +106,7 @@ void free_places_list(main_system &sys, DB_ID trip_id);
 template <typename my_type>
 void my_shaker_stop_sort_temp_storage(std::vector<my_type> & records, size_t size);
 
+void get_detailed_trip_info(main_system & sys);
 void schedule_report(main_system &sys);
 void sort_stations_by_names(main_system &sys);
 void trips_on_certain_date_report(main_system &sys);

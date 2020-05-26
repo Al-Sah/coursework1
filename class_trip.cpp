@@ -3,6 +3,7 @@
 //
 
 #include "class_trip.h"
+#include "utils.h"
 
 
 
@@ -29,11 +30,11 @@ void operator >> (std::istream &in, trip &trip) {
     in >> tempID;
     trip.setId(tempID);
 
-    in >> trip_time;
-    trip.setTime(trip_time);
-
     in >> trip_date;
     trip.setDate(trip_date);
+
+    in >> trip_time;
+    trip.setTime(trip_time);
 
     in >> platformId;
     trip.setPlatformId(platformId);
@@ -47,7 +48,24 @@ void operator >> (std::istream &in, trip &trip) {
 }
 
 
+bool operator>(const trip &A, const trip &B) {
 
+    bool zz = false;
+    int date_A = date_parser(A.date);
+    int date_B = date_parser(B.date);
+    if(date_A > date_B){
+        zz = true;
+    }
+    if(date_A == date_B){
+        int time_A = time_parser(A.time);
+        int time_B = time_parser(B.time);
+        if(time_A > time_B){
+            zz = true;
+        }
+    }
+    return zz;
+
+}
 
 
 

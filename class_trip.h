@@ -35,7 +35,7 @@ public:
     DB_ID getTrainId() const;
     void setTrainId(DB_ID trainId);
 
-
+    friend bool operator > ( const trip & A,  const trip & B);
 };
 
 std::ostream & operator << (std::ostream &out, trip &trip);

@@ -6,77 +6,12 @@
 #include "user_functions.h"
 #include "user_menus.h"
 
-void generation_data(main_system & vokzal) {
 
-
-
-    std::cout << "next ticket id: " << vokzal.next_ticket_id() << std::endl;
-    std::cout << "next train id: " << vokzal.next_train_id() << std::endl;
-    std::cout << "next station id: " << vokzal.next_station_id() << std::endl;
-    std::cout << "next route id: " << vokzal.next_route_id() << std::endl;
-    std::cout << "next passenger id: " << vokzal.next_passenger_id() << std::endl;
-
-    for (auto i = 0; i < 10; i++) {
-        train t;
-        t.setId(vokzal.next_train_id());
-        t.setWagons(2);
-        t.setWagonPlaces(10);
-        vokzal.add_train(t);
-    }
-
-     for (auto i = 0; i < 10; i++) {
-        ticket z;
-        z.setId(vokzal.next_ticket_id());
-        if((i % 2) != 0){
-        z.setState(ticket::SOLD);
-        }else{
-            z.setState(ticket::USED);
-        }
-        z.setYourWagon(5);
-        z.setPlaceNumber(i+i*10);
-        z.setPrice( 1000 );
-        z.setTripId(80021);
-        z.setArrivalStationId(101);
-        z.setDepartureStationId(121);
-        z.setPassengerName("Василий_і_і");
-        vokzal.add_ticket(z);
-    }
-
-     for (auto i = 0; i < 10; i++){
-         passenger ps;
-         ps.setId(vokzal.next_passenger_id());
-         ps.setSurname("Корявый");
-         ps.setFirstName("Олег");
-         ps.setFatherName("Петрович");
-         ps.setFullName();
-         vokzal.add_passenger(ps);
-     }
-
-
-    for (auto i = 0; i < 10; i++) {
-
-        station st;
-        st.setId(vokzal.next_station_id());
-        st.setName("Мальдивы_fff_i");
-
-        vokzal.add_station(st);
-    }
-    for (auto i = 0; i < 10; i++) {
-        srand(time(NULL));
-        route rt;
-        int st_numb = rand() % 15;
-        rt.setId(vokzal.next_route_id());
-        for(int j = 1; j < st_numb; ++j){
-            rt.addStation(j);
-        }
-        vokzal.add_route(rt);
-    }
-}
 
 void test_user_func(main_system & vokzal){
 
-
-    get_route_stations(vokzal, 11);
+    //get_trip_list(vokzal);
+    //get_route_stations(vokzal, 11);
     schedule_report(vokzal);
    // sort_stations_by_names(vokzal);
 
@@ -146,16 +81,15 @@ extern MenuItem user_menu[];
 int main() {
     main_system vokz;
 
-    //generation_data(vokz);
     //test_user_func(vokz);
 
     DB_ID operation;
 
-    for(int i = 0; i < 10; ++i){
+    //for(int i = 0; i < 10; ++i){
         //add_new_route(vokz);
         //add_new_train(vokz);
-        add_new_trip(vokz);
-    }
+        //add_new_trip(vokz);
+   // }
 
 
     MenuItem main_system_menu[] = {

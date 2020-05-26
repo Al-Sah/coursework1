@@ -344,3 +344,23 @@ DB_ID main_system::delete_trip(DB_ID id) {
     save_trip_file(trips);
     return ret;
 }
+
+int main_system::Get_station_vector_size() {
+    return stations.size();
+}
+
+int main_system::Get_ticket_vector_size() {
+    return tickets.size();
+}
+
+int main_system::Get_route_vector_size() {
+    return routes.size();
+}
+
+int main_system::Get_train_vector_size() {
+    return trains.size();
+}
+
+int main_system::Get_trip_vector_size() {
+    return trips.size();
+}

@@ -77,29 +77,12 @@ std::cout << "\0x07" << std::endl;
     }
 
 }
-/*
-
-void next_menu(void *) {
-    std::cout<< "sdfs dfsdf sdf ";
-    MenuItem zzz[]={
-            { caption: "bububu",
-                    cmd: "bubu",
-                    func: boom
-            },
-            {}
-
-    };
-    draw_menu("jhgj  ghjhg jh", zzz, "ug jyg uyfu tf tyftytf tyfy");
-}
-
-*/
-
 
 
 MenuItem stations_menu[] = {
         {
                 .caption {"See station information"},
-                .cmd { "info"},
+                .cmd { "inf"},
                 func: get_station_information,
         },
         {
@@ -127,7 +110,7 @@ MenuItem stations_menu[] = {
 MenuItem routes_menu[] = {
         {
                 .caption {"See route information"},
-                .cmd { "info"},
+                .cmd { "inf"},
                 func: get_route_information,
         },
         {
@@ -160,7 +143,7 @@ MenuItem routes_menu[] = {
 MenuItem trains_menu[] = {
         {
                 .caption {"See train information"},
-                .cmd { "info"},
+                .cmd { "inf"},
                 func: get_train_information,
         },
         {
@@ -188,7 +171,7 @@ MenuItem trains_menu[] = {
 MenuItem trips_menu[] = {
         {
                 .caption {"See trip information"},
-                .cmd { "info"},
+                .cmd { "inf"},
                 func: get_trip_information,
         },
         {
@@ -215,7 +198,7 @@ MenuItem trips_menu[] = {
 MenuItem tickets_menu[] = {
         {
                 .caption {"See ticket information"},
-                .cmd { "info"},
+                .cmd { "inf"},
                 func: get_ticket_information,
         },
         {
@@ -262,12 +245,17 @@ MenuItem reports_menu[] = {
 MenuItem user_menu[] = {
         {
                 .caption {"Buy ticket"},
-                .cmd { "buy"},
+                .cmd { "b"},
                 func: buying_ticket,
         },
         {
+                .caption {"Schedule"},
+                .cmd { "s"},
+                func: schedule_report,
+        },
+        {
                 .caption {"Reports menu"},
-                .cmd { "report"},
+                .cmd { "r"},
                 .next {reports_menu},
                 .description {"Menu for communication with reports "}
         },
@@ -276,6 +264,11 @@ MenuItem user_menu[] = {
 
 
 MenuItem admin_menu[] = {
+        {
+                .caption {"Data base info"},
+                .cmd { "DB"},
+                func: db_info,
+        },
         {
                 .caption {"Stations menu"},
                 .cmd { "station"},
