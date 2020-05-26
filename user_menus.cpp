@@ -116,7 +116,7 @@ MenuItem routes_menu[] = {
         {
                 .caption {"Get route stations"},
                 .cmd { "r_st"},
-                func: get_route_information,
+                func: get_route_stations,
         },
         {
                 .caption {"Get route list"},
@@ -173,6 +173,11 @@ MenuItem trips_menu[] = {
                 .caption {"See trip information"},
                 .cmd { "inf"},
                 func: get_trip_information,
+        },
+        {
+                .caption {"See  detailed trip information"},
+                .cmd { "d_inf"},
+                func: get_detailed_trip_info,
         },
         {
                 .caption {"Get trip list"},

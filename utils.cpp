@@ -111,13 +111,13 @@ TIME ask_user_time() {
     std::string minutes, hours;
     std::cout << std::endl;
 
+    while (hour > 24){
+        std::cout << "-Input hours (from 0 to 24): ";
+        hour = input_id_check();
+    }
     while (min > 60){
         std::cout << "-Input minutes (from 0 to 60): ";
         min = input_id_check();
-    }
-    while (hour > 24){
-        std::cout << "-Input month (from 0 to 24): ";
-        hour = input_id_check();
     }
 
     minutes = std::to_string(min);

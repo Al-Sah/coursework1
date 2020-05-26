@@ -25,6 +25,7 @@ DB_ID ask_passenger_id_from_user(main_system & sys);
 
 void db_info(main_system &sys);
 
+std::string return_station_name(main_system &sys, DB_ID station_id);
 std::vector<std::string> get_names_from_stations(main_system &sys, const std::vector<station>& stations);
 DB_ID find_station_by_name(main_system & sys);
 void add_new_station(main_system & sys);

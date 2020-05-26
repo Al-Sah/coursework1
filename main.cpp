@@ -9,12 +9,7 @@
 
 void test_user_func(main_system & vokzal){
 
-//for(int i = 0; i < 10; ++i){
-    //add_new_route(vokz);
-    //add_new_train(vokz);
-    //add_new_trip(vokz);
-    // }
-return;
+
     trips_which_use_certain_route_report(vokzal);
     routes_which_contain_many_stations_report(vokzal);
     routes_which_contain_certain_station_report(vokzal);
@@ -75,9 +70,9 @@ int main() {
     main_system vokz;
 
 
-    test_user_func(vokz);
+    //test_user_func(vokz);
 
-    get_detailed_trip_info(vokz, 6);
+
 
     MenuItem main_system_menu[] = {
             {
