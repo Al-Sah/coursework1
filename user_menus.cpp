@@ -217,17 +217,17 @@ MenuItem reports_menu[] = {
         {
                 .caption {"Trips on date"},
                 .cmd { "tr_d"},
-                func: trips_on_certain_date_report,
+                func: trips_on_specific_date_report,
         },
         {
                 .caption {"Free places to the trip"},
                 .cmd { "free"},
-                func: free_places_on_certain_trip_report,
+                func: free_places_on_specific_trip_report,
         },
         {
                 .caption {"Routes with contain entered station"},
                 .cmd { "st"},
-                func: routes_which_contain_certain_station_report,
+                func: routes_which_contain_specific_station_report,
         },
         {
                 .caption {"Routes with contain many entered stations"},
@@ -237,7 +237,7 @@ MenuItem reports_menu[] = {
         {
                 .caption {"Trips with contain entered route"},
                 .cmd { "rt"},
-                func: trips_which_use_certain_route_report,
+                func: trips_which_use_specific_route_report,
         },{}
 };
 

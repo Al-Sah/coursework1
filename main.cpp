@@ -6,11 +6,11 @@
 /*
 void test_user_func(main_system & vokzal){
 
-    trips_which_use_certain_route_report(vokzal);
+    trips_which_use_specific_route_report(vokzal);
     routes_which_contain_many_stations_report(vokzal);
-    routes_which_contain_certain_station_report(vokzal);
-    free_places_on_certain_trip_report(vokzal);
-    trips_on_certain_date_report(vokzal);
+    routes_which_contain_specific_station_report(vokzal);
+    free_places_on_specific_trip_report(vokzal);
+    trips_on_specific_date_report(vokzal);
 
     schedule_report(vokzal);
 

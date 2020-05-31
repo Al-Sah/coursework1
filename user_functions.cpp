@@ -896,7 +896,7 @@ void set_trip_information(main_system &sys, trip &trip) {
 }
 
 
-std::vector<trip> trips_on_certain_date(main_system &sys) {
+std::vector<trip> trips_on_specific_date(main_system &sys) {
 
     unsigned int trip_counter = 0;
     bool is_ok;
@@ -942,7 +942,7 @@ std::vector<trip> trips_on_certain_date(main_system &sys) {
     return trips_to_the_date;
 }
 
-void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets){
+void free_places_on_specific_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets){
     DB_ID trip_id;
     bool is_ok;
     std::cout << "\nEnter trip id which you interested in: ";
@@ -999,12 +999,12 @@ void free_places_list(main_system &sys, DB_ID trip_id) {
 }
 
 
-void trips_on_certain_date_report(main_system &sys) {
+void trips_on_specific_date_report(main_system &sys) {
     std::cout << CLR_cyan"\n\n   *** Report: \"Trips on certain date\" *** \n" CLR_NORMAL;
-    trips_on_certain_date(sys);
+    trips_on_specific_date(sys);
 }
 
-void free_places_on_certain_trip_report(main_system &sys) {
+void free_places_on_specific_trip_report(main_system &sys) {
     std::cout << CLR_cyan"\n\n   *** Report: \"Free places on certain trip\" *** \n " CLR_NORMAL;
 
     std::vector<ticket> trip_tickets, free_trip_tickets;
@@ -1038,17 +1038,17 @@ void free_places_on_certain_trip_report(main_system &sys) {
         }
 
     } else {
-        trips_to_the_date = trips_on_certain_date(sys);
+        trips_to_the_date = trips_on_specific_date(sys);
         if(trips_to_the_date.empty()){
             return;
         }
-        free_places_on_certain_trip(sys, trips_to_the_date, trip_tickets);
+        free_places_on_specific_trip(sys, trips_to_the_date, trip_tickets);
     }
 
 
 }
 
-void routes_which_contain_certain_station_report(main_system &sys) {
+void routes_which_contain_specific_station_report(main_system &sys) {
     std::cout << CLR_cyan"\n\n   *** Report: \"Routes which contain certain station\" *** \n" CLR_NORMAL;
 
     std::vector<route> all_routes, good_routes;
@@ -1211,7 +1211,7 @@ DB_ID find_route_by_stations(main_system &sys){
 
 }
 
-void trips_which_use_certain_route_report(main_system &sys) {
+void trips_which_use_specific_route_report(main_system &sys) {
     std::cout << CLR_cyan "\n\n   *** Report: \"Route usages \" *** \n" CLR_NORMAL;
 
     std::vector<trip> all_trips, good_trips;

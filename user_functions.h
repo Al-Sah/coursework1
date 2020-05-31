@@ -91,8 +91,8 @@ void get_train_information(main_system &sys, DB_ID train_id);
 void set_train_information(train &train);
 
 
-void free_places_on_certain_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets);
-std::vector<trip> trips_on_certain_date(main_system &sys);
+void free_places_on_specific_trip(main_system &sys, const std::vector<trip>& trips_to_the_date, std::vector<ticket> trip_tickets);
+std::vector<trip> trips_on_specific_date(main_system &sys);
 void free_places_list(main_system &sys, DB_ID trip_id);
 
 template <typename my_type>
@@ -102,12 +102,12 @@ void get_detailed_trip_info(main_system & sys);
 void get_detailed_trip_info(main_system & sys, DB_ID trip_id);
 void schedule_report(main_system &sys);
 void sort_stations_by_names(main_system &sys);
-void trips_on_certain_date_report(main_system &sys);
-void free_places_on_certain_trip_report(main_system &sys);
-void routes_which_contain_certain_station_report(main_system &sys);
+void trips_on_specific_date_report(main_system &sys);
+void free_places_on_specific_trip_report(main_system &sys);
+void routes_which_contain_specific_station_report(main_system &sys);
 void routes_which_contain_many_stations_report(main_system &sys);
 void the_most_popular_route_report(main_system &sys);
-void trips_which_use_certain_route_report(main_system &sys);
+void trips_which_use_specific_route_report(main_system &sys);
 
 
 #endif //ISE_USER_FUNCTIONS_H
