@@ -294,7 +294,7 @@ void buying_ticket(main_system &sys) {
         }
     }while (good_routes.empty());
 
-    bool is_ok;
+    bool is_ok, stop_function = false ;
     do {
         is_ok = true;
         date = ask_user_date();
@@ -313,11 +313,14 @@ void buying_ticket(main_system &sys) {
             } while (!(operation == 1 || operation == 2));
             if (operation == 1) {
             } else{
+                stop_function = true;
                 break;
             }
         }
     }while (!is_ok);
-
+    if(stop_function){
+        return;
+    }
     DB_ID ticket_id = find_correct_ticket(sys, trip_id);
 
     std::string passenger_name = ask_passenger_name();
@@ -347,7 +350,7 @@ std::string return_station_name(main_system &sys, DB_ID station_id){
     return station.getName();
 }
 
-DB_ID find_correct_trip_id(main_system &sys, DATE date, std::vector<DB_ID> &good_routes) {
+DB_ID find_correct_trip_id(main_system &sys, const DATE& date, std::vector<DB_ID> &good_routes) {
 
     std::vector<trip> trips;
     trips = sys.Get_trip_vector();
@@ -703,7 +706,7 @@ void edit_route(main_system &sys){
 // **  train functions  **     --------------------------------
 
 void get_train_information(main_system &sys){
-    std::cout << CLR_cyan "\n    *** Edit route ***\n" CLR_NORMAL"What train id which info you want to see\n";
+    std::cout << CLR_cyan "\n    *** Get train information  route ***\n" CLR_NORMAL"What train id which info you want to see\n";
     DB_ID train_id = ask_train_id_from_user(sys);
     get_train_information(sys, train_id);
 }
@@ -1289,8 +1292,6 @@ void sort_stations_by_names(main_system &sys) {
 }
 
 
-
-
 std::string padding_for_utf8_str(std::string & in, int column_wide, char filler = ' '){
     std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
     std::wstring converted = converter.from_bytes(in);
@@ -1368,7 +1369,7 @@ void schedule_report(main_system &sys) {
 
     for(const auto& trip: all_trips){
         temp_date = date_parser(trip.getDate());
-        if(temp_date > parsed_date){
+        if(temp_date >= parsed_date){
             good_trips.push_back(trip);
         }
     }
@@ -1383,7 +1384,6 @@ void schedule_report(main_system &sys) {
         std::cout << "\n/    Id    | Platform |      Date      |  Time  |          Arrival Station          |          Departure station          \\";
         std::cout << "\n|-------------------------------------------------------------------------------------------------------------------------|\n";
 
-      //  std::cout << std::setfill ( '^' );
         for(const auto& trip: good_trips){
             rt_stations = route_arrival_station_and_departure_station(sys, trip.getRouteId());
             rt_st_names = get_names_from_stations(rt_stations);
@@ -1401,8 +1401,6 @@ void schedule_report(main_system &sys) {
         std::cout << "\\------------------------------------------------------------------------------------------------------------------------/\n";
 
     }
-
-
 }
 
 

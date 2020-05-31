@@ -75,9 +75,9 @@ void draw_menu(std::string caption, MenuItem * items, const char *description, m
 
 MenuItem stations_menu[] = {
         {
-                .caption {"See station information"},
-                .cmd { "inf"},
-                func: get_station_information,
+                .caption = "See station information",
+                .cmd = "inf",
+                .func = get_station_information,
         },
         {
                 .caption {"Get station list"},
@@ -136,9 +136,9 @@ MenuItem routes_menu[] = {
 
 MenuItem trains_menu[] = {
         {
-                .caption {"See train information"},
-                .cmd { "inf"},
-                func: get_train_information,
+                .caption = "See train information",
+                .cmd = "inf",
+                .func =  get_train_information,
         },
         {
                 .caption {"Get train list"},

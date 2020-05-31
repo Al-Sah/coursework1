@@ -14,10 +14,10 @@
 class route : public  my_db_record {
 
 private:
+
     std::vector<DB_ID> station_ids;
 
 public:
-
 
     int getStationsNumber() const;
     const std::vector<DB_ID> &getStationIds() const;

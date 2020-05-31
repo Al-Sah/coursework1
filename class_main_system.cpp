@@ -10,8 +10,7 @@
 #include "user_functions.h"
 
 
-main_system::main_system() : my_db_record() {
-
+main_system::main_system() {
     open_tickets_file(tickets);
     open_trains_file(trains);
     open_station_file(stations);
@@ -20,7 +19,6 @@ main_system::main_system() : my_db_record() {
 }
 
 main_system::~main_system() {
-
     save_tickets_file(tickets);
     save_trains_file(trains);
     save_routes_file(routes);

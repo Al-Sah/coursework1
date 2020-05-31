@@ -16,7 +16,7 @@
 
 
 
-class main_system : public my_db_record, public StationsStorage {
+class main_system : public StationsStorage {
 
 public:
     main_system();
@@ -26,7 +26,6 @@ public:
     static void save_trains_file(const std::vector<train>& trains, const char *file_name="trains.txt");
     static void save_tickets_file(const std::vector<ticket>& tickets, const char *file_name="tickets.txt");
     static void save_routes_file(const std::vector<route>& routes, const char *file_name="routes.txt");
-
     static void save_trip_file(const std::vector<trip>& trips, const char *file_name="trips.txt");
 
     static void open_station_file( std::vector<station> &stations, const char *file_name="stations.txt");
@@ -45,7 +44,6 @@ public:
 private:
     std::vector<ticket> tickets;
     std::vector<trip> trips;
-
     std::vector<train> trains;
     std::vector<station> stations;
     std::vector<route> routes;

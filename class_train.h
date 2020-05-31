@@ -19,16 +19,12 @@ private:
 
 
 public:
+
     size_t getWagons() const;
-
     void setWagons(int wagons);
-
     size_t getWagonPlaces() const;
-
     void setWagonPlaces(int wagonPlaces);
-
     size_t getTotalPlaces() const;
-
     void setTotalPlaces();
 
 };

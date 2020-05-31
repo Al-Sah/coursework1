@@ -23,15 +23,11 @@ private:
 
     DB_ID trip_id;
     STATUS state;
-
     PlaceNo your_wagon;
     PlaceNo place_number;
-
     float price;
-
     DB_ID departure_station_id;
     DB_ID arrival_station_id;
-
     std::string passenger_name;
 
 

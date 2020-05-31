@@ -24,14 +24,6 @@ typedef struct _MenuItem {
 
 void draw_menu(std::string caption, MenuItem * items, const char *description, main_system &sys);
 
-void boom(void *) ;
-void baam(void *) ;
-void tram(void *) ;
-
-void next_menu(void *);
-
-
-
 
 
 

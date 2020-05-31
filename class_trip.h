@@ -17,6 +17,7 @@ private:
     DATE date;
     TIME time;
     DB_ID train_id;
+
 public:
 
 

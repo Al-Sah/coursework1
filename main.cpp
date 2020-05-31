@@ -3,6 +3,7 @@
 #include "user_functions.h"
 #include "user_menus.h"
 
+/*
 void test_user_func(main_system & vokzal){
 
     trips_which_use_certain_route_report(vokzal);
@@ -54,6 +55,7 @@ void test_user_func(main_system & vokzal){
 
     buying_ticket(vokzal);
 }
+*/
 
 
 extern MenuItem admin_menu[];
@@ -70,16 +72,16 @@ int main() {
 
     MenuItem main_system_menu[] = {
             {
-                    .caption { "Admin menu" },
-                    .cmd{"admin"},
-                    .next {admin_menu},
-                    .description {"menu for Good"}
+                    .caption = "Admin menu" ,
+                    .cmd = "admin",
+                    .next = admin_menu,
+                    .description = "menu for Good"
             },
             {
-                    .caption { "User menu"},
-                    .cmd { "user" },
-                    .next {user_menu},
-                    .description  {"menu for usual person"}
+                    .caption = "User menu",
+                    .cmd = "user" ,
+                    .next =user_menu,
+                    .description  ="menu for usual person"
             },{}
     };
 

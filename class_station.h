@@ -16,9 +16,7 @@ private:
     std::string name;
 
 public:
-
     friend bool operator > ( const station & A,  const station & B);
-
     const std::string &getName() const;
     void setName(const std::string &st_name);
 
