@@ -80,57 +80,57 @@ MenuItem stations_menu[] = {
                 .func = get_station_information,
         },
         {
-                .caption {"Get station list"},
-                .cmd { "list"},
-                func: get_station_list,
+                .caption = "Get station list",
+                .cmd = "list",
+                .func =  get_station_list,
         },
         {
-                .caption {"Edit station"},
-                .cmd { "edit"},
-                func: edit_station,
+                .caption = "Edit station",
+                .cmd = "edit",
+                .func =  edit_station,
         },
         {
-                .caption {"Delete station"},
-                .cmd { "del"},
-                func: delete_station,
+                .caption = "Delete station",
+                .cmd =  "del",
+                .func =  delete_station,
         },
         {
-                .caption {"Add station"},
-                .cmd { "add"},
-                func: add_new_station,
+                .caption = "Add station",
+                .cmd = "add",
+                .func =  add_new_station,
         },
         {}
 };
 MenuItem routes_menu[] = {
         {
-                .caption {"See route information"},
-                .cmd { "inf"},
-                func: get_route_information,
+                .caption = "See route information",
+                .cmd =  "inf",
+                .func =  get_route_information,
         },
         {
-                .caption {"Get route stations"},
-                .cmd { "r_st"},
-                func: get_route_stations,
+                .caption = "Get route stations",
+                .cmd =  "r_st",
+                .func =  get_route_stations,
         },
         {
-                .caption {"Get route list"},
-                .cmd { "list"},
-                func: get_route_list,
+                .caption = "Get route list",
+                .cmd =  "list",
+                .func =  get_route_list,
         },
         {
-                .caption {"Edit route"},
-                .cmd { "edit"},
-                func: edit_route,
+                .caption = "Edit route",
+                .cmd =  "edit",
+                .func =  edit_route,
         },
         {
-                .caption {"Delete route"},
-                .cmd { "del"},
-                func: delete_route,
+                .caption = "Delete route",
+                .cmd = "del",
+                .func =  delete_route,
         },
         {
-                .caption {"Add route"},
-                .cmd { "add"},
-                func: add_new_route,
+                .caption = "Add route",
+                .cmd = "add",
+                .func =  add_new_route,
         },{}
 };
 
@@ -141,173 +141,172 @@ MenuItem trains_menu[] = {
                 .func =  get_train_information,
         },
         {
-                .caption {"Get train list"},
-                .cmd { "list"},
-                func: get_train_list,
+                .caption ="Get train list",
+                .cmd = "list",
+                .func =  get_train_list,
         },
         {
-                .caption {"Edit train"},
-                .cmd { "edit"},
-                func: edit_train,
+                .caption ="Edit train",
+                .cmd = "edit",
+                .func =  edit_train,
         },
         {
-                .caption {"Delete train"},
-                .cmd { "del"},
-                func: delete_train,
+                .caption ="Delete train",
+                .cmd = "del",
+                .func =  delete_train,
         },
         {
-                .caption {"Add train"},
-                .cmd { "add"},
-                func: add_new_train,
+                .caption ="Add train",
+                .cmd = "add",
+                .func =  add_new_train,
         },{}
 };
 
 MenuItem trips_menu[] = {
         {
-                .caption {"See trip information"},
-                .cmd { "inf"},
-                func: get_trip_information,
+                .caption ="See trip information",
+                .cmd = "inf",
+                .func =  get_trip_information,
         },
         {
-                .caption {"See  detailed trip information"},
-                .cmd { "d_inf"},
-                func: get_detailed_trip_info,
+                .caption ="See  detailed trip information",
+                .cmd = "d_inf",
+                .func =  get_detailed_trip_info,
         },
         {
-                .caption {"Get trip list"},
-                .cmd { "list"},
-                func: get_trip_list,
+                .caption ="Get trip list",
+                .cmd = "list",
+                .func =  get_trip_list,
         },
         {
-                .caption {"Edit trip"},
-                .cmd { "edit"},
-                func: edit_trip,
+                .caption ="Edit trip",
+                .cmd = "edit",
+                .func =  edit_trip,
         },
         {
-                .caption {"Delete trip"},
-                .cmd { "del"},
-                func: delete_trip,
+                .caption ="Delete trip",
+                .cmd = "del",
+                .func =  delete_trip,
         },
         {
-                .caption {"Add trip"},
-                .cmd { "add"},
-                func: add_new_trip,
+                .caption ="Add trip",
+                .cmd = "add",
+                .func =  add_new_trip,
         },{}
 };
 MenuItem tickets_menu[] = {
         {
-                .caption {"See ticket information"},
-                .cmd { "inf"},
-                func: get_ticket_information,
+                .caption ="See ticket information",
+                .cmd = "inf",
+                .func =  get_ticket_information,
         },
         {
-                .caption {"Get ticket list"},
-                .cmd { "list"},
-                func: get_ticket_list,
+                .caption ="Get ticket list",
+                .cmd = "list",
+                .func =  get_ticket_list,
         },
         {
-                .caption {"Edit ticket"},
-                .cmd { "edit"},
-                func: edit_ticket,
+                .caption ="Edit ticket",
+                .cmd = "edit",
+                .func =  edit_ticket,
         },{}
 };
 
 
 MenuItem reports_menu[] = {
         {
-                .caption {"Trips on date"},
-                .cmd { "tr_d"},
-                func: trips_on_specific_date_report,
+                .caption ="Trips on date",
+                .cmd = "tr_d",
+                .func =  trips_on_specific_date_report,
         },
         {
-                .caption {"Free places to the trip"},
-                .cmd { "free"},
-                func: free_places_on_specific_trip_report,
+                .caption ="Free places to the trip",
+                .cmd = "free",
+                .func =  free_places_on_specific_trip_report,
         },
         {
-                .caption {"Routes with contain entered station"},
-                .cmd { "st"},
-                func: routes_which_contain_specific_station_report,
+                .caption ="Routes with contain entered station",
+                .cmd = "st",
+                .func =  routes_which_contain_specific_station_report,
         },
         {
-                .caption {"Routes with contain many entered stations"},
-                .cmd { "sts"},
-                func: routes_which_contain_many_stations_report,
+                .caption ="Routes with contain many entered stations",
+                .cmd = "sts",
+                .func =  routes_which_contain_many_stations_report,
         },
         {
-                .caption {"Trips with contain entered route"},
-                .cmd { "rt"},
-                func: trips_which_use_specific_route_report,
+                .caption ="Trips with contain entered route",
+                .cmd = "rt",
+                .func =  trips_which_use_specific_route_report,
         },{}
 };
 
 MenuItem user_menu[] = {
         {
-                .caption {"Buy ticket"},
-                .cmd { "b"},
-                func: buying_ticket,
+                .caption = "Buy ticket",
+                .cmd = "b",
+                .func =  buying_ticket,
         },
         {
-                .caption {"Schedule"},
-                .cmd { "s"},
-                func: schedule_report,
+                .caption ="Schedule",
+                .cmd = "s",
+                .func =  schedule_report,
         },
         {
-                .caption {"Trip information"},
-                .cmd { "inf"},
-                func: get_detailed_trip_info,
+                .caption ="Trip information",
+                .cmd = "inf",
+                .func =  get_detailed_trip_info,
         },
         {
-                .caption {"Reports menu"},
-                .cmd { "r"},
-                .next {reports_menu},
-                .description {"Menu for communication with reports "}
+                .caption ="Reports menu",
+                .cmd = "r",
+                .next = reports_menu,
+                .description ="Menu for communication with reports "
         },
         {}
 };
 
-
 MenuItem admin_menu[] = {
         {
-                .caption {"Data base info"},
-                .cmd { "DB"},
-                func: db_info,
+                .caption ="Data base info",
+                .cmd = "DB",
+                .func =  db_info,
         },
         {
-                .caption {"Stations menu"},
-                .cmd { "station"},
-                .next {stations_menu},
-                .description {"Menu for communication with stations "}
+                .caption ="Stations menu",
+                .cmd = "station",
+                .next =stations_menu,
+                .description ="Menu for communication with stations "
         },
         {
-                .caption {"Routes menu"},
-                .cmd { "route"},
-                .next {routes_menu},
-                .description {"Menu for communication with routes "}
+                .caption = "Routes menu",
+                .cmd = "route",
+                .next = routes_menu,
+                .description = "Menu for communication with routes "
         },
         {
-                .caption {"Trains menu"},
-                .cmd { "train"},
-                .next {trains_menu},
-                .description {"Menu for communication with trains "}
+                .caption ="Trains menu",
+                .cmd = "train",
+                .next =trains_menu,
+                .description ="Menu for communication with trains "
         },
         {
-                .caption {"Trips menu"},
-                .cmd { "trip"},
-                .next {trips_menu},
-                .description {"Menu for communication with trips "}
+                .caption ="Trips menu",
+                .cmd = "trip",
+                .next =trips_menu,
+                .description ="Menu for communication with trips "
         },
         {
-                .caption {"Tickets menu"},
-                .cmd { "ticket"},
-                .next {tickets_menu},
-                .description {"Menu for communication with tickets "}
+                .caption ="Tickets menu",
+                .cmd  ="ticket",
+                .next =tickets_menu,
+                .description ="Menu for communication with tickets "
         },
         {
-                .caption {"Reports menu"},
-                .cmd { "report"},
-                .next {reports_menu},
-                .description {"Menu for communication with reports "}
+                .caption ="Reports menu",
+                .cmd = "report",
+                .next =reports_menu,
+                .description ="Menu for communication with reports "
         },{}
 };
 
